@@ -1,18 +1,19 @@
 # Data Scientist
 
-![Profile](/assets/img/Headshot.png)
-
 #### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. I have published research in real time cloud-based ETL processes for ML models and experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization.
 
 #### Programming Languages: Python, R, SQL, PySpark, Matlab
 #### IDE and Data Viz: Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
 #### Libraries: Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
 #### Technical Tools: Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
+#### Certifications: Databricks Generative AI Fundamentals, Databricks Generative AI Application Development, Nvidia Transformer Based Natural Language Processing, Google Advanced Data Analytics, Data Science Specialization Using R, Engineer in Training
 
 ## Education
-- M.S., Analytics | Georgia Institute of Technology (_August 2025_)								       		
-- M.S., Engineering	| The University of Georgia (_May 2023_)	 			        		
-- B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
+M.S., Analytics | Georgia Institute of Technology 
+- Specialization: Computational Data Analytics (_August 2025_)
+M.S., Engineering	| The University of Georgia (_May 2023_)
+ - Specialization: Design, Optimization, Manufacturing 			        		
+B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 
 ## Work Experience
 **Data Scientist @ Textron Specialized Vehicles (_May 2024 - Present_)**
@@ -35,9 +36,14 @@
 
 ## Projects
 CFB 5B Power Rankings
-- Predicts college football outcomes using supervised ensemble ML regression modeling and ElasticNet. Point spreads are produced for any hypothetical matchup, and achieved a 65% success rate against the Vegas model for the 2024-2025 season
+- Predicts college football matchups compared to Vegas odds using play by play data for supervised ensemble ML regression modeling and Lasso/Ridge regularization. Interactive dashboard outputs point spreads for any hypothetical matchup, and achieved a 65% success rate against the Vegas model for the 2024-2025 season.
 
 ![5B Predictor Model](/assets/img/5B_Demo.JPG)
 
 Trendiment
- - Fine-tuned BERT LLM model with technical articles via API calls that generate sentiment analysis distributions for any stock of interest as a means of assessing market pulse
+ - Utilized API calls for collecting technical articles to fine-tune BERT LLM models that generate sentiment analysis distributions for stocks of interest. Outputs are visualized via Power BI dashboard for on-demand interactive analysis capabilities.
+
+## Upcoming Projects: 
+
+BayesBall Assistant
+ - Developed a Bayesian hierarchical model to predict season long fantasy baseball rankings. Integrates traditional and advanced metrics to calculate fantasy points, and PyMC3 for model building and uncertainty quantification. Automated data collection and visualized predictions in Power BI for interactive player comparisons and rankings.

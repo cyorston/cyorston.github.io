@@ -1,4 +1,4 @@
-# Data Scientist
+# About Me:
 
 #### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. Experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization. I am continually looking to expand my toolkit and learn new skillsets. Committed to innovation, I thrive on transforming data into strategic insights that propel enterprise growth. 
 

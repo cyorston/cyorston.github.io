@@ -4,14 +4,19 @@
 
 Programming Languages: 
  - Python, R, SQL, PySpark, Matlab
+   
 IDE and Data Viz:
  - Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
+   
 Libraries:
  - Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
+   
 Technical Tools:
  - Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
+   
 Certifications:
  - Databricks Generative AI Fundamentals, Databricks Generative AI Application Development, Nvidia Transformer Based Natural Language Processing, Google Advanced Data Analytics, Data Science Specialization Using R, Engineer in Training
+
 
 ## Education
 M.S., Analytics | Georgia Institute of Technology 

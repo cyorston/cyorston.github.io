@@ -1,12 +1,17 @@
 # Data Scientist
 
-#### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. I have published research in real time cloud-based ETL processes for ML models and experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization.
+#### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. Experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization. I am continually looking to expand my toolkit and learn new skillsets. Committed to innovation, I thrive on transforming data into strategic insights that propel enterprise growth. 
 
-#### Programming Languages: Python, R, SQL, PySpark, Matlab
-#### IDE and Data Viz: Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
-#### Libraries: Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
-#### Technical Tools: Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
-#### Certifications: Databricks Generative AI Fundamentals, Databricks Generative AI Application Development, Nvidia Transformer Based Natural Language Processing, Google Advanced Data Analytics, Data Science Specialization Using R, Engineer in Training
+Programming Languages: 
+ - Python, R, SQL, PySpark, Matlab
+IDE and Data Viz:
+ - Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
+Libraries:
+ - Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
+Technical Tools:
+ - Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
+Certifications:
+ - Databricks Generative AI Fundamentals, Databricks Generative AI Application Development, Nvidia Transformer Based Natural Language Processing, Google Advanced Data Analytics, Data Science Specialization Using R, Engineer in Training
 
 ## Education
 M.S., Analytics | Georgia Institute of Technology 
@@ -31,10 +36,20 @@ B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 
 ## Publications
 ### “Design of an Interactive Generalized Testbed for Continuous Data Collection and Reduced Maintenance Downtime in Industrial Applications: A Use Case Study Using Siemens MindSphere” 
+
+Mechanical failure of rotating systems creates machinery issues in fatigue and unplanned maintenance on traditional and routine processes. Big data has provided an opportunity to investigate the feasibility of continuous predictive maintenance. Processes explored for continuous data collection using Siemens MindSphere—real time visibility for manufacturing intelligence allows for proactive monitoring. By researching the relationships that exist between failure signatures to mechanical failure, FFT data is used to assess the type of failure. An architecture is proposed that may allow for rotating machinery to be diagnosed in real time for a dynamic testbed. Implementation of virtual modeling via a digital twin is also explored for considerations of future work in simulation assets.
+
 [Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://esploro.libs.uga.edu/esploro/outputs/graduate/DESIGN-OF-AN-INTERACTIVE-GENERALIZED-TESTBED/9949559024302959))
 
+![IoT End to End Architecture](/assets/img/IOT_Architecture.png)
+
 ### “Advancing architectural frameworks for vibration signature classification in rotating machinery”
+
+This study explores an integrated dataflow pipeline, specifically through Siemens’ MindSphere, to enable continuous predictive maintenance and enhance data acquisition and management. Particularly, conditions such as normal operation, mass balance, rotating imbalance, and mechanical looseness are classified using support vector machine (SVM), neural network (NN), and K-Nearest Neighbor (KNN) methods for the purpose of comparing results. Our results highlight the efficacy of ensemble techniques in collecting and diagnosing vibration signatures, thereby enabling proactive maintenance.
+
 [Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://journals.sagepub.com/doi/abs/10.1177/09544054241260928))
+
+![ML Ensemble Results on Training Data](/assets/img/ML_Results.png)
 
 ## Projects
 CFB 5B Power Rankings

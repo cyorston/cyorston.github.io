@@ -1,55 +1,41 @@
 # Data Scientist
 
-#### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
+![Profile](/assets/img/Headshot.png)
+
+#### Programming Languages: Python, R, SQL, PySpark, Matlab
+#### IDE and Data Viz: Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
+#### Libraries: Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
+#### Technical Tools: Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
 
 ## Education
-- Ph.D., Physics | The University of Texas at Dallas (_May 2022_)								       		
-- M.S., Physics	| The University of Texas at Dallas (_December 2019_)	 			        		
-- B.S., Physics | The University of Texas at Dallas (_May 2017_)
+- M.S., Analytics | Georgia Institute of Technology (_August 2025_)								       		
+- M.S., Engineering	| The University of Georgia (_May 2023_)	 			        		
+- B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 
 ## Work Experience
-**Data Scientist @ Toyota Financial Services (_June 2022 - Present_)**
-- Uncovered and corrected missing step in production data pipeline which impacted over 70% of active accounts
-- Redeveloped loan originations model which resulted in 50% improvement in model performance and saving 1 million dollars in potential losses
+**Data Scientist @ Textron Specialized Vehicles (_May 2024 - Present_)**
+- Leading representative for advanced analytical projects in the business unit to enact best data quality practices 
+- Achieved 17% improvement in quality escape score and increased feature engineering methods by 240% using a number of advanced analytical techniques to catalyze root cause & corrective action procedures for all of EZGO
+- Develop and implement data integration, cleaning, and ETL pipelines, deploying scalable analytical models to routinely deliver actionable insights and final recommendations to senior leadership
 
-**Data Science Consultant @ Shawhin Talebi Ventures LLC (_December 2020 - Present_)**
-- Conducted data collection, processing, and analysis for novel study evaluating the impact of over 300 biometrics variables on human performance in hyper-realistic, live-fire training scenarios
-- Applied unsupervised deep learning approaches to longitudinal ICU data to discover novel sepsis sub-phenotypes
+**Test Engineer @ Textron Specialized Vehicles (_June 2023 - May 2024_)**
+- Designed and implemented data wrangling and visualization workflows to streamline internal validation of all vehicle test data using anomaly detection methods that contributed to three major data-intensive projects
 
-## Projects
-### Data-Driven EEG Band Discovery with Decision Trees
-[Publication](https://www.mdpi.com/1424-8220/22/8/3048)
-
-Developed objective strategy for discovering optimal EEG bands based on signal power spectra using **Python**. This data-driven approach led to better characterization of the underlying power spectrum by identifying bands that outperformed the more commonly used band boundaries by a factor of two. The proposed method provides a fully automated and flexible approach to capturing key signal components and possibly discovering new indices of brain activity.
-
-![EEG Band Discovery](/assets/img/eeg_band_discovery.jpeg)
-
-### Decoding Physical and Cognitive Impacts of Particulate Matter Concentrations at Ultra-Fine Scales
-[Publication](https://www.mdpi.com/1424-8220/22/11/4240)
-
-Used **Matlab** to train over 100 machine learning models which estimated particulate matter concentrations based on a suite of over 300 biometric variables. We found biometric variables can be used to accurately estimate particulate matter concentrations at ultra-fine spatial scales with high fidelity (r2 = 0.91) and that smaller particles are better estimated than larger ones. Inferring environmental conditions solely from biometric measurements allows us to disentangle key interactions between the environment and the body.
-
-![Bike Study](/assets/img/bike_study.jpeg)
-
-## Talks & Lectures
-- Causality: The new science of an old question - GSP Seminar, Fall 2021
-- Guest Lecture: Dimensionality Reduction - Big Data and Machine Learning for Scientific Discovery (PHYS 5336), Spring 2021
-- Guest Lecture: Fourier and Wavelet Transforms - Scientific Computing (PHYS 5315), Fall 2020
-- A Brief Introduction to Optimization - GSP Seminar, Fall 2019
-- Weeks of Welcome Poster Competition - UTD, Fall 2019
-- A Brief Introduction to Networks - GSP Seminar, Spring 2019
-
-- [Data Science YouTube](https://www.youtube.com/channel/UCa9gErQ9AE5jT2DZLjXBIdA)
+**Graduate Research Assistant @ UGA Innovation Factory (_January 2022 - June 2023_)**
+- Engineered a cloud-based monitoring solution with optimized ML classifiers to diagnose mechanical conditions at scale in near real-time, facilitating seamless multi-asset data flow and big data analysis across large-scale clusters
 
 ## Publications
-1. Talebi S., Lary D.J., Wijeratne L. OH., and Lary, T. Modeling Autonomic Pupillary Responses from External Stimuli Using Machine Learning (2019). DOI: 10.26717/BJSTR.2019.20.003446
-2. Wijeratne, L.O.; Kiv, D.R.; Aker, A.R.; Talebi, S.; Lary, D.J. Using Machine Learning for the Calibration of Airborne Particulate Sensors. Sensors 2020, 20, 99.
-3. Lary, D.J.; Schaefer, D.; Waczak, J.; Aker, A.; Barbosa, A.; Wijeratne, L.O.H.; Talebi, S.; Fernando, B.; Sadler, J.; Lary, T.; Lary, M.D. Autonomous Learning of New Environments with a Robotic Team Employing Hyper-Spectral Remote Sensing, Comprehensive In-Situ Sensing and Machine Learning. Sensors 2021, 21, 2240. https://doi.org/10.3390/s21062240
-4. Zhang, Y.; Wijeratne, L.O.H.; Talebi, S.; Lary, D.J. Machine Learning for Light Sensor Calibration. Sensors 2021, 21, 6259. https://doi.org/10.3390/s21186259
-5. Talebi, S.; Waczak, J.; Fernando, B.; Sridhar, A.; Lary, D.J. Data-Driven EEG Band Discovery with Decision Trees. Preprints 2022, 2022030145 (doi: 10.20944/preprints202203.0145.v1).
-6. Fernando, B.A.; Sridhar, A.; Talebi, S.; Waczak, J.; Lary, D.J. Unsupervised Blink Detection Using Eye Aspect Ratio Values. Preprints 2022, 2022030200 (doi: 10.20944/preprints202203.0200.v1).
-7. Talebi, S. et al. Decoding Physical and Cognitive Impacts of PM Concentrations at Ultra-fine Scales, 29 March 2022, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs-1499191/v1]
-8. Lary, D.J. et al. (2022). Machine Learning, Big Data, and Spatial Tools: A Combination to Reveal Complex Facts That Impact Environmental Health. In: Faruque, F.S. (eds) Geospatial Technology for Human Well-Being and Health. Springer, Cham. https://doi.org/10.1007/978-3-030-71377-5_12
-9. Wijerante, L.O.H. et al. (2022). Advancement in Airborne Particulate Estimation Using Machine Learning. In: Faruque, F.S. (eds) Geospatial Technology for Human Well-Being and Health. Springer, Cham. https://doi.org/10.1007/978-3-030-71377-5_13
+### “Design of an Interactive Generalized Testbed for Continuous Data Collection and Reduced Maintenance Downtime in Industrial Applications: A Use Case Study Using Siemens MindSphere” 
+[Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://esploro.libs.uga.edu/esploro/outputs/graduate/DESIGN-OF-AN-INTERACTIVE-GENERALIZED-TESTBED/9949559024302959))
 
-- [Data Science Blog](https://medium.com/@shawhin)
+### “Advancing architectural frameworks for vibration signature classification in rotating machinery”
+[Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://journals.sagepub.com/doi/abs/10.1177/09544054241260928))
+
+## Projects
+CFB 5B Power Rankings
+- Predicts college football outcomes using supervised ensemble ML regression modeling and ElasticNet. Point spreads are produced for any hypothetical matchup, and achieved a 65% success rate against the Vegas model for the 2024-2025 season
+
+![5B Predictor Model](/assets/img/5B_Demo.JPG)
+
+Trendiment
+ - Fine-tuned BERT LLM model with technical articles via API calls that generate sentiment analysis distributions for any stock of interest as a means of assessing market pulse

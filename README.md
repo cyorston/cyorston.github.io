@@ -11,8 +11,10 @@
 ## Education
 M.S., Analytics | Georgia Institute of Technology 
 - Specialization: Computational Data Analytics (_August 2025_)
+  
 M.S., Engineering	| The University of Georgia (_May 2023_)
- - Specialization: Design, Optimization, Manufacturing 			        		
+ - Specialization: Design, Optimization, Manufacturing
+            		
 B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 
 ## Work Experience

@@ -46,7 +46,7 @@ Mechanical failure of rotating systems creates machinery issues in fatigue and u
 
 [Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://esploro.libs.uga.edu/esploro/outputs/graduate/DESIGN-OF-AN-INTERACTIVE-GENERALIZED-TESTBED/9949559024302959))
 
-![IoT End to End Architecture](/assets/img/IOT_Architecture.png)
+![IoT End to End Architecture](/assets/img/IOT_ETL.JPEG)
 
 ### “Advancing architectural frameworks for vibration signature classification in rotating machinery”
 
@@ -54,7 +54,7 @@ This study explores an integrated dataflow pipeline, specifically through Siemen
 
 [Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://journals.sagepub.com/doi/abs/10.1177/09544054241260928))
 
-![ML Ensemble Results on Training Data](/assets/img/ML_Results.png)
+![ML Ensemble Results on Training Data](/assets/img/ML_Ensemble.JPEG)
 
 ## Projects
 CFB 5B Power Rankings

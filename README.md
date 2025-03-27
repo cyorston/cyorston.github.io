@@ -2,6 +2,8 @@
 
 ![Profile](/assets/img/Headshot.png)
 
+#### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. I have published research in real time cloud-based ETL processes for ML models and experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization.
+
 #### Programming Languages: Python, R, SQL, PySpark, Matlab
 #### IDE and Data Viz: Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
 #### Libraries: Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3

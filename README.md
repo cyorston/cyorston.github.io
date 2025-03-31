@@ -68,4 +68,6 @@ Trendiment
 ## Upcoming Projects: 
 
 BayesBall Assistant
- - Developing a Bayesian hierarchical model to predict season long fantasy baseball rankings. Integrates traditional and advanced metrics to calculate fantasy points, and PyMC3 for model building and uncertainty quantification. Automated data collection and visualized predictions in Power BI for interactive player comparisons and rankings, stored in PostgreSQL. 
+ - Developing a Bayesian hierarchical model to predict season long fantasy baseball rankings. Integrates traditional and advanced metrics to calculate fantasy points, and PyMC3 for model building and uncertainty quantification. Automated data collection and visualized predictions in Power BI for interactive player comparisons and rankings, stored in PostgreSQL.
+
+![Bayesball Demo](/assets/img/Bayesball_Demo.JPG)

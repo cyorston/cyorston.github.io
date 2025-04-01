@@ -65,6 +65,8 @@ CFB 5B Power Rankings
 Trendiment
  - Utilized API calls for collecting technical articles to fine-tune BERT LLM models that generate sentiment analysis distributions for stocks of interest. Outputs are visualized via Power BI dashboard for on-demand interactive analysis capabilities.
 
+![Trendiment Dashbaord](/assets/img/Trendiment_Dash.JPG)
+
 ## Upcoming Projects: 
 
 BayesBall Assistant

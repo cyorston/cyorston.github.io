@@ -36,6 +36,8 @@ B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 **Test Engineer @ Textron Specialized Vehicles (_June 2023 - May 2024_)**
 - Designed and implemented data wrangling and visualization workflows to streamline internal validation of all vehicle test data using anomaly detection methods that contributed to three major data-intensive projects
 
+![Stability Demo](/assets/img/stability2.JPG)
+
 **Graduate Research Assistant @ UGA Innovation Factory (_January 2022 - June 2023_)**
 - Engineered a cloud-based monitoring solution with optimized ML classifiers to diagnose mechanical conditions at scale in near real-time, facilitating seamless multi-asset data flow and big data analysis across large-scale clusters
 
@@ -65,7 +67,7 @@ CFB 5B Power Rankings
 Trendiment
  - Utilized API calls for collecting technical articles to fine-tune BERT LLM models that generate sentiment analysis distributions for stocks of interest. Outputs are visualized via Power BI dashboard for on-demand interactive analysis capabilities.
 
-![Trendiment Dashbaord](/assets/img/Trendiment_Dash.JPG)
+![Trendiment Dashbaord](/assets/img/Trendiment_2.JPG)
 
 ## Upcoming Projects: 
 

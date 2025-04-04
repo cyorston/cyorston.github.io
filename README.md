@@ -36,8 +36,6 @@ B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
 **Test Engineer @ Textron Specialized Vehicles (_June 2023 - May 2024_)**
 - Designed and implemented data wrangling and visualization workflows to streamline internal validation of all vehicle test data using anomaly detection methods that contributed to three major data-intensive projects
 
-![Stability Demo](/assets/img/stability2.png)
-
 **Graduate Research Assistant @ UGA Innovation Factory (_January 2022 - June 2023_)**
 - Engineered a cloud-based monitoring solution with optimized ML classifiers to diagnose mechanical conditions at scale in near real-time, facilitating seamless multi-asset data flow and big data analysis across large-scale clusters
 

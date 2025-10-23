@@ -91,7 +91,7 @@ a:hover { text-decoration: underline; }
 <div class="intro-container">
   <img src="assets/img/Headshot.png" alt="Headshot" class="headshot">
   <div>
-    <h1> Hi, I'm Cole Yorston</h1>
+    <h1>👋 Hi, I'm Cole Yorston</h1>
     <p>Lead Test Engineer-- Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving. Explore my interactive portfolio below.</p>
   </div>
 </div>
@@ -137,7 +137,7 @@ const educationData = [
 ];
 
 const timelineData = [
-  { year: "2021–2023", title: "Graduate Research Assistant, UGA", logo: "assets/img/uga_research.png", description: "Developed cloud-based ML classifiers for predictive maintenance.", projects:["Trendiment"], images:["assets/img/Trendiment_2.JPG"] },
+  { year: "2022–2023", title: "Graduate Research Assistant, UGA", logo: "assets/img/uga_research.png", description: "Developed cloud-based ML classifiers for predictive maintenance.", projects:["Trendiment"], images:["assets/img/Trendiment_2.JPG"] },
   { year: "2023–2024", title: "Test Engineer, Textron Specialized Vehicles", logo: "assets/img/tsv.png", description: "Implemented anomaly detection workflows.", projects:["BayesBall Assistant"], images:["assets/img/Bayesball_Demo.JPG"] },
   { year: "2024–2025", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv_ds.png", description: "Leading analytical initiatives.", projects:["CFB 5B Power Rankings"], images:["assets/img/5B_Demo.JPG"] }, 
   { year: "2025–Present", title: "Lead Test Engineer-- Dynamics Systems, GE Vernova", logo: "assets/img/gev.png", description: "Lead data-driven testing and analysis efforts for dynamic gas turbine systems." }
@@ -186,7 +186,7 @@ const certifications = [
 const hoverPreview = d3.select("#hoverPreview");
 
 // =======================
-// TIMELINES
+// TIMELINES FUNCTION
 // =======================
 function drawTimeline(svgId, data){
   const containerWidth = document.querySelector(svgId).offsetWidth;
@@ -200,7 +200,6 @@ function drawTimeline(svgId, data){
                 .attr("width", "100%")
                 .attr("height", height);
 
-  // Horizontal line
   svg.append("line")
      .attr("x1", margin.left)
      .attr("y1", height/2)
@@ -209,7 +208,6 @@ function drawTimeline(svgId, data){
      .attr("stroke", "#58a6ff")
      .attr("stroke-width", 3);
 
-  // Use scalePoint with padding to space nodes evenly
   const xScale = d3.scalePoint()
                    .domain(data.map(d => d.year))
                    .range([margin.left + 50, width - margin.right - 50])
@@ -222,14 +220,12 @@ function drawTimeline(svgId, data){
                    .attr("class", "hiddenNode")
                    .attr("transform", d => `translate(${xScale(d.year)},${height/2})`);
 
-  // Node circles
   nodes.append("circle")
        .attr("r", 20)
        .attr("fill", "#58a6ff")
        .attr("stroke", "#1f6feb")
        .attr("stroke-width", 2);
 
-  // Logos above nodes
   nodes.append("image")
        .attr("xlink:href", d => d.logo)
        .attr("x", -25)
@@ -237,7 +233,6 @@ function drawTimeline(svgId, data){
        .attr("width", 50)
        .attr("height", 50);
 
-  // Year labels below nodes
   nodes.append("text")
        .attr("x", 0)
        .attr("y", 50)
@@ -247,13 +242,11 @@ function drawTimeline(svgId, data){
        .style("font-weight", "600")
        .text(d => d.year);
 
-  // Node click shows related projects
   nodes.on("click", (event,d) => {
     const container = d3.select(svgId === "#timeline" ? "#careerDrilldown" : "#skillsDrilldown");
     container.html(`<h4>${d.title} - Related Projects:</h4><ul>${(d.projects || []).map(p => `<li>${p}</li>`).join("")}</ul>`);
   });
 
-  // Node hover tooltip
   nodes.on("mouseover", (event,d) => {
     if(d.images && d.images.length > 0){
       hoverPreview.style("display","block").html(d.images.map(img => `<img src="${img}">`).join(""));
@@ -268,9 +261,8 @@ function drawTimeline(svgId, data){
   revealOnScroll(document.querySelectorAll(".hiddenNode"));
 }
 
-
 // =======================
-// SKILLS NETWORK
+// SKILLS NETWORK FUNCTION
 // =======================
 function drawSkillsNetwork(){
   const width = document.querySelector("#skills").offsetWidth;
@@ -284,7 +276,8 @@ function drawSkillsNetwork(){
                        .force("center",d3.forceCenter(width/2,height/2))
                        .force("collide", d3.forceCollide().radius(50));
 
-  const link = svg.append("g").selectAll("line").data(skills.links).enter().append("line").attr("stroke","#58a6ff").attr("stroke-width",2);
+  const link = svg.append("g").selectAll("line").data(skills.links).enter().append("line")
+                  .attr("stroke","#58a6ff").attr("stroke-width",2);
 
   const node = svg.append("g").selectAll("g").data(skills.nodes).enter().append("g")
     .on("click",(event,d)=>{
@@ -306,70 +299,66 @@ function drawSkillsNetwork(){
       node.select("circle").transition().duration(400).attr("r",25).style("opacity",1);
     });
 
-  node.append("circle").attr("r",25).attr("fill","#0d1117").attr("stroke","#58a6ff").attr("stroke-width",2);
-  node.append("image").attr("xlink:href",d=>d.icon).attr("x",-20).attr("y",-20).attr("width",40).attr("height",40);
-  node.append("text").text(d=>d.id).attr("y",40).attr("text-anchor","middle").attr("fill","#c9d1d9").style("font-size","12px");
+  node.append("circle").attr("r",25).attr("fill","#21262d").attr("stroke","#58a6ff").attr("stroke-width",3);
+  node.append("image").attr("xlink:href",d=>d.icon).attr("x",-15).attr("y",-15).attr("width",30).attr("height",30);
 
-  simulation.on("tick",()=>{ 
-    link.transition().duration(400).attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+  simulation.on("tick",()=>{
+    link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
     node.attr("transform",d=>`translate(${d.x},${d.y})`);
   });
 }
 
 // =======================
-// BUBBLES WITH HOVER PREVIEW
+// BUBBLES FUNCTION
 // =======================
-function createBubbles(containerId, items){
+function createBubbles(containerId,items){
   const container = d3.select(containerId);
-  items.forEach(item=>{
-    const bubble = container.append("div").attr("class","bubble");
-    bubble.html(`<strong>${item.title}</strong>`);
+  container.selectAll("*").remove();
 
-    bubble.on("mouseover",(event)=>{
-      if(item.images.length>0 || item.description){
-        hoverPreview.style("display","block")
-          .html(`${item.images.map(img=>`<img src="${img}">`).join("")}${item.description?`<p>${item.description}</p>`:""}`);
-      }
-    }).on("mousemove",(event)=>{
-      hoverPreview.style("left",(event.pageX+15)+"px").style("top",(event.pageY+15)+"px");
-    }).on("mouseout",()=>{
-      hoverPreview.style("display","none").html("");
-    });
+  const bubbles = container.selectAll(".bubble").data(items).enter()
+                  .append("div").attr("class","bubble")
+                  .on("click", function(event,d){
+                    const current = d3.select(this);
+                    current.classed("expanded",!current.classed("expanded"));
+                  })
+                  .on("mouseover", function(event,d){
+                    if(d.images && d.images.length>0){
+                      hoverPreview.style("display","block").html(d.images.map(img=>`<img src="${img}">`).join(""));
+                    }
+                  })
+                  .on("mousemove", function(event){ 
+                    hoverPreview.style("left",(event.pageX+15)+"px").style("top",(event.pageY+15)+"px");
+                  })
+                  .on("mouseout", function(){
+                    hoverPreview.style("display","none").html("");
+                  });
 
-    bubble.on("click",function(){
-      const expanded = bubble.classed("expanded");
-      bubble.classed("expanded",!expanded);
-      if(!expanded){
-        bubble.html(`<h4>${item.title}</h4><p>${item.description}</p>${(item.images||[]).map(img=>`<img src="${img}">`).join("")}`);
-      } else {
-        bubble.html(`<strong>${item.title}</strong>`);
-      }
-    });
-  });
+  bubbles.append("div").html(d=>`<strong>${d.title}</strong>${d.description?'<p>'+d.description+'</p>':''}${d.link?`<a href="${d.link}" target="_blank">Link</a>`:''}`);
 }
 
 // =======================
-// HELPERS
+// SCROLL ANIMATION
 // =======================
 function revealOnScroll(elements){
   const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){ entry.target.classList.add("visibleNode"); }
+      if(entry.isIntersecting){
+        entry.target.classList.add("visibleNode");
+      }
     });
-  }, { threshold: 0.2 });
+  },{threshold:0.1});
   elements.forEach(el=>observer.observe(el));
 }
 
 // =======================
-// RUN ALL
+// DRAW ALL
 // =======================
-drawTimeline("#educationTimeline",educationData);
 drawTimeline("#timeline",timelineData);
+drawTimeline("#educationTimeline",educationData);
 drawSkillsNetwork();
 createBubbles("#projectBubbles",projects);
 createBubbles("#publicationBubbles",publications);
 createBubbles("#certificationBubbles",certifications);
-
 </script>
 </body>
 </html>

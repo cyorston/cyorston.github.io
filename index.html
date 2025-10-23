@@ -49,7 +49,6 @@ body {
   justify-content: center;
   gap: 12px;
 }
-
 .social-buttons a {
   display: flex;
   align-items: center;
@@ -61,12 +60,10 @@ body {
   transition: all 0.3s ease;
   overflow: hidden;
 }
-
 .social-buttons a:hover {
   background-color: #58a6ff;
   transform: scale(1.1);
 }
-
 .social-buttons a img {
   width: 18px;
   height: 18px;
@@ -74,57 +71,48 @@ body {
   filter: brightness(0) saturate(100%) invert(70%) sepia(10%) saturate(300%) hue-rotate(180deg) brightness(90%);
   transition: filter 0.3s ease;
 }
-
 .social-buttons a:hover img {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg);
 }
-
 .content {
   margin-left: 300px;
   padding: 40px 60px;
   max-width: 900px;
 }
-
 .section {
   margin-bottom: 80px;
   position: relative;
 }
-
 .section h2 {
   color: #58a6ff;
   margin-bottom: 40px;
   font-size: 28px;
 }
-
 .timeline {
   position: relative;
   margin-left: 50px;
   padding-left: 40px;
 }
-
 .timeline-line {
   position: absolute;
   left: -65px;
-  top: 45px; /* start below first image */
+  top: 45px;
   width: 3px;
   height: 0;
   background-color: #58a6ff;
   transition: height 0.5s ease-out;
 }
-
 .timeline-entry {
   position: relative;
-  margin-bottom: 120px; /* increased spacing */
+  margin-bottom: 120px;
   opacity: 0;
   transform: translateX(-50px);
   transition: all 0.8s ease;
 }
-
 .timeline-entry.visible {
   opacity: 1;
   transform: translateX(0);
 }
-
 .timeline-entry img {
   width: 90px;
   height: 90px;
@@ -134,24 +122,21 @@ body {
   left: -120px;
   top: 0;
 }
-
 .timeline-entry h3 {
   margin: 0 0 5px 0;
   font-size: 18px;
   color: #c9d1d9;
 }
-
 .timeline-entry p {
   margin: 2px 0;
   font-size: 14px;
   color: #c9d1d9;
 }
-
 .timeline-entry::before {
   content: '';
   position: absolute;
   left: -65px;
-  top: 45px; /* align with line */
+  top: 45px;
   width: 16px;
   height: 16px;
   background-color: #21262d;
@@ -163,26 +148,6 @@ body {
   background-color: #58a6ff;
   transform: scale(1.3);
 }
-
-/* Skills cards */
-.skills-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-.skill-card {
-  background-color: #21262d;
-  padding: 15px 20px;
-  border-radius: 12px;
-  flex: 1 1 200px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.skill-card:hover {
-  background-color: #58a6ff;
-  color: #0d1117;
-}
-
 /* Projects/Publications/Certifications */
 .item-container {
   display: flex;
@@ -211,6 +176,11 @@ body {
   text-decoration: none;
 }
 .item-card a:hover { text-decoration: underline; }
+
+/* Skill Globe Section */
+.section-title { font-size: 2em; color: #58a6ff; margin-bottom: 20px; text-align: center; }
+#skillProjects { text-align: center; font-size: 16px; margin-top: 30px; }
+#skillProjects ul { list-style: disc; padding-left: 20px; display: inline-block; text-align: left; }
 </style>
 </head>
 <body>
@@ -219,62 +189,63 @@ body {
   <img src="assets/img/Headshot.png" alt="Headshot">
   <h1>Cole Yorston</h1>
   <p>Lead Test Engineer—Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving.</p>
-
   <div class="social-buttons">
-    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn">
-      <img src="assets/img/linkedin.png" alt="LinkedIn">
-    </a>
-    <a href="https://github.com/cyorston" target="_blank" title="GitHub">
-      <img src="assets/img/github.png" alt="GitHub">
-    </a>
-    <a href="mailto:yorston.cole@gmail.com" title="Email">
-      <img src="assets/img/email.png" alt="Email">
-    </a>
-    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume">
-      <img src="assets/img/resume.png" alt="Resume">
-    </a>
+    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn"><img src="assets/img/linkedin.png" alt="LinkedIn"></a>
+    <a href="https://github.com/cyorston" target="_blank" title="GitHub"><img src="assets/img/github.png" alt="GitHub"></a>
+    <a href="mailto:yorston.cole@gmail.com" title="Email"><img src="assets/img/email.png" alt="Email"></a>
+    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume"><img src="assets/img/resume.png" alt="Resume"></a>
   </div>
 </div>
 
-
 <div class="content">
+  <!-- Education Timeline -->
   <div class="section">
     <h2>Education</h2>
     <div class="timeline" id="educationTimeline">
       <div class="timeline-line" id="educationLine"></div>
     </div>
   </div>
-
+  
+  <!-- Career Timeline -->
   <div class="section">
     <h2>Career</h2>
     <div class="timeline" id="careerTimeline">
       <div class="timeline-line" id="careerLine"></div>
     </div>
   </div>
-
+  
+  <!-- Skills Globe -->
   <div class="section">
-    <h2>Skills</h2>
-    <div class="skills-container" id="skillsContainer"></div>
+    <h2 class="section-title">Skills</h2>
+    <div id="skillGlobe" style="width:100%; height:600px; position:relative;"></div>
+    <div id="skillProjects"></div>
   </div>
-
+  
+  <!-- Projects -->
   <div class="section">
     <h2>Projects</h2>
     <div class="item-container" id="projectsContainer"></div>
   </div>
-
+  
+  <!-- Publications -->
   <div class="section">
     <h2>Publications</h2>
     <div class="item-container" id="publicationsContainer"></div>
   </div>
-
+  
+  <!-- Certifications -->
   <div class="section">
     <h2>Certifications</h2>
     <div class="item-container" id="certificationsContainer"></div>
   </div>
 </div>
 
+<!-- Three.js for Skill Globe -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+
 <script>
-// DATA
+// ---- DATA ----
 const educationData = [
   { year: "2018–2022", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Mechanical engineering fundamentals, IoT systems, and ML pipelines." },
   { year: "2022–2023", title: "M.S. Engineering, UGA", logo: "assets/img/uga.png", description: "Specialization in Design, Optimization, Manufacturing." },
@@ -286,7 +257,6 @@ const careerData = [
   { year: "2024–2025", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv.jpg", description: "Leading analytical initiatives." }, 
   { year: "2025–Present", title: "Lead Test Engineer-- Dynamics Systems, GE Vernova", logo: "assets/img/gev.png", description: "Lead data-driven testing and analysis efforts for dynamic gas turbine systems." }
 ];
-const skills = ["Python", "R", "SQL", "Power BI", "Azure", "AWS", "PySpark", "D3.js", "Bayesian Modeling", "Machine Learning", "IoT Analytics"];
 const projects = [
   { title:"CFB 5B Power Rankings", description:"Predicts college football matchups compared to Vegas odds using SOS adjusted Elo rankings in combination with play by play data for supervised ensemble ML regression modeling and Lasso/Ridge regularization. Interactive dashboard outputs point spreads for any hypothetical matchup, and achieved a sampled 65% success rate in ranked matchups against the Vegas model for the 2024-2025 season.", images:["assets/img/5B_Demo.JPG"], link:"" },
   { title:"Trendiment", description:"Utilized API calls for collecting technical articles to train and fine-tune BERT models that generate sentiment analysis distributions for stocks of interest as a means of assessing market pulse.", images:["assets/img/Trendiment_2.JPG"], link:"" },
@@ -303,8 +273,32 @@ const certifications = [
   { title:"Google Advanced Data Analytics", description:"", images:[], link:"" },
   { title:"Engineer in Training", description:"", images:[], link:"" }
 ];
+const skillGroups = [
+  { group: "Machine Learning", color: 0x58a6ff, skills: [
+    { name: "Python", projects: ["CFB 5B Power Rankings","Trendiment","BayesBall Assistant"] },
+    { name: "PySpark", projects: ["CFB 5B Power Rankings","Trendiment"] },
+    { name: "Bayesian Modeling", projects: ["BayesBall Assistant"] },
+    { name: "Machine Learning", projects: ["CFB 5B Power Rankings","Trendiment","BayesBall Assistant"] }
+  ]},
+  { group: "Cloud & Data", color: 0xf39c12, skills: [
+    { name: "Azure", projects: ["Trendiment"] },
+    { name: "AWS", projects: [] },
+    { name: "SQL", projects: ["Trendiment"] }
+  ]},
+  { group: "Visualization & Analytics", color: 0x2ecc71, skills: [
+    { name: "Power BI", projects: ["Trendiment","BayesBall Assistant"] },
+    { name: "D3.js", projects: ["Portfolio Visualizations"] }
+  ]},
+  { group: "Statistics & Experimentation", color: 0x9b59b6, skills: [
+    { name: "R", projects: ["Trendiment"] },
+    { name: "Time Series", projects: ["Trendiment","BayesBall Assistant"] },
+    { name: "A/B Testing", projects: ["Trendiment"] }
+  ]}
+];
+const skills = [];
+skillGroups.forEach(g => g.skills.forEach(s => skills.push({ ...s, color: g.color })));
 
-// FUNCTIONS
+// ---- TIMELINES ----
 function populateTimeline(containerId, data){
   const container = document.getElementById(containerId);
   data.forEach(d=>{
@@ -315,16 +309,7 @@ function populateTimeline(containerId, data){
   });
 }
 
-function populateSkills(containerId, skills){
-  const container = document.getElementById(containerId);
-  skills.forEach(s=>{
-    const card = document.createElement("div");
-    card.classList.add("skill-card");
-    card.innerText = s;
-    container.appendChild(card);
-  });
-}
-
+// ---- ITEMS ----
 function populateItems(containerId, items){
   const container = document.getElementById(containerId);
   items.forEach(i=>{
@@ -335,24 +320,22 @@ function populateItems(containerId, items){
   });
 }
 
-// Scroll animations with progressive line
+// ---- SCROLL ANIMATION ----
 function scrollReveal(){
   const timelines = [
     {entries: document.querySelectorAll("#educationTimeline .timeline-entry"), line: document.getElementById("educationLine")},
     {entries: document.querySelectorAll("#careerTimeline .timeline-entry"), line: document.getElementById("careerLine")}
   ];
-
   const observer = new IntersectionObserver((entriesList)=>{
     entriesList.forEach(e=>{
       if(e.isIntersecting){
         e.target.classList.add("visible");
-        // Animate line to the bottom of the last visible entry
         timelines.forEach(t=>{
           if(Array.from(t.entries).includes(e.target)){
             const lastVisible = Array.from(t.entries).filter(en=>en.classList.contains("visible"));
             if(lastVisible.length>0){
               const lastEntry = lastVisible[lastVisible.length-1];
-              const offset = lastEntry.offsetTop + lastEntry.offsetHeight - 10; // end above last image
+              const offset = lastEntry.offsetTop + lastEntry.offsetHeight - 10;
               t.line.style.height = offset + "px";
             }
           }
@@ -360,19 +343,100 @@ function scrollReveal(){
       }
     });
   }, {threshold:0.1});
-
   timelines.forEach(t=>t.entries.forEach(e=>observer.observe(e)));
   document.querySelectorAll(".item-card").forEach(e=>observer.observe(e));
 }
 
-// INIT
+// ---- INITIALIZE ----
 populateTimeline("educationTimeline", educationData);
 populateTimeline("careerTimeline", careerData);
-populateSkills("skillsContainer", skills);
 populateItems("projectsContainer", projects);
 populateItems("publicationsContainer", publications);
 populateItems("certificationsContainer", certifications);
 scrollReveal();
+
+// ---- SKILL GLOBE ----
+const container = document.getElementById('skillGlobe');
+const width = container.clientWidth;
+const height = container.clientHeight;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1117);
+const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 2000);
+camera.position.z = 600;
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setSize(width,height);
+container.appendChild(renderer.domElement);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableZoom=false; controls.enablePan=false; controls.enableRotate=false;
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(150,32,32), new THREE.MeshBasicMaterial({color:0x161b22, transparent:true, opacity:0.3}));
+scene.add(sphere);
+const skillLabels = [];
+const loader = new THREE.FontLoader();
+loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+  const radius = 170;
+  const phiStep = Math.PI / (skills.length+1);
+  const thetaStep = (2*Math.PI)/skills.length;
+  skills.forEach((skill,i)=>{
+    const textGeo = new THREE.TextGeometry(skill.name,{font,font,size:12,height:1});
+    const textMat = new THREE.MeshBasicMaterial({color:skill.color});
+    const textMesh = new THREE.Mesh(textGeo,textMat);
+    const phi = phiStep*(i+1);
+    const theta = thetaStep*i;
+    textMesh.position.x = radius*Math.sin(phi)*Math.cos(theta);
+    textMesh.position.y = radius*Math.cos(phi);
+    textMesh.position.z = radius*Math.sin(phi)*Math.sin(theta);
+    textMesh.lookAt(camera.position);
+    textMesh.userData = skill;
+    scene.add(textMesh);
+    skillLabels.push(textMesh);
+  });
+});
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let rotating = true;
+function onMouseClick(event){
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left)/rect.width)*2 - 1;
+  mouse.y = -((event.clientY - rect.top)/rect.height)*2 + 1;
+  raycaster.setFromCamera(mouse,camera);
+  const intersects = raycaster.intersectObjects(skillLabels);
+  if(intersects.length>0){
+    const skill = intersects[0].object.userData;
+    rotating=false;
+    showProjects(skill);
+  } else {
+    rotating=true;
+    document.getElementById('skillProjects').innerHTML='';
+  }
+}
+window.addEventListener('click', onMouseClick);
+function showProjects(skill){
+  const container = document.getElementById('skillProjects');
+  if(!skill.projects || skill.projects.length===0){
+    container.innerHTML = `<p style="color:#c9d1d9;">No projects linked to ${skill.name}</p>`;
+    return;
+  }
+  container.innerHTML = `<h3 style="color:#58a6ff;">Projects using ${skill.name}</h3>`+
+    `<ul style="color:#c9d1d9;">${skill.projects.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+}
+function animate(){
+  requestAnimationFrame(animate);
+  if(rotating){
+    sphere.rotation.y +=0.001;
+    skillLabels.forEach(l=>l.rotation.y+=0.001);
+  }
+  skillLabels.forEach(l=>l.lookAt(camera.position));
+  renderer.render(scene,camera);
+}
+animate();
+window.addEventListener('resize',()=>{
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  renderer.setSize(width,height);
+  camera.aspect = width/height;
+  camera.updateProjectionMatrix();
+});
 </script>
+
 </body>
 </html>

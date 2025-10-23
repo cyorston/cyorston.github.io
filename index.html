@@ -19,31 +19,64 @@
   .section {
     margin-bottom: 60px;
   }
-  #timeline svg, #skills svg {
+  #timeline svg, #skills svg, #educationTimeline svg {
     width: 100%;
-    border-radius: 10px;
     display: block;
     margin: auto;
+    border-radius: 10px;
   }
-  #timeline svg { height: 300px; }
+  #timeline svg, #educationTimeline svg { height: 300px; }
   #skills svg { height: 500px; }
-  .project-img {
+  .bubble-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .bubble {
+    background-color: #21262d;
+    border: 2px solid #58a6ff;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px;
+    font-size: 14px;
+  }
+  .bubble.expanded {
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    height: auto;
+    text-align: left;
+    padding: 20px;
+  }
+  .bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #58a6ff;
+  }
+  .bubble h3 {
+    margin-top: 0;
+  }
+  .bubble img {
     max-width: 90%;
     border-radius: 8px;
     display: block;
     margin: 10px auto;
   }
-  label {
-    color: #c9d1d9;
-    font-weight: 600;
-  }
-  select {
-    padding: 5px 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: none;
-    font-size: 14px;
+  .headshot {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #58a6ff;
+    display: block;
+    margin: 0 auto 15px auto;
   }
   a {
     color: #58a6ff;
@@ -56,11 +89,17 @@
 </head>
 <body>
 
+<img src="assets/img/Headshot.png" alt="Headshot" class="headshot">
 <h1>👋 Hi, I'm Cole Yorston</h1>
-<p>Data Scientist specializing in ML pipelines, IoT analytics, and Bayesian modeling. Explore my interactive portfolio below.</p>
+<p>Lead Test Engineer-- Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving. Explore my interactive portfolio below.</p>
 
 <div class="section">
-  <h2>🎓 & 💼 Career Timeline</h2>
+  <h2>🎓 Education Timeline</h2>
+  <div id="educationTimeline"></div>
+</div>
+
+<div class="section">
+  <h2>💼 Career Timeline</h2>
   <div id="timeline"></div>
 </div>
 
@@ -70,30 +109,71 @@
 </div>
 
 <div class="section">
-  <h2>📚 Projects & Publications</h2>
+  <h2>📚 Projects</h2>
+  <div id="projectBubbles" class="bubble-container"></div>
 
-  <label for="projectSelect">Select Project:</label>
-  <select id="projectSelect">
-    <option value="">-- Choose a Project --</option>
-  </select>
-  <div id="projectDisplay" style="margin-top:20px;"></div>
-
-  <label for="pubSelect" style="margin-top:40px; display:block;">Select Publication:</label>
-  <select id="pubSelect">
-    <option value="">-- Choose a Publication --</option>
-  </select>
-  <div id="pubDisplay" style="margin-top:20px;"></div>
+  <h2 style="margin-top:50px;">📖 Publications</h2>
+  <div id="publicationBubbles" class="bubble-container"></div>
 </div>
 
 <script>
 // =======================
-// HORIZONTAL TIMELINE
+// EDUCATION TIMELINE
+// =======================
+const educationData = [
+  { year: "2018–2022", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Focus on Dynamics, Vibrations Engineering, IoT systems, and ML Modeling." },
+  { year: "2022–2023", title: "M.S. Engineering, UGA", logo: "assets/img/uga_ms.png", description: "Specialization in Design, Optimization, and Manufacturing." },
+  { year: "2025–Present", title: "M.S. Analytics, Georgia Tech", logo: "assets/img/gatech.png", description: "Specialization in Computational Data Analytics." }
+];
+
+const widthEdu = 900, heightEdu = 200, marginEdu = { top: 50, right: 40, bottom: 80, left: 40 };
+const svgEdu = d3.select("#educationTimeline").append("svg").attr("width","100%").attr("height", heightEdu);
+
+svgEdu.append("line")
+  .attr("x1", marginEdu.left).attr("y1", heightEdu/2)
+  .attr("x2", widthEdu-marginEdu.right).attr("y2", heightEdu/2)
+  .attr("stroke", "#58a6ff").attr("stroke-width", 3);
+
+const xScaleEdu = d3.scalePoint().domain(educationData.map(d=>d.year)).range([marginEdu.left + 50, widthEdu - marginEdu.right - 50]);
+
+const eduGroup = svgEdu.selectAll(".eduNode")
+  .data(educationData)
+  .enter()
+  .append("g")
+  .attr("class", "eduNode")
+  .attr("transform", d => `translate(${xScaleEdu(d.year)}, ${heightEdu/2 + 50})`) // start below
+  .style("opacity", 0);
+
+// Animate slide-up and fade-in
+eduGroup.transition()
+  .duration(800)
+  .delay((d,i) => i * 300)
+  .attr("transform", d => `translate(${xScaleEdu(d.year)}, ${heightEdu/2})`)
+  .style("opacity", 1);
+
+eduGroup.append("circle").attr("r",15).attr("fill","#58a6ff").attr("stroke","#1f6feb").attr("stroke-width",2);
+eduGroup.append("image")
+  .attr("xlink:href", d=>d.logo)
+  .attr("x",-25).attr("y",-90).attr("width",50).attr("height",50)
+  .attr("clip-path","circle(25px at center)");
+eduGroup.append("text")
+  .attr("x",0).attr("y",40).attr("text-anchor","middle").attr("fill","#c9d1d9")
+  .style("font-size","13px").style("font-weight","600")
+  .text(d=>d.year);
+eduGroup.append("foreignObject")
+  .attr("x",-75).attr("y",50).attr("width",150).attr("height",60)
+  .html(d=>`<div xmlns="http://www.w3.org/1999/xhtml" style="color:#c9d1d9;font-size:13px;text-align:center;"><strong style="color:#58a6ff;">${d.title}</strong><br/>${d.description}</div>`);
+eduGroup.on("mouseover",function(){ d3.select(this).select("circle").transition().duration(200).attr("fill","#1f6feb"); })
+        .on("mouseout",function(){ d3.select(this).select("circle").transition().duration(200).attr("fill","#58a6ff"); });
+
+// =======================
+// CAREER TIMELINE
 // =======================
 const timelineData = [
-  { year: "2017–2021", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Focused on IoT systems and ML pipelines." },
-  { year: "2021–2023", title: "Graduate Research Assistant, UGA", logo: "assets/img/uga_research.png", description: "Developed cloud-based ML classifiers for predictive maintenance." },
+  { year: "2021–2023", title: "Graduate Research Assistant, UGA Innovation Factory", logo: "assets/img/uga_research.png", description: "Developed cloud-based ML classifiers for predictive maintenance." },
   { year: "2023–2024", title: "Test Engineer, Textron Specialized Vehicles", logo: "assets/img/tsv.png", description: "Implemented anomaly detection workflows to streamline validation and improve data quality processes." },
-  { year: "2024–Present", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv_ds.png", description: "Leading analytical initiatives, developing ML models, and automating ETL pipelines." }
+  { year: "2024–2025", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv_ds.png", description: "Leading analytical initiatives, developing ML models, and automating ETL pipelines." }, 
+  { year: "2025–Present", title: "Lead Test Engineer-- Dynamics Systems, GE Vernova", logo: "assets/img/gev_ds.png", description: "Lead data-driven testing and analysis efforts for dynamic gas turbine systems." }
 ];
 
 const width = 900, height = 300, margin = { top: 50, right: 40, bottom: 80, left: 40 };
@@ -111,29 +191,32 @@ const nodeGroup = svgTimeline.selectAll(".node")
   .enter()
   .append("g")
   .attr("class", "node")
-  .attr("transform", d => `translate(${xScale(d.year)}, ${height/2})`);
+  .attr("transform", d => `translate(${xScale(d.year)}, ${height/2 + 50})`) // start below
+  .style("opacity", 0);
+
+nodeGroup.transition()
+  .duration(800)
+  .delay((d,i) => i * 300)
+  .attr("transform", d => `translate(${xScale(d.year)}, ${height/2})`)
+  .style("opacity", 1);
 
 nodeGroup.append("circle").attr("r",15).attr("fill","#58a6ff").attr("stroke","#1f6feb").attr("stroke-width",2);
-
 nodeGroup.append("image")
   .attr("xlink:href", d=>d.logo)
   .attr("x",-25).attr("y",-90).attr("width",50).attr("height",50)
   .attr("clip-path","circle(25px at center)");
-
 nodeGroup.append("text")
   .attr("x",0).attr("y",40).attr("text-anchor","middle").attr("fill","#c9d1d9")
   .style("font-size","13px").style("font-weight","600")
   .text(d=>d.year);
-
 nodeGroup.append("foreignObject")
   .attr("x",-75).attr("y",50).attr("width",150).attr("height",60)
   .html(d=>`<div xmlns="http://www.w3.org/1999/xhtml" style="color:#c9d1d9;font-size:13px;text-align:center;"><strong style="color:#58a6ff;">${d.title}</strong><br/>${d.description}</div>`);
-
 nodeGroup.on("mouseover",function(){ d3.select(this).select("circle").transition().duration(200).attr("fill","#1f6feb"); })
          .on("mouseout",function(){ d3.select(this).select("circle").transition().duration(200).attr("fill","#58a6ff"); });
 
 // =======================
-// SKILLS NETWORK WITH CLICK HIGHLIGHT
+// SKILLS NETWORK
 // =======================
 const skills = {
   nodes: [
@@ -152,96 +235,89 @@ const skills = {
   links: [
     {source:"Python",target:"Power BI"}, {source:"Python",target:"PySpark"},
     {source:"Python",target:"Machine Learning"}, {source:"Machine Learning",target:"Bayesian Modeling"},
-    {source:"Machine Learning",target:"IoT Analytics"}, {source:"Azure",target:"IoT Analytics"},
-    {source:"AWS",target:"IoT Analytics"}, {source:"Power BI",target:"D3.js"},
-    {source:"D3.js",target:"Python"}, {source:"SQL",target:"Azure"}
+    {source:"IoT Analytics",target:"Python"}, {source:"SQL",target:"Power BI"}, {source:"R",target:"Machine Learning"}
   ]
 };
 
-const width2 = 800, height2=500;
-const svgSkills = d3.select("#skills").append("svg").attr("width","100%").attr("height",height2);
-
-const link = svgSkills.append("g").selectAll("line").data(skills.links).enter().append("line")
-  .attr("stroke","#30363d").attr("stroke-width",1.5);
-
-const node = svgSkills.selectAll(".node").data(skills.nodes).enter().append("g").attr("class","node");
-
-node.append("circle").attr("r",30).attr("fill","#21262d").attr("stroke","#58a6ff").attr("stroke-width",1.5);
-node.append("image").attr("xlink:href",d=>d.icon).attr("x",-20).attr("y",-20).attr("width",40).attr("height",40).attr("clip-path","circle(20px at center)");
+const widthSkills = 900, heightSkills = 500;
+const svgSkills = d3.select("#skills").append("svg").attr("width","100%").attr("height", heightSkills);
 
 const simulation = d3.forceSimulation(skills.nodes)
-  .force("link",d3.forceLink(skills.links).id(d=>d.id).distance(140))
-  .force("charge",d3.forceManyBody().strength(-400))
-  .force("center",d3.forceCenter(width2/2,height2/2))
-  .on("tick",ticked);
+  .force("link", d3.forceLink(skills.links).id(d => d.id).distance(120))
+  .force("charge", d3.forceManyBody().strength(-300))
+  .force("center", d3.forceCenter(widthSkills/2, heightSkills/2));
 
-function ticked(){
+const link = svgSkills.append("g")
+  .selectAll("line")
+  .data(skills.links)
+  .enter().append("line")
+  .attr("stroke","#58a6ff")
+  .attr("stroke-width",2);
+
+const node = svgSkills.append("g")
+  .selectAll("g")
+  .data(skills.nodes)
+  .enter().append("g");
+
+node.append("circle").attr("r",25).attr("fill","#0d1117").attr("stroke","#58a6ff").attr("stroke-width",2);
+node.append("image")
+  .attr("xlink:href", d=>d.icon)
+  .attr("x",-20).attr("y",-20).attr("width",40).attr("height",40);
+
+node.append("text").text(d=>d.id).attr("y",40).attr("text-anchor","middle").attr("fill","#c9d1d9").style("font-size","12px");
+
+simulation.on("tick",()=>{
   link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
   node.attr("transform",d=>`translate(${d.x},${d.y})`);
-}
-
-node.call(d3.drag()
-  .on("start",dragstarted)
-  .on("drag",dragged)
-  .on("end",dragended));
-
-function dragstarted(event){ if(!event.active) simulation.alphaTarget(0.3).restart(); event.subject.fx=event.subject.x; event.subject.fy=event.subject.y; }
-function dragged(event){ event.subject.fx=event.x; event.subject.fy=event.y; }
-function dragended(event){ if(!event.active) simulation.alphaTarget(0); event.subject.fx=null; event.subject.fy=null; }
-
-// CLICK HIGHLIGHT
-node.on("click", function(event,d) {
-  const connectedNodes = new Set();
-  skills.links.forEach(l => {
-    if(l.source.id === d.id) connectedNodes.add(l.target.id);
-    if(l.target.id === d.id) connectedNodes.add(l.source.id);
-  });
-  connectedNodes.add(d.id);
-  node.selectAll("circle").attr("fill", n => connectedNodes.has(n.id) ? "#58a6ff" : "#21262d");
-  node.selectAll("image").attr("opacity", n => connectedNodes.has(n.id) ? 1 : 0.3);
-  link.attr("stroke", l => (l.source.id===d.id || l.target.id===d.id) ? "#58a6ff" : "#30363d")
-      .attr("stroke-width", l => (l.source.id===d.id || l.target.id===d.id) ? 3 : 1.5);
-});
-
-svgSkills.on("click", function(event){
-  if(event.target.tagName === "svg") {
-    node.selectAll("circle").attr("fill","#21262d");
-    node.selectAll("image").attr("opacity",1);
-    link.attr("stroke","#30363d").attr("stroke-width",1.5);
-  }
 });
 
 // =======================
-// PROJECTS DROPDOWN
+// PROJECTS & PUBLICATIONS
 // =======================
 const projects = [
-  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups vs Vegas using ensemble ML regression. Achieved 65% success against the Vegas model for 2024-25 season.", images:["assets/img/5B_Demo.JPG"]},
-  {title:"Trendiment", description:"Fine-tuned BERT models for sentiment analysis of stocks with API data collection, visualized in Power BI.", images:["assets/img/Trendiment_2.JPG"]},
-  {title:"BayesBall Assistant", description:"Bayesian hierarchical model predicting season-long fantasy baseball rankings, integrating traditional & advanced metrics, automated ETL, and interactive player comparisons in Power BI.", images:["assets/img/Bayesball_Demo.JPG"]}
+  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups vs Vegas odds using supervised ensemble ML regression. Interactive outputs point spreads.", images:["assets/img/5B_Demo.JPG"], link:""},
+  {title:"Trendiment", description:"API-driven sentiment analysis using BERT for stocks, visualized via Power BI dashboards.", images:["assets/img/Trendiment_2.JPG"], link:""},
+  {title:"BayesBall Assistant", description:"Bayesian hierarchical model to predict season-long fantasy baseball rankings with PyMC3, including visualized player comparisons.", images:["assets/img/Bayesball_Demo.JPG"], link:""}
 ];
 
-const projectSelect = document.getElementById("projectSelect");
-projects.forEach((p,i)=>{ const option = document.createElement("option"); option.value=i; option.textContent=p.title; projectSelect.appendChild(option); });
-projectSelect.addEventListener("change",(e)=>{
-  const display=document.getElementById("projectDisplay"); display.innerHTML=""; const proj=projects[e.target.value]; 
-  if(proj){ display.innerHTML=`<h3>${proj.title}</h3><p>${proj.description}</p>`; proj.images.forEach(img=>{ const el=document.createElement("img"); el.src=img; el.className="project-img"; display.appendChild(el); }); }
-});
-
-// =======================
-// PUBLICATIONS DROPDOWN
-// =======================
 const publications = [
-  {title:"Design of an Interactive Generalized Testbed", description:"Mechanical failure of rotating systems creates machinery issues in fatigue and unplanned maintenance. Continuous predictive maintenance processes were explored using Siemens MindSphere.", images:["assets/img/IOT_ETL.JPG"], link:"https://esploro.libs.uga.edu/esploro/outputs/graduate/DESIGN-OF-AN-INTERACTIVE-GENERALIZED-TESTBED/9949559024302959"},
-  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Study explores an integrated dataflow pipeline for predictive maintenance and vibration signature classification using ensemble ML methods.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928"}
+  {title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data to assess type of failure. Architecture proposed for real-time rotating machinery diagnosis.", images:["assets/img/IOT_ETL.JPG"], link:"https://www.mdpi.com/1424-8220/22/8/3048"},
+  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance and vibration signature classification using ensemble ML methods.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928"}
 ];
 
-const pubSelect = document.getElementById("pubSelect");
-publications.forEach((p,i)=>{ const option = document.createElement("option"); option.value=i; option.textContent=p.title; pubSelect.appendChild(option); });
-pubSelect.addEventListener("change",(e)=>{
-  const display=document.getElementById("pubDisplay"); display.innerHTML=""; const pub=publications[e.target.value];
-  if(pub){ let html=`<h3>${pub.title}</h3><p>${pub.description}</p>`; if(pub.link) html+=`<p><a href="${pub.link}" target="_blank">View Publication</a></p>`; display.innerHTML=html; pub.images.forEach(img=>{ const el=document.createElement("img"); el.src=img; el.className="project-img"; display.appendChild(el); }); }
-});
-</script>
+function createBubbles(containerId, items){
+  const container = d3.select(containerId);
+  items.forEach((item,i)=>{
+    const bubble = container.append("div")
+      .attr("class","bubble")
+      .html(item.title);
 
+    bubble.on("click",()=>{
+      const isExpanded = bubble.classed("expanded");
+      if(!isExpanded){
+        bubble.classed("expanded", true);
+        const content = bubble.append("div")
+          .style("opacity", 0)
+          .html(`
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            ${item.images.map(img => `<img src="${img}" />`).join('')}
+            ${item.link ? `<p><a href="${item.link}" target="_blank">View Publication</a></p>` : ''}
+          `);
+        content.transition().duration(500).style("opacity", 1);
+        bubble.html("").node().appendChild(content.node());
+      } else {
+        bubble.select("div").transition().duration(400).style("opacity", 0).remove();
+        bubble.classed("expanded", false);
+        setTimeout(()=> bubble.html(item.title), 400);
+      }
+    });
+  });
+}
+
+createBubbles("#projectBubbles", projects);
+createBubbles("#publicationBubbles", publications);
+
+</script>
 </body>
 </html>

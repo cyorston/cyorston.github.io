@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cole Yorston Portfolio</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 body {
   margin: 0;
@@ -76,20 +75,29 @@ body {
 
 .section h2 {
   color: #58a6ff;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-size: 28px;
 }
 
 .timeline {
   position: relative;
-  margin-left: 20px;
-  border-left: 3px solid #58a6ff;
-  padding-left: 20px;
+  margin-left: 50px;
+  padding-left: 40px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: -65px;
+  top: 0;
+  width: 3px;
+  height: 0;
+  background-color: #58a6ff;
+  transition: height 0.5s ease-out;
 }
 
 .timeline-entry {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   opacity: 0;
   transform: translateX(-50px);
   transition: all 0.8s ease;
@@ -101,13 +109,13 @@ body {
 }
 
 .timeline-entry img {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
   border: 2px solid #58a6ff;
   position: absolute;
-  left: -90px;
-  top: 0;
+  left: -110px;
+  top: -5px;
 }
 
 .timeline-entry h3 {
@@ -120,6 +128,23 @@ body {
   margin: 2px 0;
   font-size: 14px;
   color: #c9d1d9;
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -65px;
+  top: 20px;
+  width: 16px;
+  height: 16px;
+  background-color: #21262d;
+  border: 3px solid #58a6ff;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+.timeline-entry.visible::before {
+  background-color: #58a6ff;
+  transform: scale(1.3);
 }
 
 /* Skills cards */
@@ -184,84 +209,63 @@ body {
 </div>
 
 <div class="content">
-  <!-- Education Timeline -->
   <div class="section">
     <h2>🎓 Education</h2>
     <div class="timeline" id="educationTimeline">
-      <!-- Entries populated by JS -->
+      <div class="timeline-line" id="educationLine"></div>
     </div>
   </div>
 
-  <!-- Career Timeline -->
   <div class="section">
     <h2>💼 Career</h2>
     <div class="timeline" id="careerTimeline">
-      <!-- Entries populated by JS -->
+      <div class="timeline-line" id="careerLine"></div>
     </div>
   </div>
 
-  <!-- Skills -->
   <div class="section">
     <h2>🧠 Skills</h2>
-    <div class="skills-container" id="skillsContainer">
-      <!-- Skills cards populated by JS -->
-    </div>
+    <div class="skills-container" id="skillsContainer"></div>
   </div>
 
-  <!-- Projects -->
   <div class="section">
     <h2>📚 Projects</h2>
-    <div class="item-container" id="projectsContainer">
-      <!-- Project cards populated by JS -->
-    </div>
+    <div class="item-container" id="projectsContainer"></div>
   </div>
 
-  <!-- Publications -->
   <div class="section">
     <h2>📖 Publications</h2>
-    <div class="item-container" id="publicationsContainer">
-      <!-- Publication cards populated by JS -->
-    </div>
+    <div class="item-container" id="publicationsContainer"></div>
   </div>
 
-  <!-- Certifications -->
   <div class="section">
     <h2>🏅 Certifications</h2>
-    <div class="item-container" id="certificationsContainer">
-      <!-- Certification cards populated by JS -->
-    </div>
+    <div class="item-container" id="certificationsContainer"></div>
   </div>
 </div>
 
 <script>
-// =======================
 // DATA
-// =======================
 const educationData = [
   { year: "2018–2022", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Mechanical engineering fundamentals, IoT systems, and ML pipelines." },
   { year: "2022–2023", title: "M.S. Engineering, UGA", logo: "assets/img/uga_ms.png", description: "Specialization in Design, Optimization, Manufacturing." },
   { year: "2025–Present", title: "M.S. Analytics, Georgia Tech", logo: "assets/img/gatech.png", description: "Specialization in Computational Data Analytics." }
 ];
-
 const careerData = [
   { year: "2021–2023", title: "Graduate Research Assistant, UGA", logo: "assets/img/uga_research.png", description: "Developed cloud-based ML classifiers for predictive maintenance." },
   { year: "2023–2024", title: "Test Engineer, Textron Specialized Vehicles", logo: "assets/img/tsv.png", description: "Implemented anomaly detection workflows." },
   { year: "2024–Present", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv_ds.png", description: "Leading analytical initiatives." }
 ];
-
 const skills = ["Python", "R", "SQL", "Power BI", "Azure", "AWS", "PySpark", "D3.js", "Bayesian Modeling", "Machine Learning", "IoT Analytics"];
-
 const projects = [
   { title:"CFB 5B Power Rankings", description:"Predicts college football matchups vs Vegas odds using supervised ensemble ML regression. Interactive outputs point spreads.", images:["assets/img/5B_Demo.JPG"], link:"" },
   { title:"Trendiment", description:"API-driven sentiment analysis using BERT for stocks, visualized via Power BI dashboards.", images:["assets/img/Trendiment_2.JPG"], link:"" },
   { title:"BayesBall Assistant", description:"Bayesian hierarchical model to predict season-long fantasy baseball rankings with PyMC3, including visualized player comparisons.", images:["assets/img/Bayesball_Demo.JPG"], link:"" }
 ];
-
 const publications = [
   { title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data. Architecture proposed for real-time rotating machinery diagnosis.", images:["assets/img/IOT_ETL.JPG"], link:"https://www.mdpi.com/1424-8220/22/8/3048" },
   { title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance and vibration signature classification.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928" }
 ];
-
 const certifications = [
   { title:"Databricks Generative AI Fundamentals", description:"", images:[], link:"" },
   { title:"Databricks Generative AI Application Development", description:"", images:[], link:"" },
@@ -270,11 +274,7 @@ const certifications = [
   { title:"Engineer in Training", description:"", images:[], link:"" }
 ];
 
-// =======================
 // FUNCTIONS
-// =======================
-
-// Populate vertical timelines
 function populateTimeline(containerId, data){
   const container = document.getElementById(containerId);
   data.forEach(d=>{
@@ -285,7 +285,6 @@ function populateTimeline(containerId, data){
   });
 }
 
-// Populate skills
 function populateSkills(containerId, skills){
   const container = document.getElementById(containerId);
   skills.forEach(s=>{
@@ -296,7 +295,6 @@ function populateSkills(containerId, skills){
   });
 }
 
-// Populate items (projects, publications, certifications)
 function populateItems(containerId, items){
   const container = document.getElementById(containerId);
   items.forEach(i=>{
@@ -307,21 +305,40 @@ function populateItems(containerId, items){
   });
 }
 
-// Scroll reveal
+// Scroll animations with progressive line
 function scrollReveal(){
-  const entries = document.querySelectorAll(".timeline-entry, .item-card");
-  const options = { threshold: 0.1 };
+  const timelines = [
+    {entries: document.querySelectorAll("#educationTimeline .timeline-entry"), line: document.getElementById("educationLine")},
+    {entries: document.querySelectorAll("#careerTimeline .timeline-entry"), line: document.getElementById("careerLine")}
+  ];
+
   const observer = new IntersectionObserver((entriesList)=>{
     entriesList.forEach(e=>{
-      if(e.isIntersecting) e.target.classList.add("visible");
+      if(e.isIntersecting){
+        e.target.classList.add("visible");
+        // Animate line to the bottom of the last visible entry
+        timelines.forEach(t=>{
+          if(Array.from(t.entries).includes(e.target)){
+            const lastVisible = Array.from(t.entries).filter(en=>en.classList.contains("visible"));
+            if(lastVisible.length>0){
+              const lastEntry = lastVisible[lastVisible.length-1];
+              const offset = lastEntry.offsetTop + lastEntry.offsetHeight/2;
+              t.line.style.height = offset + "px";
+            }
+          }
+        });
+      }
     });
-  }, options);
-  entries.forEach(e=>observer.observe(e));
+  }, {threshold:0.1});
+
+  // Observe entries
+  timelines.forEach(t=>t.entries.forEach(e=>observer.observe(e)));
+
+  // Also reveal item cards
+  document.querySelectorAll(".item-card").forEach(e=>observer.observe(e));
 }
 
-// =======================
 // INIT
-// =======================
 populateTimeline("educationTimeline", educationData);
 populateTimeline("careerTimeline", careerData);
 populateSkills("skillsContainer", skills);
@@ -329,7 +346,6 @@ populateItems("projectsContainer", projects);
 populateItems("publicationsContainer", publications);
 populateItems("certificationsContainer", certifications);
 scrollReveal();
-
 </script>
 </body>
 </html>

@@ -77,7 +77,7 @@ body {
 .content {
   margin-left: 300px;
   padding: 40px 60px;
-  max-width: 900px;
+  max-width: 1000px;
 }
 .section {
   margin-bottom: 80px;
@@ -177,75 +177,73 @@ body {
 }
 .item-card a:hover { text-decoration: underline; }
 
-/* Skill Globe Section */
-.section-title { font-size: 2em; color: #58a6ff; margin-bottom: 20px; text-align: center; }
-#skillProjects { text-align: center; font-size: 16px; margin-top: 30px; }
-#skillProjects ul { list-style: disc; padding-left: 20px; display: inline-block; text-align: left; }
+/* Skill Globe Container */
+#skillGlobeContainer {
+  width: 100%;
+  height: 400px;
+  margin-top: 20px;
+  position: relative;
+}
 </style>
 </head>
 <body>
-
 <div class="sidebar">
   <img src="assets/img/Headshot.png" alt="Headshot">
   <h1>Cole Yorston</h1>
   <p>Lead Test Engineer—Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving.</p>
+
   <div class="social-buttons">
-    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn"><img src="assets/img/linkedin.png" alt="LinkedIn"></a>
-    <a href="https://github.com/cyorston" target="_blank" title="GitHub"><img src="assets/img/github.png" alt="GitHub"></a>
-    <a href="mailto:yorston.cole@gmail.com" title="Email"><img src="assets/img/email.png" alt="Email"></a>
-    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume"><img src="assets/img/resume.png" alt="Resume"></a>
+    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn">
+      <img src="assets/img/linkedin.png" alt="LinkedIn">
+    </a>
+    <a href="https://github.com/cyorston" target="_blank" title="GitHub">
+      <img src="assets/img/github.png" alt="GitHub">
+    </a>
+    <a href="mailto:yorston.cole@gmail.com" title="Email">
+      <img src="assets/img/email.png" alt="Email">
+    </a>
+    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume">
+      <img src="assets/img/resume.png" alt="Resume">
+    </a>
   </div>
 </div>
 
 <div class="content">
-  <!-- Education Timeline -->
   <div class="section">
     <h2>Education</h2>
-    <div class="timeline" id="educationTimeline">
-      <div class="timeline-line" id="educationLine"></div>
-    </div>
+    <div class="timeline" id="educationTimeline"><div class="timeline-line" id="educationLine"></div></div>
   </div>
-  
-  <!-- Career Timeline -->
+
   <div class="section">
     <h2>Career</h2>
-    <div class="timeline" id="careerTimeline">
-      <div class="timeline-line" id="careerLine"></div>
-    </div>
+    <div class="timeline" id="careerTimeline"><div class="timeline-line" id="careerLine"></div></div>
   </div>
-  
-  <!-- Skills Globe -->
+
   <div class="section">
-    <h2 class="section-title">Skills</h2>
-    <div id="skillGlobe" style="width:100%; height:600px; position:relative;"></div>
-    <div id="skillProjects"></div>
+    <h2>Skills</h2>
+    <div id="skillGlobeContainer"></div>
   </div>
-  
-  <!-- Projects -->
+
   <div class="section">
     <h2>Projects</h2>
     <div class="item-container" id="projectsContainer"></div>
   </div>
-  
-  <!-- Publications -->
+
   <div class="section">
     <h2>Publications</h2>
     <div class="item-container" id="publicationsContainer"></div>
   </div>
-  
-  <!-- Certifications -->
+
   <div class="section">
     <h2>Certifications</h2>
     <div class="item-container" id="certificationsContainer"></div>
   </div>
 </div>
 
-<!-- Three.js for Skill Globe -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/renderers/CSS2DRenderer.js"></script>
 <script>
-// ---- DATA ----
+// === DATA ===
 const educationData = [
   { year: "2018–2022", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Mechanical engineering fundamentals, IoT systems, and ML pipelines." },
   { year: "2022–2023", title: "M.S. Engineering, UGA", logo: "assets/img/uga.png", description: "Specialization in Design, Optimization, Manufacturing." },
@@ -257,14 +255,27 @@ const careerData = [
   { year: "2024–2025", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv.jpg", description: "Leading analytical initiatives." }, 
   { year: "2025–Present", title: "Lead Test Engineer-- Dynamics Systems, GE Vernova", logo: "assets/img/gev.png", description: "Lead data-driven testing and analysis efforts for dynamic gas turbine systems." }
 ];
+const skills = [
+  {name:"Python", group:"Programming"},
+  {name:"R", group:"Programming"},
+  {name:"SQL", group:"Programming"},
+  {name:"Power BI", group:"Analytics"},
+  {name:"Azure", group:"Analytics"},
+  {name:"AWS", group:"Analytics"},
+  {name:"PySpark", group:"Programming"},
+  {name:"D3.js", group:"Visualization"},
+  {name:"Bayesian Modeling", group:"Modeling"},
+  {name:"Machine Learning", group:"Modeling"},
+  {name:"IoT Analytics", group:"Analytics"}
+];
 const projects = [
-  { title:"CFB 5B Power Rankings", description:"Predicts college football matchups compared to Vegas odds using SOS adjusted Elo rankings in combination with play by play data for supervised ensemble ML regression modeling and Lasso/Ridge regularization. Interactive dashboard outputs point spreads for any hypothetical matchup, and achieved a sampled 65% success rate in ranked matchups against the Vegas model for the 2024-2025 season.", images:["assets/img/5B_Demo.JPG"], link:"" },
-  { title:"Trendiment", description:"Utilized API calls for collecting technical articles to train and fine-tune BERT models that generate sentiment analysis distributions for stocks of interest as a means of assessing market pulse.", images:["assets/img/Trendiment_2.JPG"], link:"" },
-  { title:"BayesBall Assistant", description:"Bayesian hierarchical model to predict season-long fantasy baseball rankings with PyMC3, including visualized player comparisons.", images:["assets/img/Bayesball_Demo.JPG"], link:"" }
+  { title:"CFB 5B Power Rankings", description:"Predicts college football matchups using ensemble ML regression.", images:["assets/img/5B_Demo.JPG"], link:"" },
+  { title:"Trendiment", description:"BERT-based sentiment analysis for stocks, visualized via dashboards.", images:["assets/img/Trendiment_2.JPG"], link:"" },
+  { title:"BayesBall Assistant", description:"Bayesian hierarchical model for fantasy baseball rankings.", images:["assets/img/Bayesball_Demo.JPG"], link:"" }
 ];
 const publications = [
-  { title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data. Architecture proposed for real-time rotating machinery diagnosis.", images:["assets/img/IOT_ETL.JPG"], link:"https://www.mdpi.com/1424-8220/22/8/3048" },
-  { title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance and vibration signature classification.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928" }
+  { title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data.", images:["assets/img/IOT_ETL.JPG"], link:"https://www.mdpi.com/1424-8220/22/8/3048" },
+  { title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Predictive maintenance and vibration signature classification.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928" }
 ];
 const certifications = [
   { title:"Databricks Generative AI Fundamentals", description:"", images:[], link:"" },
@@ -273,32 +284,8 @@ const certifications = [
   { title:"Google Advanced Data Analytics", description:"", images:[], link:"" },
   { title:"Engineer in Training", description:"", images:[], link:"" }
 ];
-const skillGroups = [
-  { group: "Machine Learning", color: 0x58a6ff, skills: [
-    { name: "Python", projects: ["CFB 5B Power Rankings","Trendiment","BayesBall Assistant"] },
-    { name: "PySpark", projects: ["CFB 5B Power Rankings","Trendiment"] },
-    { name: "Bayesian Modeling", projects: ["BayesBall Assistant"] },
-    { name: "Machine Learning", projects: ["CFB 5B Power Rankings","Trendiment","BayesBall Assistant"] }
-  ]},
-  { group: "Cloud & Data", color: 0xf39c12, skills: [
-    { name: "Azure", projects: ["Trendiment"] },
-    { name: "AWS", projects: [] },
-    { name: "SQL", projects: ["Trendiment"] }
-  ]},
-  { group: "Visualization & Analytics", color: 0x2ecc71, skills: [
-    { name: "Power BI", projects: ["Trendiment","BayesBall Assistant"] },
-    { name: "D3.js", projects: ["Portfolio Visualizations"] }
-  ]},
-  { group: "Statistics & Experimentation", color: 0x9b59b6, skills: [
-    { name: "R", projects: ["Trendiment"] },
-    { name: "Time Series", projects: ["Trendiment","BayesBall Assistant"] },
-    { name: "A/B Testing", projects: ["Trendiment"] }
-  ]}
-];
-const skills = [];
-skillGroups.forEach(g => g.skills.forEach(s => skills.push({ ...s, color: g.color })));
 
-// ---- TIMELINES ----
+// === POPULATE TIMELINES & ITEMS ===
 function populateTimeline(containerId, data){
   const container = document.getElementById(containerId);
   data.forEach(d=>{
@@ -308,8 +295,6 @@ function populateTimeline(containerId, data){
     container.appendChild(entry);
   });
 }
-
-// ---- ITEMS ----
 function populateItems(containerId, items){
   const container = document.getElementById(containerId);
   items.forEach(i=>{
@@ -320,7 +305,7 @@ function populateItems(containerId, items){
   });
 }
 
-// ---- SCROLL ANIMATION ----
+// === SCROLL REVEAL ===
 function scrollReveal(){
   const timelines = [
     {entries: document.querySelectorAll("#educationTimeline .timeline-entry"), line: document.getElementById("educationLine")},
@@ -347,7 +332,7 @@ function scrollReveal(){
   document.querySelectorAll(".item-card").forEach(e=>observer.observe(e));
 }
 
-// ---- INITIALIZE ----
+// === INIT ===
 populateTimeline("educationTimeline", educationData);
 populateTimeline("careerTimeline", careerData);
 populateItems("projectsContainer", projects);
@@ -355,92 +340,73 @@ populateItems("publicationsContainer", publications);
 populateItems("certificationsContainer", certifications);
 scrollReveal();
 
-// ---- SKILL GLOBE ----
-const container = document.getElementById('skillGlobe');
-const width = container.clientWidth;
-const height = container.clientHeight;
+// === SKILL GLOBE ===
+const container = document.getElementById('skillGlobeContainer');
+const width = container.offsetWidth;
+const height = container.offsetHeight;
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0d1117);
-const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 2000);
-camera.position.z = 600;
-const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
-renderer.setSize(width,height);
+const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+camera.position.z = 300;
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
 container.appendChild(renderer.domElement);
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableZoom=false; controls.enablePan=false; controls.enableRotate=false;
-const sphere = new THREE.Mesh(new THREE.SphereGeometry(150,32,32), new THREE.MeshBasicMaterial({color:0x161b22, transparent:true, opacity:0.3}));
+
+const labelRenderer = new THREE.CSS2DRenderer();
+labelRenderer.setSize(width, height);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0';
+container.appendChild(labelRenderer.domElement);
+
+// Sphere
+const geometry = new THREE.SphereGeometry(80, 32, 32);
+const material = new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true });
+const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
+
+// Skill labels
+const groupColors = { Programming: 0xff6666, Analytics: 0x66ff66, Visualization: 0x66ccff, Modeling: 0xffcc66 };
 const skillLabels = [];
-const loader = new THREE.FontLoader();
-loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-    const radius = 170;
-    const phiStep = Math.PI / (skills.length + 1);
-    const thetaStep = (2 * Math.PI) / skills.length;
-    skills.forEach((skill, i) => {
-        const textGeo = new THREE.TextGeometry(skill.name, { font, size: 12, height: 1 });
-        const textMat = new THREE.MeshBasicMaterial({ color: skill.color });
-        const textMesh = new THREE.Mesh(textGeo, textMat);
+const radius = 100;
+skills.forEach((s, i)=>{
+  const phi = Math.acos(-1 + (2*i)/skills.length);
+  const theta = Math.sqrt(skills.length*Math.PI) * phi;
+  const x = radius * Math.cos(theta) * Math.sin(phi);
+  const y = radius * Math.sin(theta) * Math.sin(phi);
+  const z = radius * Math.cos(phi);
 
-        const phi = phiStep * (i + 1);
-        const theta = thetaStep * i;
+  const div = document.createElement('div');
+  div.className = 'skillLabel';
+  div.textContent = s.name;
+  div.style.color = '#' + groupColors[s.group].toString(16);
+  div.style.fontWeight = 'bold';
+  div.style.cursor = 'pointer';
 
-        textMesh.position.x = radius * Math.sin(phi) * Math.cos(theta);
-        textMesh.position.y = radius * Math.cos(phi);
-        textMesh.position.z = radius * Math.sin(phi) * Math.sin(theta);
+  const label = new THREE.CSS2DObject(div);
+  label.position.set(x,y,z);
+  scene.add(label);
+  skillLabels.push(label);
 
-        textMesh.lookAt(camera.position);
-        textMesh.userData = skill;
-
-        scene.add(textMesh);
-        skillLabels.push(textMesh);
-    });
+  div.onclick = ()=>{
+    alert(`Projects using ${s.name}:\n` +
+          projects.filter(p=>p.description.toLowerCase().includes(s.name.toLowerCase())).map(p=>p.title).join('\n') || 'None');
+  };
 });
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-let rotating = true;
-function onMouseClick(event){
-  const rect = renderer.domElement.getBoundingClientRect();
-  mouse.x = ((event.clientX - rect.left)/rect.width)*2 - 1;
-  mouse.y = -((event.clientY - rect.top)/rect.height)*2 + 1;
-  raycaster.setFromCamera(mouse,camera);
-  const intersects = raycaster.intersectObjects(skillLabels);
-  if(intersects.length>0){
-    const skill = intersects[0].object.userData;
-    rotating=false;
-    showProjects(skill);
-  } else {
-    rotating=true;
-    document.getElementById('skillProjects').innerHTML='';
-  }
-}
-window.addEventListener('click', onMouseClick);
-function showProjects(skill){
-  const container = document.getElementById('skillProjects');
-  if(!skill.projects || skill.projects.length===0){
-    container.innerHTML = `<p style="color:#c9d1d9;">No projects linked to ${skill.name}</p>`;
-    return;
-  }
-  container.innerHTML = `<h3 style="color:#58a6ff;">Projects using ${skill.name}</h3>`+
-    `<ul style="color:#c9d1d9;">${skill.projects.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-}
+
+// Animate
 function animate(){
   requestAnimationFrame(animate);
-  if(rotating){
-    sphere.rotation.y +=0.001;
-    skillLabels.forEach(l=>l.rotation.y+=0.001);
-  }
-  skillLabels.forEach(l=>l.lookAt(camera.position));
+  skillLabels.forEach(label=>{
+    const pos = label.position;
+    const angle = Math.atan2(pos.z,pos.x) + 0.002;
+    const r = Math.sqrt(pos.x*pos.x + pos.z*pos.z);
+    label.position.x = r*Math.cos(angle);
+    label.position.z = r*Math.sin(angle);
+    label.lookAt(camera.position);
+  });
   renderer.render(scene,camera);
+  labelRenderer.render(scene,camera);
 }
 animate();
-window.addEventListener('resize',()=>{
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-  renderer.setSize(width,height);
-  camera.aspect = width/height;
-  camera.updateProjectionMatrix();
-});
 </script>
-
 </body>
 </html>

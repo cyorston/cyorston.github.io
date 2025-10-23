@@ -373,23 +373,27 @@ scene.add(sphere);
 const skillLabels = [];
 const loader = new THREE.FontLoader();
 loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-  const radius = 170;
-  const phiStep = Math.PI / (skills.length+1);
-  const thetaStep = (2*Math.PI)/skills.length;
-  skills.forEach((skill,i)=>{
-    const textGeo = new THREE.TextGeometry(skill.name,{font,font,size:12,height:1});
-    const textMat = new THREE.MeshBasicMaterial({color:skill.color});
-    const textMesh = new THREE.Mesh(textGeo,textMat);
-    const phi = phiStep*(i+1);
-    const theta = thetaStep*i;
-    textMesh.position.x = radius*Math.sin(phi)*Math.cos(theta);
-    textMesh.position.y = radius*Math.cos(phi);
-    textMesh.position.z = radius*Math.sin(phi)*Math.sin(theta);
-    textMesh.lookAt(camera.position);
-    textMesh.userData = skill;
-    scene.add(textMesh);
-    skillLabels.push(textMesh);
-  });
+    const radius = 170;
+    const phiStep = Math.PI / (skills.length + 1);
+    const thetaStep = (2 * Math.PI) / skills.length;
+    skills.forEach((skill, i) => {
+        const textGeo = new THREE.TextGeometry(skill.name, { font, size: 12, height: 1 });
+        const textMat = new THREE.MeshBasicMaterial({ color: skill.color });
+        const textMesh = new THREE.Mesh(textGeo, textMat);
+
+        const phi = phiStep * (i + 1);
+        const theta = thetaStep * i;
+
+        textMesh.position.x = radius * Math.sin(phi) * Math.cos(theta);
+        textMesh.position.y = radius * Math.cos(phi);
+        textMesh.position.z = radius * Math.sin(phi) * Math.sin(theta);
+
+        textMesh.lookAt(camera.position);
+        textMesh.userData = skill;
+
+        scene.add(textMesh);
+        skillLabels.push(textMesh);
+    });
 });
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();

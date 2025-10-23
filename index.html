@@ -1,278 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cole Yorston Portfolio</title>
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #0d1117;
-  color: #c9d1d9;
-  scroll-behavior: smooth;
-}
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  background-color: #161b22;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-}
-.sidebar img {
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  border: 3px solid #58a6ff;
-  margin-bottom: 20px;
-}
-.sidebar h1 {
-  font-size: 20px;
-  margin: 0 0 10px 0;
-  text-align: center;
-  color: #58a6ff;
-}
-.sidebar p {
-  font-size: 14px;
-  text-align: center;
-}
-.social-buttons {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-.social-buttons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #21262d;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-.social-buttons a:hover {
-  background-color: #58a6ff;
-  transform: scale(1.1);
-}
-.social-buttons a img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(70%) sepia(10%) saturate(300%) hue-rotate(180deg) brightness(90%);
-  transition: filter 0.3s ease;
-}
-.social-buttons a:hover img {
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg);
-}
-.content {
-  margin-left: 300px;
-  padding: 40px 60px;
-  max-width: 900px;
-}
-.section {
-  margin-bottom: 80px;
-  position: relative;
-}
-.section h2 {
-  color: #58a6ff;
-  margin-bottom: 40px;
-  font-size: 28px;
-}
-.timeline {
-  position: relative;
-  margin-left: 50px;
-  padding-left: 40px;
-}
-.timeline-line {
-  position: absolute;
-  left: -65px;
-  top: 45px;
-  width: 3px;
-  height: 0;
-  background-color: #58a6ff;
-  transition: height 0.5s ease-out;
-}
-.timeline-entry {
-  position: relative;
-  margin-bottom: 120px;
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s ease;
-}
-.timeline-entry.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-.timeline-entry img {
-  width: 90px;
-  height: 90px;
-  border-radius: 12px;
-  border: 2px solid #58a6ff;
-  position: absolute;
-  left: -120px;
-  top: 0;
-}
-.timeline-entry h3 {
-  margin: 0 0 5px 0;
-  font-size: 18px;
-  color: #c9d1d9;
-}
-.timeline-entry p {
-  margin: 2px 0;
-  font-size: 14px;
-  color: #c9d1d9;
-}
-.timeline-entry::before {
-  content: '';
-  position: absolute;
-  left: -65px;
-  top: 45px;
-  width: 16px;
-  height: 16px;
-  background-color: #21262d;
-  border: 3px solid #58a6ff;
-  border-radius: 50%;
-  transition: all 0.4s ease;
-}
-.timeline-entry.visible::before {
-  background-color: #58a6ff;
-  transform: scale(1.3);
-}
-/* Skills */
-.skills-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-.skill-card {
-  padding: 15px 20px;
-  border-radius: 12px;
-  flex: 1 1 200px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.skill-card:hover {
-  opacity: 0.85;
-}
-.skill-projects {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #161b22;
-  border-radius: 8px;
-  font-size: 14px;
-}
-/* Projects/Publications/Certifications */
-.item-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-.item-card {
-  background-color: #21262d;
-  padding: 20px;
-  border-radius: 12px;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-.item-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.item-card img {
-  max-width: 95%;
-  border-radius: 8px;
-  margin: 10px 0;
-}
-.item-card a {
-  color: #58a6ff;
-  text-decoration: none;
-}
-.item-card a:hover { text-decoration: underline; }
-</style>
-</head>
-<body>
-
-<div class="sidebar">
-  <img src="assets/img/Headshot.png" alt="Headshot">
-  <h1>Cole Yorston</h1>
-  <p>Lead Test Engineer—Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving.</p>
-
-  <div class="social-buttons">
-    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn">
-      <img src="assets/img/linkedin.png" alt="LinkedIn">
-    </a>
-    <a href="https://github.com/cyorston" target="_blank" title="GitHub">
-      <img src="assets/img/github.png" alt="GitHub">
-    </a>
-    <a href="mailto:yorston.cole@gmail.com" title="Email">
-      <img src="assets/img/email.png" alt="Email">
-    </a>
-    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume">
-      <img src="assets/img/resume.png" alt="Resume">
-    </a>
-  </div>
-</div>
-
-<div class="content">
-  <div class="section">
-    <h2>Education</h2>
-    <div class="timeline" id="educationTimeline">
-      <div class="timeline-line" id="educationLine"></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Career</h2>
-    <div class="timeline" id="careerTimeline">
-      <div class="timeline-line" id="careerLine"></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Skills</h2>
-    <div class="skills-container" id="skillsContainer"></div>
-  </div>
-
-  <div class="section">
-    <h2>Projects</h2>
-    <div class="item-container" id="projectsContainer"></div>
-  </div>
-
-  <div class="section">
-    <h2>Publications</h2>
-    <div class="item-container" id="publicationsContainer"></div>
-  </div>
-
-  <div class="section">
-    <h2>Certifications</h2>
-    <div class="item-container" id="certificationsContainer"></div>
-  </div>
-</div>
-
 <script>
-// DATA
-const educationData = [
-  { year: "2018–2022", title: "B.S. Mechanical Engineering, UGA", logo: "assets/img/uga.png", description: "Mechanical engineering fundamentals, IoT systems, and ML pipelines." },
-  { year: "2022–2023", title: "M.S. Engineering, UGA", logo: "assets/img/uga.png", description: "Specialization in Design, Optimization, Manufacturing." },
-  { year: "2025–Present", title: "M.S. Analytics, Georgia Tech", logo: "assets/img/gatech.png", description: "Specialization in Computational Data Analytics." }
-];
-const careerData = [
-  { year: "2021–2023", title: "Graduate Research Assistant, UGA", logo: "assets/img/uga_id.png", description: "Developed cloud-based ML classifiers for predictive maintenance." },
-  { year: "2023–2024", title: "Test Engineer, Textron Specialized Vehicles", logo: "assets/img/tsv.jpg", description: "Implemented anomaly detection workflows." },
-  { year: "2024–2025", title: "Data Scientist, Textron Specialized Vehicles", logo: "assets/img/tsv.jpg", description: "Leading analytical initiatives." }, 
-  { year: "2025–Present", title: "Lead Test Engineer-- Dynamics Systems, GE Vernova", logo: "assets/img/gev.png", description: "Lead data-driven testing and analysis efforts for dynamic gas turbine systems." }
-];
+// Skills + project data
 const skillsData = [
   {name:"Python", group:"Programming"},
   {name:"R", group:"Programming"},
@@ -287,118 +14,95 @@ const skillsData = [
   {name:"IoT Analytics", group:"Analytics"}
 ];
 const groupColors = {
-  Programming: "#ff6666",
-  Analytics: "#66ff66",
-  Visualization: "#66ccff",
-  Modeling: "#ffcc66"
+  Programming: 0xff6666,
+  Analytics: 0x66ff66,
+  Visualization: 0x66ccff,
+  Modeling: 0xffcc66
 };
 const projects = [
   { title:"CFB 5B Power Rankings", description:"Predicts college football matchups using Python, ML, SQL." },
   { title:"Trendiment", description:"BERT models fine-tuned with Python for sentiment analysis, visualized via Power BI." },
   { title:"BayesBall Assistant", description:"Bayesian hierarchical model using Python and Bayesian Modeling." }
 ];
-const publications = [
-  { title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data. Architecture proposed for real-time rotating machinery diagnosis.", images:["assets/img/IOT_ETL.JPG"], link:"https://www.mdpi.com/1424-8220/22/8/3048" },
-  { title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance and vibration signature classification.", images:["assets/img/ML_Ensemble.JPG"], link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928" }
-];
-const certifications = [
-  { title:"Databricks Generative AI Fundamentals", description:"", images:[], link:"" },
-  { title:"Databricks Generative AI Application Development", description:"", images:[], link:"" },
-  { title:"Nvidia Transformer Based NLP", description:"", images:[], link:"" },
-  { title:"Google Advanced Data Analytics", description:"", images:[], link:"" },
-  { title:"Engineer in Training", description:"", images:[], link:"" }
-];
 
-// FUNCTIONS
-function populateTimeline(containerId, data){
-  const container = document.getElementById(containerId);
-  data.forEach(d=>{
-    const entry = document.createElement("div");
-    entry.classList.add("timeline-entry");
-    entry.innerHTML = `<img src="${d.logo}" alt="${d.title}"><h3>${d.title}</h3><p>${d.description}</p><p><strong>${d.year}</strong></p>`;
-    container.appendChild(entry);
-  });
-}
+// Three.js globe setup
+const container = document.getElementById("skillsGlobe");
+const popup = document.getElementById("skillPopup");
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, container.clientWidth/container.clientHeight, 0.1, 1000);
+camera.position.z = 50;
 
-function populateSkills(containerId, skills){
-  const container = document.getElementById(containerId);
-  skills.forEach(skill=>{
-    const card = document.createElement("div");
-    card.className = "skill-card";
-    card.style.backgroundColor = groupColors[skill.group];
-    card.style.color = "#0d1117";
-    card.innerText = skill.name;
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
 
-    const panel = document.createElement("div");
-    panel.className = "skill-projects";
-    panel.style.display = "none";
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.enableZoom = true;
 
+// Sphere (just a blank sphere for skills)
+const sphereGeometry = new THREE.SphereGeometry(20, 32, 32);
+const sphereMaterial = new THREE.MeshBasicMaterial({color: 0x0d1117, wireframe: true});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+scene.add(sphere);
+
+// Create skill points
+const skillObjects = [];
+skillsData.forEach((skill,i)=>{
+  const phi = Math.acos(-1 + (2*i)/skillsData.length);
+  const theta = Math.sqrt(skillsData.length * Math.PI) * phi;
+
+  const x = 20 * Math.cos(theta) * Math.sin(phi);
+  const y = 20 * Math.sin(theta) * Math.sin(phi);
+  const z = 20 * Math.cos(phi);
+
+  const geometry = new THREE.SphereGeometry(1.2, 12, 12);
+  const material = new THREE.MeshBasicMaterial({color: groupColors[skill.group]});
+  const skillMesh = new THREE.Mesh(geometry, material);
+  skillMesh.position.set(x,y,z);
+  skillMesh.userData = {skill: skill};
+  scene.add(skillMesh);
+  skillObjects.push(skillMesh);
+});
+
+// Raycaster for click detection
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function onMouseClick(event){
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = - ((event.clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(skillObjects);
+  if(intersects.length > 0){
+    const skill = intersects[0].object.userData.skill;
+    popup.style.display = "block";
+    popup.style.left = event.clientX + "px";
+    popup.style.top = event.clientY + "px";
     const related = projects.filter(p=>p.description.toLowerCase().includes(skill.name.toLowerCase()));
-    if(related.length){
-      related.forEach(p=>{
-        const pElem = document.createElement("div");
-        pElem.innerText = "• " + p.title;
-        panel.appendChild(pElem);
-      });
-    } else {
-      panel.innerText = "No projects found for this skill.";
-    }
-
-    card.onclick = ()=>{ panel.style.display = panel.style.display==="none"?"block":"none"; };
-
-    const wrapper = document.createElement("div");
-    wrapper.appendChild(card);
-    wrapper.appendChild(panel);
-
-    container.appendChild(wrapper);
-  });
+    popup.innerHTML = `<strong>${skill.name}</strong><br>` + (related.length ? related.map(p=>`• ${p.title}`).join("<br>") : "No projects found for this skill.");
+  } else {
+    popup.style.display = "none";
+  }
 }
 
-function populateItems(containerId, items){
-  const container = document.getElementById(containerId);
-  items.forEach(i=>{
-    const card = document.createElement("div");
-    card.classList.add("item-card");
-    card.innerHTML = `<h3>${i.title}</h3>${i.description?`<p>${i.description}</p>`:''}${i.images?i.images.map(img=>`<img src="${img}">`).join(''):''}${i.link?`<a href="${i.link}" target="_blank">Link</a>`:''}`;
-    container.appendChild(card);
-  });
+window.addEventListener("click", onMouseClick);
+
+// Animation loop
+function animate(){
+  requestAnimationFrame(animate);
+  sphere.rotation.y += 0.002;
+  skillObjects.forEach(s=>{ s.rotation.y += 0.002; });
+  controls.update();
+  renderer.render(scene, camera);
 }
+animate();
 
-function scrollReveal(){
-  const timelines = [
-    {entries: document.querySelectorAll("#educationTimeline .timeline-entry"), line: document.getElementById("educationLine")},
-    {entries: document.querySelectorAll("#careerTimeline .timeline-entry"), line: document.getElementById("careerLine")}
-  ];
-
-  const observer = new IntersectionObserver(entriesList=>{
-    entriesList.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add("visible");
-        timelines.forEach(t=>{
-          if(Array.from(t.entries).includes(e.target)){
-            const lastVisible = Array.from(t.entries).filter(en=>en.classList.contains("visible"));
-            if(lastVisible.length>0){
-              const lastEntry = lastVisible[lastVisible.length-1];
-              t.line.style.height = (lastEntry.offsetTop + lastEntry.offsetHeight - 10) + "px";
-            }
-          }
-        });
-      }
-    });
-  },{threshold:0.1});
-
-  timelines.forEach(t=>t.entries.forEach(e=>observer.observe(e)));
-  document.querySelectorAll(".item-card").forEach(e=>observer.observe(e));
-}
-
-// INIT
-populateTimeline("educationTimeline", educationData);
-populateTimeline("careerTimeline", careerData);
-populateSkills("skillsContainer", skillsData);
-populateItems("projectsContainer", projects);
-populateItems("publicationsContainer", publications);
-populateItems("certificationsContainer", certifications);
-scrollReveal();
+// Resize
+window.addEventListener('resize', ()=>{
+  camera.aspect = container.clientWidth/container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+});
 </script>
-</body>
-</html>

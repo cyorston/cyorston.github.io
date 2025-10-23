@@ -1,75 +1,232 @@
-# About Me:
+# Hi, I'm Cole Yorston
 
-#### A Data Scientist at TSV with experience in advanced analytical methods using a variety of modeling techniques. Experience developing complex algorithms over a variety of structured and unstructured datasets at scale. Interests in optimizing supply chain logistics, sports analytics, and fintech with specializations in computational data analytics and design, manufacturing, and optimization. I am continually looking to expand my toolkit and learn new skillsets. Committed to innovation, I thrive on transforming data into strategic insights that propel enterprise growth. 
+Welcome to my portfolio!  
+I'm a Lead Test Engineer working on advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving. 
+Explore below for my background and projects I am working on.
 
-Programming Languages: 
- - Python, R, SQL, PySpark, Matlab
-   
-IDE and Data Viz:
- - Power BI, Azure Databricks, MySQL, Jupyter, RStudio, RMarkdown, Siemens Mindsphere, PostgreSQL, MS Excel
-   
-Libraries:
- - Pandas, Numpy, Sci-Kit Learn, Matplotlib, PYMC3
-   
-Technical Tools:
- - Classification, Regression, Clustering, Linear Algebra, A/B Testing, Sentiment Analysis, L1/L2 Regularization
-   
-Certifications:
- - Databricks Generative AI Fundamentals, Databricks Generative AI Application Development, Nvidia Transformer Based Natural Language Processing, Google Advanced Data Analytics, Engineer in Training
+---
+
+## 🎓 & 💼 Interactive Career Timeline
+
+<div id="timeline"></div>
+
+---
+
+## 🧠 Interactive Skills Network
+
+<div id="skills"></div>
+
+---
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// ========================================
+// D3 VERTICAL CAREER TIMELINE (Dark Mode)
+// ========================================
+
+const data = [
+  {
+    year: "2017–2021",
+    title: "B.S. in Mechanical Engineering, University of Georgia",
+    logo: "assets/img/uga.png",
+    description: "Focused on IoT systems, signal processing, and early machine learning applications for real-time data pipelines."
+  },
+  {
+    year: "2021–2023",
+    title: "Graduate Research Assistant, University of Georgia",
+    logo: "assets/img/uga_research.png",
+    description: "Developed cloud-based monitoring solutions with ML classifiers for predictive maintenance; co-authored two publications."
+  },
+  {
+    year: "2023–2024",
+    title: "Test Engineer, Textron Specialized Vehicles",
+    logo: "assets/img/tsv.png",
+    description: "Implemented anomaly detection workflows to streamline validation and improve data quality processes."
+  },
+  {
+    year: "2024–Present",
+    title: "Data Scientist, Textron Specialized Vehicles",
+    logo: "assets/img/tsv_ds.png",
+    description: "Leading analytical initiatives to improve quality, develop ML models, and automate ETL pipelines for enterprise analytics."
+  }
+];
+
+const width = 700;
+const nodeHeight = 160;
+const margin = { top: 40, right: 40, bottom: 40, left: 40 };
+const height = data.length * nodeHeight + margin.top + margin.bottom;
+
+const svgTimeline = d3.select("#timeline")
+  .append("svg")
+  .attr("width", "100%")
+  .attr("height", height)
+  .style("background", "#0d1117")
+  .style("color", "#c9d1d9")
+  .style("border-radius", "10px");
+
+svgTimeline.append("line")
+  .attr("x1", width / 2)
+  .attr("y1", margin.top)
+  .attr("x2", width / 2)
+  .attr("y2", height - margin.bottom)
+  .attr("stroke", "#58a6ff")
+  .attr("stroke-width", 3)
+  .attr("stroke-linecap", "round");
+
+const nodeGroup = svgTimeline.selectAll(".node")
+  .data(data)
+  .enter()
+  .append("g")
+  .attr("class", "node")
+  .attr("transform", (d, i) => `translate(${width / 2}, ${margin.top + i * nodeHeight})`);
+
+nodeGroup.append("circle")
+  .attr("r", 10)
+  .attr("fill", "#58a6ff")
+  .attr("stroke", "#1f6feb")
+  .attr("stroke-width", 2);
+
+nodeGroup.append("image")
+  .attr("xlink:href", d => d.logo)
+  .attr("x", -25)
+  .attr("y", -70)
+  .attr("width", 50)
+  .attr("height", 50)
+  .attr("clip-path", "circle(25px at center)");
+
+nodeGroup.append("text")
+  .attr("x", -40)
+  .attr("y", -30)
+  .attr("text-anchor", "end")
+  .attr("fill", "#c9d1d9")
+  .style("font-size", "13px")
+  .style("font-weight", "600")
+  .text(d => d.year);
+
+nodeGroup.append("foreignObject")
+  .attr("x", 30)
+  .attr("y", -60)
+  .attr("width", 320)
+  .attr("height", 120)
+  .html(d => `
+    <div xmlns="http://www.w3.org/1999/xhtml" style="color:#c9d1d9;">
+      <strong style="color:#58a6ff;">${d.title}</strong><br/>
+      <p style="margin-top:5px;font-size:13px;">${d.description}</p>
+    </div>
+  `);
+
+nodeGroup.on("mouseover", function() {
+  d3.select(this).select("circle")
+    .transition().duration(200)
+    .attr("fill", "#1f6feb");
+})
+.on("mouseout", function() {
+  d3.select(this).select("circle")
+    .transition().duration(200)
+    .attr("fill", "#58a6ff");
+});
 
 
-## Education
-M.S., Analytics | Georgia Institute of Technology 
-- Specialization: Computational Data Analytics (_August 2025_)
-  
-M.S., Engineering	| The University of Georgia (_May 2023_)
- - Specialization: Design, Optimization, Manufacturing
-            		
-B.S., Mechanical Engineering | The University of Georgia (_May 2022_)
+// ========================================
+// D3 FORCE-DIRECTED SKILLS GRAPH (Dark Mode + Icons)
+// ========================================
 
-## Work Experience
-**Data Scientist @ Textron Specialized Vehicles (_May 2024 - Present_)**
-- Leading representative for advanced analytical projects in the business unit to enact best data quality practices 
-- Achieved 17% improvement in quality escape score and increased feature engineering methods by 240% using a number of advanced analytical techniques to catalyze root cause & corrective action procedures for all of EZGO
-- Develop and implement data integration, cleaning, and ETL pipelines, deploying scalable analytical models to routinely deliver actionable insights and final recommendations to senior leadership
+const skills = {
+  nodes: [
+    { id: "Python", group: 1, icon: "assets/img/python.png" },
+    { id: "R", group: 1, icon: "assets/img/r.png" },
+    { id: "SQL", group: 1, icon: "assets/img/sql.png" },
+    { id: "Power BI", group: 2, icon: "assets/img/powerbi.png" },
+    { id: "Azure", group: 3, icon: "assets/img/azure.png" },
+    { id: "AWS", group: 3, icon: "assets/img/aws.png" },
+    { id: "PySpark", group: 1, icon: "assets/img/pyspark.png" },
+    { id: "D3.js", group: 4, icon: "assets/img/d3.png" },
+    { id: "Bayesian Modeling", group: 5, icon: "assets/img/pymc3.png" },
+    { id: "Machine Learning", group: 5, icon: "assets/img/ml.png" },
+    { id: "IoT Analytics", group: 6, icon: "assets/img/iot.png" }
+  ],
+  links: [
+    { source: "Python", target: "Power BI" },
+    { source: "Python", target: "PySpark" },
+    { source: "Python", target: "Machine Learning" },
+    { source: "Machine Learning", target: "Bayesian Modeling" },
+    { source: "Machine Learning", target: "IoT Analytics" },
+    { source: "Azure", target: "IoT Analytics" },
+    { source: "AWS", target: "IoT Analytics" },
+    { source: "Power BI", target: "D3.js" },
+    { source: "D3.js", target: "Python" },
+    { source: "SQL", target: "Azure" }
+  ]
+};
 
-**Test Engineer @ Textron Specialized Vehicles (_June 2023 - May 2024_)**
-- Designed and implemented data wrangling and visualization workflows to streamline internal validation of all vehicle test data using anomaly detection methods that contributed to three major data-intensive projects
+const width2 = 700;
+const height2 = 500;
 
-**Graduate Research Assistant @ UGA Innovation Factory (_January 2022 - June 2023_)**
-- Engineered a cloud-based monitoring solution with optimized ML classifiers to diagnose mechanical conditions at scale in near real-time, facilitating seamless multi-asset data flow and big data analysis across large-scale clusters
+const svgSkills = d3.select("#skills")
+  .append("svg")
+  .attr("width", "100%")
+  .attr("height", height2)
+  .style("background", "#0d1117")
+  .style("border-radius", "10px");
 
-## Publications
-### “Design of an Interactive Generalized Testbed for Continuous Data Collection and Reduced Maintenance Downtime in Industrial Applications: A Use Case Study Using Siemens MindSphere” 
+const link = svgSkills.append("g")
+  .selectAll("line")
+  .data(skills.links)
+  .enter().append("line")
+  .attr("stroke", "#30363d")
+  .attr("stroke-width", 1.5);
 
-Mechanical failure of rotating systems creates machinery issues in fatigue and unplanned maintenance on traditional and routine processes. Big data has provided an opportunity to investigate the feasibility of continuous predictive maintenance. Processes explored for continuous data collection using Siemens MindSphere—real time visibility for manufacturing intelligence allows for proactive monitoring. By researching the relationships that exist between failure signatures to mechanical failure, FFT data is used to assess the type of failure. An architecture is proposed that may allow for rotating machinery to be diagnosed in real time for a dynamic testbed. Implementation of virtual modeling via a digital twin is also explored for considerations of future work in simulation assets.
+const node = svgSkills.selectAll(".node")
+  .data(skills.nodes)
+  .enter()
+  .append("g")
+  .attr("class", "node")
+  .call(drag(simulation));
 
-[Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://esploro.libs.uga.edu/esploro/outputs/graduate/DESIGN-OF-AN-INTERACTIVE-GENERALIZED-TESTBED/9949559024302959))
+node.append("circle")
+  .attr("r", 30)
+  .attr("fill", "#21262d")
+  .attr("stroke", "#58a6ff")
+  .attr("stroke-width", 1.5);
 
-![IoT End to End Architecture](/assets/img/IOT_ETL.JPG)
+node.append("image")
+  .attr("xlink:href", d => d.icon)
+  .attr("x", -20)
+  .attr("y", -20)
+  .attr("width", 40)
+  .attr("height", 40)
+  .attr("clip-path", "circle(20px at center)");
 
-### “Advancing architectural frameworks for vibration signature classification in rotating machinery”
+const simulation = d3.forceSimulation(skills.nodes)
+  .force("link", d3.forceLink(skills.links).id(d => d.id).distance(140))
+  .force("charge", d3.forceManyBody().strength(-400))
+  .force("center", d3.forceCenter(width2 / 2, height2 / 2));
 
-This study explores an integrated dataflow pipeline, specifically through Siemens’ MindSphere, to enable continuous predictive maintenance and enhance data acquisition and management. Particularly, conditions such as normal operation, mass balance, rotating imbalance, and mechanical looseness are classified using support vector machine (SVM), neural network (NN), and K-Nearest Neighbor (KNN) methods for the purpose of comparing results. Our results highlight the efficacy of ensemble techniques in collecting and diagnosing vibration signatures, thereby enabling proactive maintenance.
+simulation.on("tick", () => {
+  link
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
 
-[Publication]([https://www.mdpi.com/1424-8220/22/8/3048](https://journals.sagepub.com/doi/abs/10.1177/09544054241260928))
+  node.attr("transform", d => `translate(${d.x}, ${d.y})`);
+});
 
-![ML Ensemble Results on Training Data](/assets/img/ML_Ensemble.JPG)
-
-## Projects
-CFB 5B Power Rankings
-- Predicts college football matchups compared to Vegas odds using play by play data for supervised ensemble ML regression modeling and Lasso/Ridge regularization. Interactive dashboard outputs point spreads for any hypothetical matchup, and achieved a 65% success rate against the Vegas model for the 2024-2025 season.
-
-![5B Predictor Model](/assets/img/5B_Demo.JPG)
-
-Trendiment
- - Utilized API calls for collecting technical articles to fine-tune BERT LLM models that generate sentiment analysis distributions for stocks of interest. Outputs are visualized via Power BI dashboard for on-demand interactive analysis capabilities.
-
-![Trendiment Dashbaord](/assets/img/Trendiment_2.JPG)
-
-## Upcoming Projects: 
-
-BayesBall Assistant
- - Developing a Bayesian hierarchical model to predict season long fantasy baseball rankings. Integrates traditional and advanced metrics to calculate fantasy points, and PyMC3 for model building and uncertainty quantification. Automated data collection and visualized predictions in Power BI for interactive player comparisons and rankings, stored in PostgreSQL.
-
-![Bayesball Demo](/assets/img/Bayesball_Demo.JPG)
+function drag(simulation) {
+  function dragstarted(event) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    event.subject.fx = event.subject.x;
+    event.subject.fy = event.subject.y;
+  }
+  function dragged(event) {
+    event.subject.fx = event.x;
+    event.subject.fy = event.y;
+  }
+  function dragended(event) {
+    if (!event.active) simulation.alphaTarget(0);
+    event.subject.fx = null;
+    event.subject.fy = null;
+  }
+  return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
+}
+</script>

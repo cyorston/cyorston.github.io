@@ -26,7 +26,7 @@ body {
   box-shadow: 2px 0 10px rgba(0,0,0,0.5);
 }
 .sidebar img {
-  width: 170px;   /* larger headshot */
+  width: 170px;
   height: 170px;
   border-radius: 50%;
   border: 3px solid #58a6ff;
@@ -88,7 +88,7 @@ body {
 .timeline-line {
   position: absolute;
   left: -65px;
-  top: 0;
+  top: 45px; /* start below first image */
   width: 3px;
   height: 0;
   background-color: #58a6ff;
@@ -97,7 +97,7 @@ body {
 
 .timeline-entry {
   position: relative;
-  margin-bottom: 80px;
+  margin-bottom: 120px; /* increased spacing */
   opacity: 0;
   transform: translateX(-50px);
   transition: all 0.8s ease;
@@ -109,13 +109,13 @@ body {
 }
 
 .timeline-entry img {
-  width: 90px;    /* larger timeline logos */
+  width: 90px;
   height: 90px;
   border-radius: 12px;
   border: 2px solid #58a6ff;
   position: absolute;
   left: -120px;
-  top: -10px;
+  top: 0;
 }
 
 .timeline-entry h3 {
@@ -134,7 +134,7 @@ body {
   content: '';
   position: absolute;
   left: -65px;
-  top: 20px;
+  top: 45px; /* align with line */
   width: 16px;
   height: 16px;
   background-color: #21262d;
@@ -185,7 +185,7 @@ body {
   transform: translateY(0);
 }
 .item-card img {
-  max-width: 95%;  /* slightly larger images */
+  max-width: 95%;
   border-radius: 8px;
   margin: 10px 0;
 }
@@ -322,7 +322,7 @@ function scrollReveal(){
             const lastVisible = Array.from(t.entries).filter(en=>en.classList.contains("visible"));
             if(lastVisible.length>0){
               const lastEntry = lastVisible[lastVisible.length-1];
-              const offset = lastEntry.offsetTop + lastEntry.offsetHeight/2;
+              const offset = lastEntry.offsetTop + lastEntry.offsetHeight - 10; // end above last image
               t.line.style.height = offset + "px";
             }
           }
@@ -331,10 +331,7 @@ function scrollReveal(){
     });
   }, {threshold:0.1});
 
-  // Observe entries
   timelines.forEach(t=>t.entries.forEach(e=>observer.observe(e)));
-
-  // Also reveal item cards
   document.querySelectorAll(".item-card").forEach(e=>observer.observe(e));
 }
 

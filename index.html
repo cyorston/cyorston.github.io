@@ -45,22 +45,39 @@ body {
 .social-buttons {
   margin-top: 20px;
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
+
 .social-buttons a {
-  display: inline-block;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background-color: #21262d;
-  color: #58a6ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #21262d;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
-.social-buttons a:hover { background-color: #58a6ff; color: #0d1117; }
+
+.social-buttons a:hover {
+  background-color: #58a6ff;
+  transform: scale(1.1);
+}
+
+.social-buttons a img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(70%) sepia(10%) saturate(300%) hue-rotate(180deg) brightness(90%);
+  transition: filter 0.3s ease;
+}
+
+.social-buttons a:hover img {
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg);
+}
 
 .content {
   margin-left: 300px;
@@ -201,13 +218,24 @@ body {
 <div class="sidebar">
   <img src="assets/img/Headshot.png" alt="Headshot">
   <h1>Cole Yorston</h1>
-  <p>Lead Test Engineer-- Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving. Explore my interactive portfolio below.
-</p>
+  <p>Lead Test Engineer—Dynamic Systems working in advanced data acquisition and analytical methods for next-generation gas turbine systems, combining hands-on engineering with data-driven problem solving.</p>
+
   <div class="social-buttons">
-    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank"><img src="assets/img/linkedin.png" alt="LinkedIn"></a>
-    <a href="https://github.com/cyorston" target="_blank"><img src="assets/img/github.png" alt="GitHub"></a>
+    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn">
+      <img src="assets/img/linkedin.png" alt="LinkedIn">
+    </a>
+    <a href="https://github.com/cyorston" target="_blank" title="GitHub">
+      <img src="assets/img/github.png" alt="GitHub">
+    </a>
+    <a href="mailto:yorston.cole@gmail.com" title="Email">
+      <img src="assets/img/email.png" alt="Email">
+    </a>
+    <a href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume">
+      <img src="assets/img/resume.png" alt="Resume">
+    </a>
   </div>
 </div>
+
 
 <div class="content">
   <div class="section">
@@ -260,8 +288,8 @@ const careerData = [
 ];
 const skills = ["Python", "R", "SQL", "Power BI", "Azure", "AWS", "PySpark", "D3.js", "Bayesian Modeling", "Machine Learning", "IoT Analytics"];
 const projects = [
-  { title:"CFB 5B Power Rankings", description:"Predicts college football matchups vs Vegas odds using supervised ensemble ML regression. Interactive outputs point spreads.", images:["assets/img/5B_Demo.JPG"], link:"" },
-  { title:"Trendiment", description:"API-driven sentiment analysis using BERT for stocks, visualized via Power BI dashboards.", images:["assets/img/Trendiment_2.JPG"], link:"" },
+  { title:"CFB 5B Power Rankings", description:"Predicts college football matchups compared to Vegas odds using SOS adjusted Elo rankings in combination with play by play data for supervised ensemble ML regression modeling and Lasso/Ridge regularization. Interactive dashboard outputs point spreads for any hypothetical matchup, and achieved a sampled 65% success rate in ranked matchups against the Vegas model for the 2024-2025 season.", images:["assets/img/5B_Demo.JPG"], link:"" },
+  { title:"Trendiment", description:"Utilized API calls for collecting technical articles to train and fine-tune BERT models that generate sentiment analysis distributions for stocks of interest as a means of assessing market pulse.", images:["assets/img/Trendiment_2.JPG"], link:"" },
   { title:"BayesBall Assistant", description:"Bayesian hierarchical model to predict season-long fantasy baseball rankings with PyMC3, including visualized player comparisons.", images:["assets/img/Bayesball_Demo.JPG"], link:"" }
 ];
 const publications = [

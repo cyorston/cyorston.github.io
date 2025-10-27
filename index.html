@@ -4,237 +4,251 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cole Yorston Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-  body {
-    margin:0; font-family: Arial, sans-serif; background-color: #0d1117; color:#c9d1d9; scroll-behavior: smooth;
-  }
-  .sidebar {
-    position: fixed; top:0; left:0; width:280px; height:100%; background:#161b22; padding:20px; display:flex; flex-direction:column; align-items:center;
-  }
-  .sidebar img { width:170px; height:170px; border-radius:50%; border:3px solid #58a6ff; margin-bottom:20px; }
-  .sidebar h1 { font-size:20px; margin:0 0 10px 0; text-align:center; color:#58a6ff; }
-  .sidebar p { font-size:14px; text-align:center; }
-  .social-buttons { margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-  .social-buttons a { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#21262d; transition:all 0.3s ease; }
-  .social-buttons a:hover { background:#58a6ff; transform:scale(1.1); }
-  .social-buttons a img { width:18px; height:18px; object-fit:contain; filter:brightness(0) invert(70%); transition:filter 0.3s ease; }
-  .social-buttons a:hover img { filter:brightness(0) invert(0%); }
+body { font-family:'Segoe UI',sans-serif; background:#0e0e0e; color:#f2f2f2; margin:0; padding:0; overflow-x:hidden;}
+.sidebar {position:fixed; top:0; left:0; width:80px; height:100%; background:#1b1b1b; display:flex; flex-direction:column; align-items:center; padding:20px 0; gap:25px; z-index:1000;}
+.sidebar a {color:#ffd166; text-decoration:none; font-size:1.5em; transition:0.3s;}
+.sidebar a:hover {color:#06d6a0;}
+main {margin-left:100px;}
+header {background:#1b1b1b; padding:40px 20px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:15px;}
+header img {width:120px; height:120px; border-radius:50%; border:3px solid #ffd166;}
+header h1 {font-size:2.5em; margin:0; color:#ffd166;}
+header p {font-size:1.2em; color:#ccc;}
+section {padding:60px 10%;}
+h2 {color:#ffd166; border-bottom:2px solid #ffd166; display:inline-block; margin-bottom:20px;}
 
-  .content { margin-left:300px; padding:40px 60px; max-width:1200px; }
-  .section { margin-bottom:80px; position:relative; }
-  .section h2 { color:#58a6ff; margin-bottom:40px; font-size:28px; }
+/* Timeline */
+.timeline {position:relative; margin:0 auto; width:100%; max-width:950px;}
+.timeline-container {padding:25px 40px; position:relative; width:50%; opacity:0; transform:translateY(50px); transition:all 0.9s ease-out;}
+.timeline-container.visible {opacity:1; transform:translateY(0);}
+.timeline-container.left {left:0;}
+.timeline-container.right {left:50%;}
+.timeline-container::after {content:""; position:absolute; width:25px; height:25px; right:-13px; background-color:#ffd166; border:4px solid #0e0e0e; top:20px; border-radius:50%; z-index:1;}
+.timeline-container.right::after {left:-13px;}
+.timeline-content {position:relative; padding:25px; background:rgba(0,0,0,0.75); border-radius:10px; overflow:hidden; z-index:2; box-shadow:0 0 15px rgba(0,0,0,0.6);}
+.timeline-banner {position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.25; z-index:1;}
+.timeline-content h3, .timeline-content p {position:relative; z-index:2;}
+.timeline-container.left .timeline-content {margin-right:100px;}
+.timeline-container.right .timeline-content {margin-left:100px;}
+@media screen and (max-width:768px){ .timeline-container{width:100%; padding-left:60px; padding-right:25px;} .timeline-container.right{left:0;} .timeline-container::after{left:10px;} .timeline-content{margin:0;} }
 
-  /* Timeline */
-  .timeline { position:relative; margin-left:50px; padding-left:40px; }
-  .timeline-line { position:absolute; left:-65px; top:0; width:3px; height:100%; background-color:#58a6ff; }
-  .timeline-entry { position:relative; margin-bottom:120px; opacity:0; transform:translateX(-50px); transition:all 0.8s ease; }
-  .timeline-entry.visible { opacity:1; transform:translateX(0); }
-  .timeline-entry img { width:90px; height:90px; border-radius:12px; border:2px solid #58a6ff; position:absolute; left:-120px; top:0; }
-  .timeline-entry h3 { margin:0 0 5px 0; font-size:18px; color:#c9d1d9; }
-  .timeline-entry p { margin:2px 0; font-size:14px; color:#c9d1d9; }
-  .timeline-entry::before { content:''; position:absolute; left:-65px; top:45px; width:16px; height:16px; background:#21262d; border:3px solid #58a6ff; border-radius:50%; transition:all 0.4s ease; }
-  .timeline-entry.visible::before { background:#58a6ff; transform:scale(1.3); }
-  .timeline-banner { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.2; border-radius:12px; }
+/* Skills Network */
+#skillsGraph {width:100%; height:500px; border:1px solid #444; border-radius:10px; background:#111;}
+.skill-tooltip {position:absolute; background:#21262d; color:#fff; padding:6px 10px; border-radius:5px; pointer-events:none; font-size:12px; z-index:10000; display:none;}
+line.link-line{stroke:#06d6a0; stroke-width:2;}
+circle.skill-node{cursor:pointer; stroke:#fff; stroke-width:1.5px;}
 
-  /* Skills Network */
-  #skillsNetwork { width:100%; height:600px; border:1px solid #58a6ff; border-radius:12px; background:#0d1117; }
+/* Bubble lists */
+.bubble-container {display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;}
+.bubble {padding:12px 18px; background:#21262d; border-radius:20px; cursor:pointer; color:#fff; transition:all 0.3s;}
+.bubble:hover {background:#06d6a0; color:#0e0e0e;}
+.bubble.active {background:#ffd166; color:#111;}
 
-  .node circle { stroke:#fff; stroke-width:1.5px; }
-  .node text { font-size:12px; fill:#c9d1d9; pointer-events:none; }
-  .link { stroke:#58a6ff; stroke-width:2px; opacity:0.6; }
-
-  /* Items */
-  .item-container { display:flex; flex-direction:column; gap:30px; }
-  .item-card { background-color:#21262d; padding:20px; border-radius:12px; transition:all 0.3s ease; }
-  .item-card img { max-width:95%; border-radius:8px; margin:10px 0; }
-  .item-card a { color:#58a6ff; text-decoration:none; }
-  .item-card a:hover { text-decoration:underline; }
+/* Drilldown inline */
+.detail-container{margin-top:20px; background:#1b1b1b; padding:20px; border-radius:10px; display:none;}
+.detail-container img{max-width:100%; margin-top:10px; border-radius:8px;}
 </style>
 </head>
 <body>
 
 <div class="sidebar">
-  <img src="assets/img/Headshot.png" alt="Headshot">
-  <h1>Cole Yorston</h1>
-  <p>Lead Test Engineer—Dynamic Systems, analytical modeling, machine learning, IoT pipelines.</p>
-  <div class="social-buttons">
-    <a href="mailto:yorston.cole@gmail.com"><img src="assets/img/email.png" alt="Email"></a>
-    <a href="assets/Cole_Yorston_Resume.pdf" download><img src="assets/img/resume.png" alt="Resume"></a>
-    <a href="https://www.linkedin.com/in/cole-yorston/" target="_blank"><img src="assets/img/linkedin.png" alt="LinkedIn"></a>
-    <a href="https://github.com/cyorston" target="_blank"><img src="assets/img/github.png" alt="GitHub"></a>
-  </div>
+  <a href="mailto:yorston.cole@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+  <a href="assets/Cole_Yorston_Resume.pdf" download><i class="fa-solid fa-file-arrow-down"></i></a>
+  <a href="https://www.linkedin.com/in/coleyorston" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="https://github.com/coleyorston" target="_blank"><i class="fab fa-github"></i></a>
 </div>
 
-<div class="content">
+<main>
+  <header>
+    <img src="assets/img/Headshot.png" alt="Cole Yorston Headshot">
+    <h1>Cole Yorston</h1>
+    <p>Lead Test Engineer – Dynamic Systems | Machine Learning | Bayesian Modeling | Cloud Pipelines</p>
+  </header>
 
-  <div class="section">
-    <h2>Career</h2>
-    <div class="timeline" id="careerTimeline"><div class="timeline-line"></div></div>
-  </div>
+  <section id="career">
+    <h2>Career Timeline</h2>
+    <div class="timeline" id="careerTimeline"></div>
+  </section>
 
-  <div class="section">
+  <section id="education">
     <h2>Education</h2>
-    <div class="timeline" id="educationTimeline"><div class="timeline-line"></div></div>
-  </div>
+    <div class="timeline" id="educationTimeline"></div>
+  </section>
 
-  <div class="section">
+  <section id="skills">
     <h2>Skills</h2>
-    <svg id="skillsNetwork"></svg>
-  </div>
+    <div id="skillsGraph"></div>
+  </section>
 
-  <div class="section">
+  <section id="projects">
     <h2>Projects</h2>
-    <div class="item-container" id="projectsContainer"></div>
-  </div>
+    <div class="bubble-container" id="projectBubbles"></div>
+    <div id="projectDetails" class="detail-container"></div>
+  </section>
 
-  <div class="section">
+  <section id="publications">
     <h2>Publications</h2>
-    <div class="item-container" id="publicationsContainer"></div>
-  </div>
+    <div class="bubble-container" id="pubBubbles"></div>
+    <div id="pubDetails" class="detail-container"></div>
+  </section>
 
-  <div class="section">
+  <section id="certifications">
     <h2>Certifications</h2>
-    <div class="item-container" id="certificationsContainer"></div>
-  </div>
-</div>
+    <div class="bubble-container" id="certBubbles"></div>
+  </section>
+</main>
 
 <script>
-// === Data ===
-const careerData = [
-  { title:"Lead Test Engineer – Dynamic Systems, GE Vernova (2025–Present)", description:"Lead data-driven testing and analysis for dynamic gas turbine systems.", logo:"assets/img/gev.png" },
-  { title:"Data Scientist – Textron Specialized Vehicles (2024–2025)", description:"Implemented advanced analytics pipelines.", logo:"assets/img/textron_banner.jpg" },
-  { title:"Test Engineer – Textron Specialized Vehicles (2023–2024)", description:"Automated test data validation and visualization.", logo:"assets/img/textron_banner.jpg" },
-  { title:"Graduate Research Assistant – UGA Innovation Factory (2022–2023)", description:"Built IoT ML classifiers and published two papers.", logo:"assets/img/uga_banner.jpg" }
-];
-const educationData = [
-  { title:"MS Analytics – Georgia Tech (2025–Present)", description:"Bayesian modeling, predictive analytics.", logo:"assets/img/gt_banner.jpg" },
-  { title:"MS Engineering – University of Georgia (2022–2023)", description:"IoT data pipelines, predictive modeling.", logo:"assets/img/uga_banner.jpg" },
-  { title:"BSME – University of Georgia (2018–2022)", description:"Mechanical engineering fundamentals.", logo:"assets/img/uga_banner.jpg" }
+// --- TIMELINES ---
+const careerData=[
+  {side:"left", banner:"assets/img/ge_banner.jpg", title:"Lead Test Engineer – Dynamic Systems, GE Vernova (2025–Present)", description:"Leading data-driven testing and analytics for dynamic gas turbine systems."},
+  {side:"right", banner:"assets/img/textron_banner.jpg", title:"Data Scientist – Textron Specialized Vehicles (2024–2025)", description:"Implemented anomaly detection and ETL pipelines to improve quality metrics."},
+  {side:"left", banner:"assets/img/textron_banner.jpg", title:"Test Engineer – Textron Specialized Vehicles (2023–2024)", description:"Built visualization pipelines and automated test data validation."},
+  {side:"right", banner:"assets/img/uga_banner.jpg", title:"Graduate Research Assistant – UGA Innovation Factory (2022–2023)", description:"Engineered near-real-time ML classifiers for IoT systems with 2 publications."}
 ];
 
-const skills = [
-  {id:1,name:"Python",group:"Programming"}, {id:2,name:"R",group:"Programming"},
-  {id:3,name:"SQL",group:"Databases"}, {id:4,name:"Power BI",group:"Visualization"},
-  {id:5,name:"Azure",group:"Cloud"}, {id:6,name:"AWS",group:"Cloud"},
-  {id:7,name:"PySpark",group:"Big Data"}, {id:8,name:"D3.js",group:"Visualization"},
-  {id:9,name:"Bayesian Modeling",group:"ML"}, {id:10,name:"Machine Learning",group:"ML"},
-  {id:11,name:"IoT Analytics",group:"IoT"}
-];
-const skillLinks = [
-  {source:1,target:2}, {source:1,target:10}, {source:3,target:7},
-  {source:4,target:8}, {source:5,target:6}, {source:9,target:10}, {source:11,target:10}
+const educationData=[
+  {side:"left", banner:"assets/img/uga_banner.jpg", title:"BSME – University of Georgia (2018–2022)", description:"Bachelor of Science in Mechanical Engineering. Focus on design optimization."},
+  {side:"right", banner:"assets/img/uga_banner.jpg", title:"MS Engineering – University of Georgia (2022–2023)", description:"Developed IoT-integrated pipelines for diagnostics."},
+  {side:"left", banner:"assets/img/gt_banner.jpg", title:"MS Analytics – Georgia Tech (2025–Present)", description:"Specializing in Bayesian hierarchical modeling and predictive analytics."}
 ];
 
-const projects = [
-  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups using ensemble ML.", images:["assets/img/5B_Demo.JPG"]},
-  {title:"Trendiment", description:"Sentiment analysis for stocks via BERT models.", images:["assets/img/Trendiment_2.JPG"]},
-  {title:"BayesBall Assistant", description:"Bayesian hierarchical model for fantasy baseball.", images:["assets/img/Bayesball_Demo.JPG"]}
-];
-const publications = [
-  {title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data.", images:["assets/img/IOT_ETL.JPG"]},
-  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated pipeline for predictive maintenance.", images:["assets/img/ML_Ensemble.JPG"]}
-];
-const certifications = [
-  {title:"Databricks Generative AI Fundamentals", description:""},
-  {title:"Databricks Generative AI Application Development", description:""},
-  {title:"Nvidia Transformer Based NLP", description:""},
-  {title:"Google Advanced Data Analytics", description:""},
-  {title:"Engineer in Training", description:""}
-];
-
-// === Functions ===
 function populateTimeline(containerId,data){
   const container=document.getElementById(containerId);
-  const line=document.createElement("div"); line.className="timeline-line"; container.appendChild(line);
   data.forEach(d=>{
-    const entry=document.createElement("div"); entry.className="timeline-entry";
-    entry.innerHTML=`<img src="${d.logo}"><h3>${d.title}</h3><p>${d.description}</p>`;
-    container.appendChild(entry);
+    const div=document.createElement("div");
+    div.className="timeline-container "+d.side;
+    div.innerHTML=`<div class="timeline-content">
+      <img src="${d.banner}" class="timeline-banner"/>
+      <h3>${d.title}</h3>
+      <p>${d.description}</p>
+    </div>`;
+    container.appendChild(div);
   });
 }
 
-function populateItems(containerId,items){
+// --- BUBBLES ---
+const projects=[
+  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups with ensemble ML.", images:["assets/img/5B_Demo.JPG"]},
+  {title:"Trendiment", description:"BERT-based sentiment analysis for stock market pulse.", images:["assets/img/Trendiment_2.JPG"]},
+  {title:"BayesBall Assistant", description:"Bayesian hierarchical model for season-long MLB player predictions.", images:["assets/img/Bayesball_Demo.JPG"]}
+];
+
+const publications=[
+  {title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data.", images:["assets/img/IOT_ETL.JPG"]},
+  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance.", images:["assets/img/ML_Ensemble.JPG"]}
+];
+
+const certifications=[
+  {title:"Databricks Generative AI Fundamentals"},
+  {title:"Databricks Generative AI Application Development"},
+  {title:"Nvidia Transformer Based NLP"},
+  {title:"Google Advanced Data Analytics"},
+  {title:"Engineer in Training"}
+];
+
+function populateBubbles(containerId,items,detailContainerId){
   const container=document.getElementById(containerId);
-  items.forEach(i=>{
-    const card=document.createElement("div"); card.className="item-card";
-    card.innerHTML=`<h3>${i.title}</h3>${i.description?`<p>${i.description}</p>`:""}${i.images?i.images.map(img=>`<img src="${img}">`).join(""):""}`;
-    container.appendChild(card);
+  const detail=document.getElementById(detailContainerId);
+  items.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="bubble";
+    div.innerText=item.title;
+    div.addEventListener("click",()=>{
+      const active=document.querySelector(`#${containerId} .bubble.active`);
+      if(active && active!==div) active.classList.remove("active");
+      div.classList.toggle("active");
+      if(div.classList.contains("active")){
+        detail.style.display="block";
+        detail.innerHTML=`<h3>${item.title}</h3><p>${item.description}</p>`+item.images?.map(img=>`<img src="${img}">`).join("");
+      } else {
+        detail.style.display="none";
+      }
+    });
+    container.appendChild(div);
   });
 }
 
-// Timeline scroll animation
-const observers=document.querySelectorAll('.timeline-entry');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){entry.target.classList.add('visible');}
+// --- TIMELINE ANIMATION ---
+function animateTimeline(containerId){
+  document.querySelectorAll(`#${containerId} .timeline-container`).forEach(el=>{
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },{threshold:0.2});
+    observer.observe(el);
   });
-},{threshold:0.2});
-observers.forEach(e=>observer.observe(e));
+}
 
-// Populate timelines and items
-populateTimeline("careerTimeline",careerData);
-populateTimeline("educationTimeline",educationData);
-populateItems("projectsContainer",projects);
-populateItems("publicationsContainer",publications);
-populateItems("certificationsContainer",certifications);
+// --- SKILLS NETWORK ---
+const skillGroups={
+  "Programming":{color:"#06d6a0", skills:["Python","R","SQL","PySpark"]},
+  "Visualization":{color:"#ffd166", skills:["Power BI","D3.js"]},
+  "Cloud/BigData":{color:"#ef476f", skills:["Azure","AWS"]},
+  "Modeling/Analytics":{color:"#118ab2", skills:["Bayesian Modeling","Machine Learning","IoT Analytics"]}
+};
 
-// === Skills Network ===
-const svg=d3.select("#skillsNetwork"), width=svg.node().clientWidth, height=svg.node().clientHeight;
-const color=d3.scaleOrdinal(d3.schemeCategory10);
-
-const simulation=d3.forceSimulation(skills)
-  .force("link", d3.forceLink(skillLinks).id(d=>d.id).distance(120))
-  .force("charge", d3.forceManyBody().strength(-500))
-  .force("center", d3.forceCenter(width/2,height/2));
-
-const linkElems=svg.append("g").selectAll("line").data(skillLinks).enter().append("line").attr("class","link");
-const nodeElems=svg.append("g").selectAll("g").data(skills).enter().append("g").call(d3.drag()
-  .on("start",d=>{
-    if(!d3.event.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y;
-  })
-  .on("drag",d=>{ d.fx=d3.event.x; d.fy=d3.event.y; })
-  .on("end",d=>{ if(!d3.event.active) simulation.alphaTarget(0); d.fx=null; d.fy=null; })
-));
-
-nodeElems.append("circle").attr("r",25).attr("fill",d=>color(d.group)).on("click",d=>{
-  // drilldown projects/publications
-  const filteredProjects=projects.filter(p=>p.description.includes(d.name));
-  const filteredPublications=publications.filter(p=>p.description.includes(d.name));
-  let html=`<h3>${d.name} - Projects/Publications</h3>`;
-  filteredProjects.forEach(p=>{html+=`<p>${p.title}</p>`;});
-  filteredPublications.forEach(p=>{html+=`<p>${p.title}</p>`;});
-  alert(html);
+let nodes=[];
+let links=[];
+Object.entries(skillGroups).forEach(([group,g])=>{
+  g.skills.forEach(skill=>{
+    nodes.push({id:skill, group, color:g.color});
+    // connect skill to relevant career nodes
+    careerData.forEach(career=>{
+      if(career.title.toLowerCase().includes(skill.toLowerCase()) || Math.random()<0.25) links.push({source:skill, target:career.title});
+    });
+  });
 });
-nodeElems.append("text").attr("text-anchor","middle").attr("dy":".35em").text(d=>d.name);
+
+const svg=d3.select("#skillsGraph").append("svg").attr("width","100%").attr("height",500);
+const width=document.getElementById("skillsGraph").clientWidth;
+const height=500;
+const containerGroup=svg.append("g");
+
+const simulation=d3.forceSimulation(nodes)
+  .force("charge",d3.forceManyBody().strength(-200))
+  .force("center",d3.forceCenter(width/2,height/2))
+  .force("collision",d3.forceCollide(50));
+
+const linkElems=containerGroup.selectAll("line").data(links).enter().append("line").attr("class","link-line");
+const nodeElems=containerGroup.selectAll("circle").data(nodes).enter().append("circle")
+  .attr("r",18).attr("fill",d=>d.color).attr("class","skill-node")
+  .call(d3.drag().on("drag",(event,d)=>{d.fx=event.x; d.fy=event.y;}));
+
+const labelElems=containerGroup.selectAll("text").data(nodes).enter().append("text")
+  .attr("text-anchor","middle").attr("dy",5).attr("pointer-events","none")
+  .text(d=>d.id).style("font-size","11px").style("fill","#fff");
 
 simulation.on("tick",()=>{
   linkElems.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
-  nodeElems.attr("transform",d=>`translate(${d.x},${d.y})`);
+  nodeElems.attr("cx",d=>d.x).attr("cy",d=>d.y);
+  labelElems.attr("x",d=>d.x).attr("y",d=>d.y);
 });
 
-// Flowing link animation
-linkElems.each(function(d){
-  const line=d3.select(this);
-  const totalLength=this.getTotalLength();
-  line.attr("stroke-dasharray", totalLength + " " + totalLength)
-      .attr("stroke-dashoffset", totalLength)
-      .transition()
-      .duration(4000)
-      .ease(d3.easeLinear)
-      .attr("stroke-dashoffset",0)
-      .on("end",function repeat(){
-        line.attr("stroke-dashoffset",totalLength)
-            .transition()
-            .duration(4000)
-            .ease(d3.easeLinear)
-            .attr("stroke-dashoffset",0)
-            .on("end",repeat);
-      });
+// Highlight on click
+nodeElems.on("click",(event,d)=>{
+  const isActive=d3.select(event.currentTarget).classed("active");
+  nodeElems.classed("active",false); linkElems.style("stroke","#06d6a0");
+  if(!isActive){
+    d3.select(event.currentTarget).classed("active",true);
+    linkElems.style("stroke",l=>(l.source.id===d.id)? "#ffd166":"#06d6a0");
+  }
 });
 
-// Zoom and pan
-svg.call(d3.zoom().scaleExtent([0.5,2]).on("zoom", event => { svg.attr("transform", event.transform); }));
+// Zoom/pan
+svg.call(d3.zoom().scaleExtent([0.5,3]).on("zoom",(event)=>{containerGroup.attr("transform",event.transform);}))
+
+// --- INIT ---
+populateTimeline("careerTimeline",careerData);
+populateTimeline("educationTimeline",educationData);
+animateTimeline("careerTimeline");
+animateTimeline("educationTimeline");
+populateBubbles("projectBubbles",projects,"projectDetails");
+populateBubbles("pubBubbles",publications,"pubDetails");
+populateBubbles("certBubbles",certifications,"");
 </script>
 </body>
 </html>

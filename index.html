@@ -4,186 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cole Yorston Portfolio</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-body { font-family:'Segoe UI',sans-serif; background:#0e0e0e; color:#f2f2f2; margin:0; padding:0; overflow-x:hidden;}
-.sidebar {position:fixed; top:0; left:0; width:80px; height:100%; background:#1b1b1b; display:flex; flex-direction:column; align-items:center; padding:20px 0; gap:25px; z-index:1000;}
-.sidebar a {color:#ffd166; text-decoration:none; font-size:1.5em; transition:0.3s;}
-.sidebar a:hover {color:#06d6a0;}
-main {margin-left:100px;}
-header {background:#1b1b1b; padding:40px 20px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:15px;}
-header img {width:120px; height:120px; border-radius:50%; border:3px solid #ffd166;}
-header h1 {font-size:2.5em; margin:0; color:#ffd166;}
-header p {font-size:1.2em; color:#ccc;}
-section {padding:60px 10%;}
-h2 {color:#ffd166; border-bottom:2px solid #ffd166; display:inline-block; margin-bottom:20px;}
+body { margin:0; font-family:'Segoe UI',sans-serif; background:#0e0e0e; color:#f2f2f2; scroll-behavior:smooth; }
+header { text-align:center; padding:30px 20px; display:flex; flex-direction:column; align-items:center; }
+header img { width:120px; height:120px; border-radius:50%; border:3px solid #ffd166; }
+header h1 { color:#ffd166; margin:10px 0; }
+header p { color:#ccc; margin:0 0 20px; }
 
-/* Timeline */
-.timeline {position:relative; margin:0 auto; width:100%; max-width:950px;}
-.timeline-container {padding:25px 40px; position:relative; width:50%; opacity:0; transform:translateY(50px); transition:all 0.9s ease-out;}
-.timeline-container.visible {opacity:1; transform:translateY(0);}
-.timeline-container.left {left:0;}
-.timeline-container.right {left:50%;}
-.timeline-container::after {content:""; position:absolute; width:25px; height:25px; right:-13px; background-color:#ffd166; border:4px solid #0e0e0e; top:20px; border-radius:50%; z-index:1;}
-.timeline-container.right::after {left:-13px;}
-.timeline-content {position:relative; padding:25px; background:rgba(0,0,0,0.75); border-radius:10px; overflow:hidden; z-index:2; box-shadow:0 0 15px rgba(0,0,0,0.6);}
-.timeline-banner {position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.25; z-index:1;}
-.timeline-content h3, .timeline-content p {position:relative; z-index:2;}
-.timeline-container.left .timeline-content {margin-right:100px;}
-.timeline-container.right .timeline-content {margin-left:100px;}
-@media screen and (max-width:768px){ .timeline-container{width:100%; padding-left:60px; padding-right:25px;} .timeline-container.right{left:0;} .timeline-container::after{left:10px;} .timeline-content{margin:0;} }
+section { padding:50px 10%; }
+h2 { color:#ffd166; margin-bottom:20px; border-bottom:2px solid #ffd166; display:inline-block; }
 
-/* Skills Network */
-#skillsGraph {width:100%; height:500px; border:1px solid #444; border-radius:10px; background:#111;}
-.skill-tooltip {position:absolute; background:#21262d; color:#fff; padding:6px 10px; border-radius:5px; pointer-events:none; font-size:12px; z-index:10000; display:none;}
-line.link-line{stroke:#06d6a0; stroke-width:2;}
-circle.skill-node{cursor:pointer; stroke:#fff; stroke-width:1.5px;}
+.timeline { position:relative; width:100%; max-width:900px; margin:0 auto; }
+.timeline::after { content:''; position:absolute; width:4px; background-color:#ffd166; top:0; bottom:0; left:50%; margin-left:-2px; }
+.timeline-container { padding:25px 40px; position:relative; width:50%; opacity:0; transform:translateY(50px); transition:all 0.8s ease; }
+.timeline-container.visible { opacity:1; transform:translateY(0); }
+.timeline-container.left { left:0; }
+.timeline-container.right { left:50%; }
+.timeline-container::after { content:""; position:absolute; width:25px; height:25px; right:-13px; background-color:#ffd166; border:4px solid #0e0e0e; top:20px; border-radius:50%; z-index:1; }
+.timeline-container.right::after { left:-13px; }
+.timeline-content { position:relative; padding:25px; background:rgba(0,0,0,0.75); border-radius:10px; overflow:hidden; z-index:2; box-shadow:0 0 15px rgba(0,0,0,0.6);}
+.timeline-banner { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.25; z-index:1; }
+.timeline-content h3, .timeline-content p { position:relative; z-index:2; }
 
-/* Bubble lists */
-.bubble-container {display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;}
-.bubble {padding:12px 18px; background:#21262d; border-radius:20px; cursor:pointer; color:#fff; transition:all 0.3s;}
-.bubble:hover {background:#06d6a0; color:#0e0e0e;}
-.bubble.active {background:#ffd166; color:#111;}
+@media screen and (max-width:768px){
+  .timeline::after { left:20px; }
+  .timeline-container { width:100%; padding-left:60px; padding-right:25px; }
+  .timeline-container.right { left:0; }
+  .timeline-container::after { left:10px; }
+  .timeline-content { margin:0; }
+}
 
-/* Drilldown inline */
-.detail-container{margin-top:20px; background:#1b1b1b; padding:20px; border-radius:10px; display:none;}
-.detail-container img{max-width:100%; margin-top:10px; border-radius:8px;}
+/* Skills Graph */
+#skillsGraph { width:100%; height:600px; border:1px solid #444; border-radius:10px; background:#111; margin-top:20px; }
+.skill-tooltip { position:absolute; background:#21262d; color:#fff; padding:6px 10px; border-radius:5px; pointer-events:none; font-size:12px; display:none; }
+.bubble-container { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
+.bubble { padding:12px 18px; background:#21262d; border-radius:20px; cursor:pointer; color:#fff; transition:all 0.3s; }
+.bubble:hover { background:#06d6a0; color:#0e0e0e; }
+.bubble.active { background:#ffd166; color:#111; }
+.detail-container{ margin-top:20px; background:#1b1b1b; padding:20px; border-radius:10px; display:none; }
+.detail-container img{ max-width:100%; margin-top:10px; border-radius:8px; }
+.legend { display:flex; gap:15px; margin:15px 0; flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:5px; }
+.legend-color { width:20px; height:20px; border-radius:50%; }
 </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <a href="mailto:cole.yorston@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-  <a href="assets/Cole_Yorston_Resume.pdf" download><i class="fa-solid fa-file-arrow-down"></i></a>
-  <a href="https://www.linkedin.com/in/coleyorston" target="_blank"><i class="fab fa-linkedin"></i></a>
-  <a href="https://github.com/coleyorston" target="_blank"><i class="fab fa-github"></i></a>
-</div>
+<header>
+  <img src="assets/img/Headshot.png" alt="Cole Yorston Headshot">
+  <h1>Cole Yorston</h1>
+  <p>Lead Test Engineer – Dynamic Systems | Machine Learning | Bayesian Modeling | Cloud Pipelines</p>
+</header>
 
-<main>
-  <header>
-    <img src="assets/img/Headshot.png" alt="Cole Yorston Headshot">
-    <h1>Cole Yorston</h1>
-    <p>Lead Test Engineer – Dynamic Systems | Machine Learning | Bayesian Modeling | Cloud Pipelines</p>
-  </header>
+<section id="career">
+  <h2>Career Timeline</h2>
+  <div class="timeline" id="careerTimeline"></div>
+</section>
 
-  <section id="career">
-    <h2>Career Timeline</h2>
-    <div class="timeline" id="careerTimeline"></div>
-  </section>
+<section id="education">
+  <h2>Education</h2>
+  <div class="timeline" id="educationTimeline"></div>
+</section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <div class="timeline" id="educationTimeline"></div>
-  </section>
+<section id="skills">
+  <h2>Skills Network</h2>
+  <div id="skillsGraph"></div>
+  <div class="legend" id="skillsLegend"></div>
+  <div id="skillDetails" class="detail-container"></div>
+</section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div id="skillsGraph"></div>
-  </section>
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="bubble-container" id="projectBubbles"></div>
+  <div id="projectDetails" class="detail-container"></div>
+</section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="bubble-container" id="projectBubbles"></div>
-    <div id="projectDetails" class="detail-container"></div>
-  </section>
-
-  <section id="publications">
-    <h2>Publications</h2>
-    <div class="bubble-container" id="pubBubbles"></div>
-    <div id="pubDetails" class="detail-container"></div>
-  </section>
-
-  <section id="certifications">
-    <h2>Certifications</h2>
-    <div class="bubble-container" id="certBubbles"></div>
-  </section>
-</main>
+<section id="publications">
+  <h2>Publications</h2>
+  <div class="bubble-container" id="pubBubbles"></div>
+  <div id="pubDetails" class="detail-container"></div>
+</section>
 
 <script>
-// --- TIMELINES ---
+// --- TIMELINE DATA ---
 const careerData=[
-  {side:"left", banner:"assets/img/textron_banner.jpg", title:"Lead Test Engineer – Dynamic Systems, GE Vernova (2025–Present)", description:"Leading data-driven testing and analytics for dynamic gas turbine systems."},
-  {side:"right", banner:"assets/img/textron_banner.jpg", title:"Data Scientist – Textron Specialized Vehicles (2024–2025)", description:"Implemented anomaly detection and ETL pipelines to improve quality metrics."},
-  {side:"left", banner:"assets/img/textron_banner.jpg", title:"Test Engineer – Textron Specialized Vehicles (2023–2024)", description:"Built visualization pipelines and automated test data validation."},
-  {side:"right", banner:"assets/img/uga_banner.jpg", title:"Graduate Research Assistant – UGA Innovation Factory (2022–2023)", description:"Engineered near-real-time ML classifiers for IoT systems with 2 publications."}
+  {title:"Lead Test Engineer – Dynamic Systems, GE Vernova (2025–Present)", description:"Leading data-driven testing and analytics for dynamic gas turbine systems.", banner:"assets/img/ge_banner.jpg"},
+  {title:"Data Scientist – Textron Specialized Vehicles (2024–2025)", description:"Leading analytical initiatives and developing ETL pipelines for predictive maintenance.", banner:"assets/img/textron_banner.jpg"},
+  {title:"Test Engineer – Textron Specialized Vehicles (2023–2024)", description:"Built visualization pipelines and anomaly detection tools.", banner:"assets/img/textron_banner.jpg"},
+  {title:"Graduate Research Assistant – UGA Innovation Factory (2022–2023)", description:"Developed near-real-time ML classifiers for IoT systems and predictive maintenance.", banner:"assets/img/uga_banner.jpg"}
 ];
 
 const educationData=[
-  {side:"left", banner:"assets/img/uga_banner.jpg", title:"BSME – University of Georgia (2018–2022)", description:"Bachelor of Science in Mechanical Engineering. Focus on design optimization."},
-  {side:"right", banner:"assets/img/uga_banner.jpg", title:"MS Engineering – University of Georgia (2022–2023)", description:"Developed IoT-integrated pipelines for diagnostics."},
-  {side:"left", banner:"assets/img/gt_banner.jpg", title:"MS Analytics – Georgia Tech (2025–Present)", description:"Specializing in Bayesian hierarchical modeling and predictive analytics."}
+  {title:"BSME – University of Georgia (2018–2022)", description:"Bachelor of Science in Mechanical Engineering.", banner:"assets/img/uga_banner.jpg"},
+  {title:"MS Engineering – University of Georgia (2022–2023)", description:"Developed IoT-integrated data pipelines for mechanical diagnostics.", banner:"assets/img/uga_banner.jpg"},
+  {title:"MS Analytics – Georgia Institute of Technology (2025–Present)", description:"Specializing in Bayesian hierarchical modeling and predictive analytics.", banner:"assets/img/gt_banner.jpg"}
 ];
 
-function populateTimeline(containerId,data){
-  const container=document.getElementById(containerId);
-  data.forEach(d=>{
-    const div=document.createElement("div");
-    div.className="timeline-container "+d.side;
-    div.innerHTML=`<div class="timeline-content">
-      <img src="${d.banner}" class="timeline-banner"/>
-      <h3>${d.title}</h3>
-      <p>${d.description}</p>
-    </div>`;
-    container.appendChild(div);
-  });
-}
-
-// --- BUBBLES ---
-const projects=[
-  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups with ensemble ML.", images:["assets/img/5B_Demo.JPG"]},
-  {title:"Trendiment", description:"BERT-based sentiment analysis for stock market pulse.", images:["assets/img/Trendiment_2.JPG"]},
-  {title:"BayesBall Assistant", description:"Bayesian hierarchical model for season-long MLB player predictions.", images:["assets/img/Bayesball_Demo.JPG"]}
-];
-
-const publications=[
-  {title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data.", images:["assets/img/IOT_ETL.JPG"]},
-  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Integrated dataflow pipeline for predictive maintenance.", images:["assets/img/ML_Ensemble.JPG"]}
-];
-
-const certifications=[
-  {title:"Databricks Generative AI Fundamentals"},
-  {title:"Databricks Generative AI Application Development"},
-  {title:"Nvidia Transformer Based NLP"},
-  {title:"Google Advanced Data Analytics"},
-  {title:"Engineer in Training"}
-];
-
-function populateBubbles(containerId,items,detailContainerId){
-  const container=document.getElementById(containerId);
-  const detail=document.getElementById(detailContainerId);
-  items.forEach(item=>{
-    const div=document.createElement("div");
-    div.className="bubble";
-    div.innerText=item.title;
-    div.addEventListener("click",()=>{
-      const active=document.querySelector(`#${containerId} .bubble.active`);
-      if(active && active!==div) active.classList.remove("active");
-      div.classList.toggle("active");
-      if(div.classList.contains("active")){
-        detail.style.display="block";
-        detail.innerHTML=`<h3>${item.title}</h3><p>${item.description}</p>`+item.images?.map(img=>`<img src="${img}">`).join("");
-      } else {
-        detail.style.display="none";
-      }
-    });
-    container.appendChild(div);
-  });
-}
-
-// --- TIMELINE ANIMATION ---
-function animateTimeline(containerId){
-  document.querySelectorAll(`#${containerId} .timeline-container`).forEach(el=>{
-    const observer=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    },{threshold:0.2});
-    observer.observe(el);
-  });
-}
-
-// --- SKILLS NETWORK ---
+// --- SKILLS & PROJECTS/PUBLICATIONS DATA ---
 const skillGroups={
   "Programming":{color:"#06d6a0", skills:["Python","R","SQL","PySpark"]},
   "Visualization":{color:"#ffd166", skills:["Power BI","D3.js"]},
@@ -191,36 +109,76 @@ const skillGroups={
   "Modeling/Analytics":{color:"#118ab2", skills:["Bayesian Modeling","Machine Learning","IoT Analytics"]}
 };
 
-let nodes=[];
-let links=[];
-Object.entries(skillGroups).forEach(([group,g])=>{
-  g.skills.forEach(skill=>{
-    nodes.push({id:skill, group, color:g.color});
-    // connect skill to relevant career nodes
-    careerData.forEach(career=>{
-      if(career.title.toLowerCase().includes(skill.toLowerCase()) || Math.random()<0.25) links.push({source:skill, target:career.title});
-    });
+const projects=[
+  {title:"CFB 5B Power Rankings", description:"Predicts college football matchups with ensemble ML.", skills:["Python","Machine Learning","R"], images:["assets/img/5B_Demo.JPG"]},
+  {title:"Trendiment", description:"BERT-based sentiment analysis for stock market pulse.", skills:["Python","Power BI"], images:["assets/img/Trendiment_2.JPG"]},
+  {title:"BayesBall Assistant", description:"Bayesian hierarchical model for season-long MLB predictions.", skills:["Python","Bayesian Modeling"], images:["assets/img/Bayesball_Demo.JPG"]}
+];
+
+const publications=[
+  {title:"Interactive Generalized Testbed Using Siemens MindSphere", description:"Mechanical failure study using FFT data.", skills:["IoT Analytics","Python"], images:["assets/img/IOT_ETL.JPG"]},
+  {title:"Advancing Architectural Frameworks for Vibration Signature Classification", description:"Pipeline for predictive maintenance.", skills:["Machine Learning","Python"], images:["assets/img/ML_Ensemble.JPG"]}
+];
+
+// --- FUNCTION: Populate Timeline ---
+function populateTimeline(containerId,data){
+  const container=document.getElementById(containerId);
+  data.forEach((d,i)=>{
+    const div=document.createElement("div");
+    div.className="timeline-container "+(i%2===0?"left":"right");
+    div.innerHTML=`<div class="timeline-content">
+      <img src="${d.banner}" class="timeline-banner">
+      <h3>${d.title}</h3><p>${d.description}</p>
+    </div>`;
+    container.appendChild(div);
   });
+}
+
+// --- Scroll reveal ---
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");}});
+},{threshold:0.2});
+
+// Populate and observe timelines
+populateTimeline("careerTimeline",careerData);
+populateTimeline("educationTimeline",educationData);
+document.querySelectorAll(".timeline-container").forEach(el=>observer.observe(el));
+
+// --- SKILLS NETWORK ---
+let nodes=[], links=[];
+Object.entries(skillGroups).forEach(([group,g])=>{
+  g.skills.forEach(skill=>nodes.push({id:skill, group, color:g.color}));
+});
+nodes.forEach((n,i)=>{for(let j=i+1;j<nodes.length;j++){if(Math.random()<0.25) links.push({source:n.id,target:nodes[j].id});}});
+
+// --- LEGEND ---
+const legend=document.getElementById("skillsLegend");
+Object.entries(skillGroups).forEach(([group,g])=>{
+  const div=document.createElement("div"); div.className="legend-item";
+  div.innerHTML=`<div class="legend-color" style="background:${g.color}"></div><span>${group}</span>`;
+  legend.appendChild(div);
 });
 
-const svg=d3.select("#skillsGraph").append("svg").attr("width","100%").attr("height",500);
+// --- D3 Graph ---
+const svg=d3.select("#skillsGraph").append("svg").attr("width","100%").attr("height",600);
 const width=document.getElementById("skillsGraph").clientWidth;
-const height=500;
-const containerGroup=svg.append("g");
+const height=600;
+const containerG=svg.append("g");
 
 const simulation=d3.forceSimulation(nodes)
-  .force("charge",d3.forceManyBody().strength(-200))
+  .force("link",d3.forceLink(links).id(d=>d.id).distance(100))
+  .force("charge",d3.forceManyBody().strength(-300))
   .force("center",d3.forceCenter(width/2,height/2))
-  .force("collision",d3.forceCollide(50));
+  .force("collision",d3.forceCollide(30));
 
-const linkElems=containerGroup.selectAll("line").data(links).enter().append("line").attr("class","link-line");
-const nodeElems=containerGroup.selectAll("circle").data(nodes).enter().append("circle")
-  .attr("r",18).attr("fill",d=>d.color).attr("class","skill-node")
+const linkElems=containerG.selectAll("line").data(links).enter().append("line").attr("stroke","#888").attr("stroke-width",2);
+const nodeElems=containerG.selectAll("circle").data(nodes).enter().append("circle")
+  .attr("r",18).attr("fill",d=>d.color).attr("stroke","#fff").attr("stroke-width",1.5)
   .call(d3.drag().on("drag",(event,d)=>{d.fx=event.x; d.fy=event.y;}));
 
-const labelElems=containerGroup.selectAll("text").data(nodes).enter().append("text")
-  .attr("text-anchor","middle").attr("dy",5).attr("pointer-events","none")
-  .text(d=>d.id).style("font-size","11px").style("fill","#fff");
+const labelElems=containerG.selectAll("text").data(nodes).enter().append("text")
+  .attr("text-anchor","middle").attr("dy",5).attr("pointer-events","none").style("fill","#fff").style("font-size","11px")
+  .text(d=>d.id);
 
 simulation.on("tick",()=>{
   linkElems.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
@@ -228,27 +186,49 @@ simulation.on("tick",()=>{
   labelElems.attr("x",d=>d.x).attr("y",d=>d.y);
 });
 
-// Highlight on click
+// --- Zoom & Drilldown ---
+const skillDetails=document.getElementById("skillDetails");
+const zoom=d3.zoom().scaleExtent([0.5,3]).on("zoom",event=>{containerG.attr("transform",event.transform);});
+svg.call(zoom);
+
 nodeElems.on("click",(event,d)=>{
-  const isActive=d3.select(event.currentTarget).classed("active");
-  nodeElems.classed("active",false); linkElems.style("stroke","#06d6a0");
-  if(!isActive){
-    d3.select(event.currentTarget).classed("active",true);
-    linkElems.style("stroke",l=>(l.source.id===d.id)? "#ffd166":"#06d6a0");
+  if(d3.select(event.currentTarget).classed("active")){
+    nodeElems.classed("active",false);
+    skillDetails.style.display="none";
+    svg.transition().duration(750).call(zoom.transform,d3.zoomIdentity);
+  } else {
+    nodeElems.classed("active",n=>n.id===d.id);
+    const relatedProjects=projects.filter(p=>p.skills.includes(d.id));
+    const relatedPubs=publications.filter(p=>p.skills.includes(d.id));
+    skillDetails.style.display="block";
+    skillDetails.innerHTML="<h3>"+d.id+"</h3>";
+    if(relatedProjects.length){ skillDetails.innerHTML+="<h4>Projects:</h4>"+relatedProjects.map(p=>`<strong>${p.title}</strong>: ${p.description}<br>${p.images.map(img=>`<img src='${img}'>`).join('')}`).join("<br>"); }
+    if(relatedPubs.length){ skillDetails.innerHTML+="<h4>Publications:</h4>"+relatedPubs.map(p=>`<strong>${p.title}</strong>: ${p.description}<br>${p.images.map(img=>`<img src='${img}'>`).join('')}`).join("<br>"); }
+    const transform=d3.zoomIdentity.translate(width/2-d.x*2,height/2-d.y*2).scale(2);
+    svg.transition().duration(750).call(zoom.transform,transform);
   }
 });
 
-// Zoom/pan
-svg.call(d3.zoom().scaleExtent([0.5,3]).on("zoom",(event)=>{containerGroup.attr("transform",event.transform);}))
-
-// --- INIT ---
-populateTimeline("careerTimeline",careerData);
-populateTimeline("educationTimeline",educationData);
-animateTimeline("careerTimeline");
-animateTimeline("educationTimeline");
+// --- Projects/Publications Bubbles ---
+function populateBubbles(containerId,items,detailContainerId){
+  const container=document.getElementById(containerId);
+  const detail=document.getElementById(detailContainerId);
+  items.forEach(item=>{
+    const div=document.createElement("div"); div.className="bubble"; div.innerText=item.title;
+    div.addEventListener("click",()=>{
+      const active=document.querySelector(`#${containerId} .bubble.active`);
+      if(active && active!==div) active.classList.remove("active");
+      div.classList.toggle("active");
+      if(div.classList.contains("active")){
+        detail.style.display="block";
+        detail.innerHTML=`<h3>${item.title}</h3><p>${item.description}</p>`+item.images.map(img=>`<img src="${img}">`).join("");
+      } else { detail.style.display="none"; }
+    });
+    container.appendChild(div);
+  });
+}
 populateBubbles("projectBubbles",projects,"projectDetails");
 populateBubbles("pubBubbles",publications,"pubDetails");
-populateBubbles("certBubbles",certifications,"");
 </script>
 </body>
 </html>

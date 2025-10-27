@@ -48,7 +48,7 @@
       position: relative;
       margin: 0 auto;
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
     }
 
     .timeline::after {
@@ -63,7 +63,7 @@
     }
 
     .timeline-container {
-      padding: 20px 40px;
+      padding: 25px 40px;
       position: relative;
       width: 50%;
       opacity: 0;
@@ -103,12 +103,12 @@
 
     .timeline-content {
       position: relative;
-      padding: 20px;
+      padding: 25px;
       background: rgba(0, 0, 0, 0.75);
       border-radius: 10px;
       overflow: hidden;
       z-index: 2;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
 
     .timeline-banner {
@@ -118,7 +118,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.25;
+      opacity: 0.3;
       z-index: 1;
     }
 
@@ -128,11 +128,11 @@
     }
 
     .timeline-container.left .timeline-content {
-      margin-right: 90px;
+      margin-right: 100px;
     }
 
     .timeline-container.right .timeline-content {
-      margin-left: 90px;
+      margin-left: 100px;
     }
 
     @media screen and (max-width: 768px) {
@@ -206,32 +206,51 @@
     <section id="career">
       <h2>Career Timeline</h2>
       <div class="timeline">
+
         <div class="timeline-container left">
           <div class="timeline-content">
-            <img src="assets/img/uga_banner.jpg" alt="University of Georgia" class="timeline-banner" />
-            <h3>University of Georgia – Graduate Researcher (2022–2023)</h3>
-            <p>Developed IoT-based pipelines for near-real-time ML classifiers. Co-authored two publications and built scalable ensemble models for cloud deployment.</p>
+            <img src="assets/img/textron_banner.jpg" alt="Textron Specialized Vehicles" class="timeline-banner" />
+            <h3>Data Scientist – Textron Specialized Vehicles (2024–Present)</h3>
+            <p>Leading data quality improvement and analytical modeling across the business unit. Developed scalable ETL pipelines and advanced root cause analytics, achieving a 17% improvement in key quality metrics.</p>
           </div>
         </div>
 
         <div class="timeline-container right">
           <div class="timeline-content">
-            <img src="assets/img/uga_banner.jpg" alt="University of Georgia" class="timeline-banner" />
-            <h3>University of Georgia – Undergraduate Research Assistant (2021–2022)</h3>
-            <p>Supported IoT-based predictive maintenance research. Focused on exploratory data analysis, feature engineering, and vibration signal interpretation.</p>
+            <img src="assets/img/textron_banner.jpg" alt="Textron" class="timeline-banner" />
+            <h3>Test Engineer – Textron Specialized Vehicles (2023–2024)</h3>
+            <p>Built visualization pipelines and anomaly detection tools to automate test data validation. Contributed to multiple vehicle-level analytics projects for performance optimization.</p>
           </div>
         </div>
+
+        <div class="timeline-container left">
+          <div class="timeline-content">
+            <img src="assets/img/uga_banner.jpg" alt="University of Georgia" class="timeline-banner" />
+            <h3>Graduate Research Assistant – UGA Innovation Factory (2022–2023)</h3>
+            <p>Engineered near-real-time ML classifiers for IoT systems. Led research on vibration signal analysis and predictive maintenance, resulting in two publications.</p>
+          </div>
+        </div>
+
+        <div class="timeline-container right">
+          <div class="timeline-content">
+            <img src="assets/img/ge_banner.jpg" alt="GE" class="timeline-banner" />
+            <h3>Engineering Intern – GE Appliances (2021–2022)</h3>
+            <p>Collaborated on testing automation systems for high-efficiency appliances. Improved data acquisition reliability by integrating real-time sensors with monitoring scripts.</p>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <section id="education">
       <h2>Education</h2>
       <div class="timeline">
+
         <div class="timeline-container left">
           <div class="timeline-content">
             <img src="assets/img/uga_banner.jpg" alt="UGA" class="timeline-banner" />
             <h3>BSME – University of Georgia (2018–2022)</h3>
-            <p>Bachelor of Science in Mechanical Engineering.</p>
+            <p>Bachelor of Science in Mechanical Engineering. Focused on design optimization and mechanical systems analytics.</p>
           </div>
         </div>
 
@@ -239,7 +258,7 @@
           <div class="timeline-content">
             <img src="assets/img/uga_banner.jpg" alt="UGA" class="timeline-banner" />
             <h3>MS Engineering – University of Georgia (2022–2023)</h3>
-            <p>Master of Science in Engineering with emphasis on IoT, real-time ML systems, and data pipelines.</p>
+            <p>Developed IoT-integrated data pipelines for mechanical diagnostics and predictive modeling.</p>
           </div>
         </div>
 
@@ -247,15 +266,16 @@
           <div class="timeline-content">
             <img src="assets/img/gt_banner.jpg" alt="Georgia Tech" class="timeline-banner" />
             <h3>MS Analytics – Georgia Institute of Technology (2025–Present)</h3>
-            <p>Advanced coursework in machine learning, Bayesian inference, and computational optimization.</p>
+            <p>Specializing in Bayesian hierarchical modeling, computational optimization, and predictive analytics.</p>
           </div>
         </div>
+
       </div>
     </section>
   </main>
 
   <script>
-    // Intersection Observer for scroll animation
+    // Scroll animation observer
     const observers = document.querySelectorAll('.timeline-container');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -269,3 +289,4 @@
   </script>
 </body>
 </html>
+

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Cole Yorston — Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cole Yorston Portfolio</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 :root{
@@ -30,19 +30,19 @@ header p{margin:0;color:var(--muted);font-size:14px}
 /* Timeline */
 .section{margin:36px 0}
 .section h2{color:var(--accent);margin:0 0 18px 0;font-size:20px}
-.timeline{display:flex;flex-direction:column;gap:18px}
+.timeline{position:relative;margin-left:50px;padding-left:40px}
+.timeline-line{position:absolute;left:-65px;top:45px;width:3px;height:0;background:var(--accent);transition:height .5s ease-out;}
 .timeline-card{
-  position:relative;display:flex;gap:16px;align-items:center;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);overflow:hidden;
-  transform:translateY(10px);opacity:0;transition:all 700ms cubic-bezier(.2,.9,.2,1);
+  position:relative;margin-bottom:80px;opacity:0;transform:translateX(-50px);transition:all .8s ease;
+  background:var(--panel);padding:16px;border-radius:12px;border:1px solid rgba(88,166,255,0.15);
 }
-.timeline-card.visible{transform:none;opacity:1}
+.timeline-card.visible{opacity:1;transform:translateX(0);}
 .timeline-card .banner{position:absolute;right:0;top:0;width:40%;height:100%;object-fit:cover;opacity:.18;pointer-events:none;transition:opacity .4s}
 .timeline-card:hover .banner{opacity:.36}
-.timeline-card .content{z-index:2;max-width:62%}
 .timeline-card h3{margin:0;color:var(--accent);font-size:16px}
-.timeline-card p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.3}
+.timeline-card p{margin:4px 0;color:var(--muted);font-size:13px;line-height:1.3}
 
-/* Skills graph full width container */
+/* Skills web */
 #skillsWrap{margin-top:8px;margin-bottom:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#07101a,#07101a);border:1px solid rgba(255,255,255,0.03)}
 #skillsGraph{width:100%;height:520px;display:block}
 #legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
@@ -55,18 +55,17 @@ header p{margin:0;color:var(--muted);font-size:14px}
 }
 .skill-tooltip h4{margin:0 0 8px 0;color:var(--accent);font-size:14px}
 .skill-tooltip p{margin:0;color:var(--muted);font-size:13px}
-.skill-tooltip .proj{margin-top:8px;font-size:13px;color:#dbeafe}
 .skill-tooltip .close{position:absolute;top:8px;right:8px;cursor:pointer;color:var(--muted);font-weight:700}
 
-/* Projects / pubs / certs bubbles */
+/* Bubbles */
 .bubbles{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .bubble{background:#0f1720;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--accent);font-weight:600;transition:all .18s}
 .bubble:hover{transform:translateY(-3px);background:linear-gradient(90deg,rgba(88,166,255,0.06),rgba(88,166,255,0.02))}
 .expanded{margin-top:10px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;color:var(--muted)}
+.expanded img{max-width:95%;border-radius:6px;margin-top:8px}
 
 /* responsive */
 @media (max-width:900px){
-  .timeline-card .content{max-width:100%}
   .timeline-card .banner{width:100%;height:140px;position:relative;opacity:.25}
   #skillsGraph{height:420px}
   main{padding:16px}
@@ -74,39 +73,36 @@ header p{margin:0;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
-
 <aside class="sidebar" aria-label="sidebar">
   <div class="head"><img src="assets/img/Headshot.png" alt="Cole Yorston headshot"></div>
-  <a class="icon" href="mailto:yorston.cole@gmail.com" title="Email"><img src="assets/img/email.png" style="width:22px;height:22px" alt="email"></a>
-  <a class="icon" href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn"><img src="assets/img/linkedin.png" style="width:22px;height:22px" alt="linkedin"></a>
-  <a class="icon" href="https://github.com/cyorston" target="_blank" title="GitHub"><img src="assets/img/github.png" style="width:22px;height:22px" alt="github"></a>
-  <a class="icon" href="assets/Cole_Yorston_Resume.pdf" download title="Download resume"><img src="assets/img/resume.png" style="width:22px;height:22px" alt="resume"></a>
+  <a class="icon" href="mailto:yorston.cole@gmail.com" title="Email"><img src="assets/img/email.png" style="width:22px;height:22px"></a>
+  <a class="icon" href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn"><img src="assets/img/linkedin.png" style="width:22px;height:22px"></a>
+  <a class="icon" href="https://github.com/cyorston" target="_blank" title="GitHub"><img src="assets/img/github.png" style="width:22px;height:22px"></a>
+  <a class="icon" href="assets/Cole_Yorston_Resume.pdf" download title="Download resume"><img src="assets/img/resume.png" style="width:22px;height:22px"></a>
 </aside>
 
 <main>
-<header style="display:flex;gap:18px;align-items:center;margin-bottom:18px;">
+<header>
   <div style="display:flex;flex-direction:column">
-    <h1 style="margin:0;color:var(--accent);font-size:22px">Cole Yorston</h1>
-    <p style="margin:6px 0 0;color:var(--muted);font-size:13px">Lead Test Engineer • Data Scientist • Bayesian modeling • IoT analytics</p>
+    <h1>Cole Yorston</h1>
+    <p>Lead Test Engineer • Data Scientist • Bayesian Modeling • IoT Analytics</p>
   </div>
 </header>
 
 <section class="section" id="career">
 <h2>Career</h2>
-<div class="timeline" id="careerTimeline"></div>
+<div class="timeline" id="careerTimeline"><div class="timeline-line" id="careerLine"></div></div>
 </section>
 
 <section class="section" id="education">
 <h2>Education</h2>
-<div class="timeline" id="educationTimeline"></div>
+<div class="timeline" id="educationTimeline"><div class="timeline-line" id="educationLine"></div></div>
 </section>
 
 <section class="section" id="skillsSection">
 <h2>Skills Network</h2>
 <div id="legend"></div>
-<div id="skillsWrap">
-<div id="skillsGraph"></div>
-</div>
+<div id="skillsWrap"><div id="skillsGraph"></div></div>
 </section>
 
 <section class="section" id="projects">
@@ -126,7 +122,6 @@ header p{margin:0;color:var(--muted);font-size:14px}
 <div class="bubbles" id="certBubbles"></div>
 <div id="certExpanded" class="expanded" style="display:none"></div>
 </section>
-</main>
 
 <script>
 /* -------------------
@@ -183,8 +178,8 @@ const projects = [
 ];
 
 const publications = [
-  {id:"pub1", title:"Interactive Generalized Testbed Using Siemens MindSphere", summary:"Mechanical failure study using FFT data.", link:"https://www.mdpi.com/1424-8220/22/8/3048"},
-  {id:"pub2", title:"Advancing Architectural Frameworks for Vibration Signature Classification", summary:"Integrated dataflow pipeline for predictive maintenance.", link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928"}
+  {id:"pub1", title:"Interactive Generalized Testbed Using Siemens MindSphere", summary:"Mechanical failure study using FFT data.", link:"https://www.mdpi.com/1424-8220/22/8/3048", img:"assets/img/IOT_ETL.JPG"},
+  {id:"pub2", title:"Advancing Architectural Frameworks for Vibration Signature Classification", summary:"Integrated dataflow pipeline for predictive maintenance.", link:"https://journals.sagepub.com/doi/abs/10.1177/09544054241260928", img:"assets/img/ML_Ensemble.JPG"}
 ];
 
 const certifications = [
@@ -198,24 +193,31 @@ const certifications = [
 /* -------------------
 FUNCTIONS
 ------------------- */
-function populateTimeline(containerId,data){
+function populateTimeline(containerId,data,lineId){
   const container=document.getElementById(containerId);
+  const line=document.getElementById(lineId);
   data.forEach(d=>{
     const card=document.createElement("div");
     card.className="timeline-card";
-    card.innerHTML=`<img class="banner" src="${d.banner}"><div class="content"><h3>${d.title}</h3><p>${d.desc}</p></div>`;
+    card.innerHTML=`<img class="banner" src="${d.banner}"><h3>${d.title}</h3><p>${d.desc}</p>`;
     container.appendChild(card);
   });
-}
 
-function scrollReveal(){
-  const cards=document.querySelectorAll(".timeline-card");
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting) e.target.classList.add("visible");
+  const entries=container.querySelectorAll(".timeline-card");
+  const observer=new IntersectionObserver((entriesList)=>{
+    entriesList.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("visible");
+        const lastVisible=Array.from(entries).filter(en=>en.classList.contains("visible"));
+        if(lastVisible.length>0){
+          const lastEntry=lastVisible[lastVisible.length-1];
+          const offset=lastEntry.offsetTop + lastEntry.offsetHeight -10;
+          line.style.height=offset+"px";
+        }
+      }
     });
-  }, {threshold:0.15});
-  cards.forEach(c=>obs.observe(c));
+  },{threshold:0.1});
+  entries.forEach(e=>observer.observe(e));
 }
 
 /* Skills Network */
@@ -223,19 +225,16 @@ function renderSkills(){
   const width=document.getElementById("skillsGraph").clientWidth;
   const height=520;
   const svg=d3.select("#skillsGraph").append("svg").attr("width",width).attr("height",height);
-  
-  // color scale
   const color=d3.scaleOrdinal().domain(skillGroups).range(groupColors);
-  
+
   // legend
-  const legend=d3.select("#legend");
-  skillGroups.forEach((g,i)=>{
+  const legend=d3.select("#legend"); legend.html("");
+  skillGroups.forEach(g=>{
     const l=legend.append("div").attr("class","legend-item");
     l.append("div").attr("class","legend-color").style("background",color(g));
     l.append("span").text(g);
   });
-  
-  // nodes & links
+
   const nodes=skills.map(s=>Object.assign({},s));
   const links=[];
   for(let i=0;i<nodes.length;i++){
@@ -243,52 +242,44 @@ function renderSkills(){
       if(nodes[i].group===nodes[j].group) links.push({source:i,target:j,value:1});
     }
   }
-  
+
   const simulation=d3.forceSimulation(nodes)
     .force("link",d3.forceLink(links).distance(100).strength(0.2))
     .force("charge",d3.forceManyBody().strength(-180))
     .force("center",d3.forceCenter(width/2,height/2))
     .force("collide",d3.forceCollide(40));
-  
+
   const link=svg.append("g").attr("stroke","#888").selectAll("line").data(links).join("line").attr("stroke-width",d=>d.value);
   const node=svg.append("g").selectAll("circle").data(nodes).join("circle")
     .attr("r",20)
     .attr("fill",d=>color(d.group))
     .call(d3.drag().on("start",dragstarted).on("drag",dragged).on("end",dragended));
-  
+
   const label=svg.append("g").selectAll("text").data(nodes).join("text")
-    .text(d=>d.name)
-    .attr("text-anchor","middle").attr("dy",4)
-    .attr("font-size",10)
-    .attr("fill","#dbeafe");
-  
-  node.on("click",(event,d)=>{
-    showSkillTooltip(d,event.pageX,event.pageY);
-  });
-  
+    .text(d=>d.name).attr("text-anchor","middle").attr("dy",4).attr("font-size",10).attr("fill","#dbeafe");
+
+  node.on("click",(event,d)=>{showSkillTooltip(d,event.pageX,event.pageY);});
+
   simulation.on("tick",()=>{
-    link.attr("x1",d=>d.source.x)
-        .attr("y1",d=>d.source.y)
-        .attr("x2",d=>d.target.x)
-        .attr("y2",d=>d.target.y);
+    link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
     node.attr("cx",d=>d.x).attr("cy",d=>d.y);
     label.attr("x",d=>d.x).attr("y",d=>d.y);
   });
-  
-  function dragstarted(event,d){if(!event.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x;d.fy=d.y;}
+
+  function dragstarted(event,d){if(!event.active) simulation.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;}
   function dragged(event,d){d.fx=event.x;d.fy=event.y;}
-  function dragended(event,d){if(!event.active) simulation.alphaTarget(0); d.fx=null; d.fy=null;}
+  function dragended(event,d){if(!event.active) simulation.alphaTarget(0);d.fx=null;d.fy=null;}
 }
 
-/* Skill Tooltip */
+/* Tooltip */
 function showSkillTooltip(d,x,y){
   d3.selectAll(".skill-tooltip").remove();
   const div=d3.select("body").append("div").attr("class","skill-tooltip").style("left",(x+15)+"px").style("top",(y+15)+"px");
-  div.html(`<h4>${d.name}</h4><p>Group: ${d.group}</p>`);
-  div.append("span").attr("class","close").html("×").on("click",()=>div.remove());
+  div.html(`<h4>${d.name}</h4><p>Group: ${d.group}</p><span class="close">×</span>`);
+  div.select(".close").on("click",()=>div.remove());
 }
 
-/* Projects / Pubs / Certs */
+/* Bubbles */
 function populateBubbles(containerId,data,expandedId){
   const container=document.getElementById(containerId);
   const expanded=document.getElementById(expandedId);
@@ -296,7 +287,7 @@ function populateBubbles(containerId,data,expandedId){
     const b=document.createElement("div");
     b.className="bubble";
     b.innerText=d.title;
-    b.onclick=()=>{expanded.style.display="block";expanded.innerHTML=`<strong>${d.title}</strong><p>${d.summary||""}</p>`+(d.link?`<a href="${d.link}" target="_blank">Link</a>`:"");};
+    b.onclick=()=>{expanded.style.display="block";expanded.innerHTML=`<strong>${d.title}</strong><p>${d.summary||""}</p>`+(d.img?`<img src="${d.img}">`:"")+(d.link?`<a href="${d.link}" target="_blank">Link</a>`:"");};
     container.appendChild(b);
   });
 }
@@ -304,14 +295,16 @@ function populateBubbles(containerId,data,expandedId){
 /* -------------------
 INIT
 ------------------- */
-populateTimeline("careerTimeline",careerData);
-populateTimeline("educationTimeline",educationData);
-scrollReveal();
+populateTimeline("careerTimeline",careerData,"careerLine");
+populateTimeline("educationTimeline",educationData,"educationLine");
 renderSkills();
 populateBubbles("projectBubbles",projects,"projectExpanded");
 populateBubbles("pubBubbles",publications,"pubExpanded");
 populateBubbles("certBubbles",certifications,"certExpanded");
 </script>
+</body>
+</html>
+
 
 </body>
 </html>

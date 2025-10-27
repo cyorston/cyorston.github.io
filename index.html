@@ -6,84 +6,85 @@
 <title>Cole Yorston Portfolio</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-:root{
+:root {
   --bg:#0d1117;
-  --panel:#0f1620;
+  --panel:#12171d;
   --muted:#9aa6b2;
   --accent:#58a6ff;
-  --card:#12171d;
 }
-html,body{height:100%;margin:0;background:var(--bg);color:#cfe3ff;font-family:Inter,system-ui,Arial;}
-/* Sidebar */
-.sidebar{
-  position:fixed;left:0;top:0;bottom:0;width:92px;background:#0e1520;padding:18px 8px;display:flex;flex-direction:column;align-items:center;gap:18px;box-shadow:2px 0 12px rgba(0,0,0,0.6);z-index:40;
+html, body { margin:0; padding:0; font-family: 'Inter', sans-serif; background:var(--bg); color:#cfe3ff; scroll-behavior: smooth; }
+.sidebar {
+  position: fixed; top:0; left:0; width:100px; height:100%; background:#0e1520;
+  display:flex; flex-direction:column; align-items:center; padding:16px; gap:16px; box-shadow:2px 0 12px rgba(0,0,0,0.6);
 }
-.sidebar .head{width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--accent);}
-.sidebar .head img{width:100%;height:100%;object-fit:cover;display:block;}
-.sidebar a.icon{color:var(--accent);text-decoration:none;font-size:18px;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:#0c1217;transition:all .18s}
-.sidebar a.icon:hover{transform:translateY(-3px);background:var(--accent);color:#08101a}
-main{margin-left:120px;padding:28px 40px 80px;max-width:1400px}
-header{display:flex;gap:20px;align-items:center;margin-bottom:28px}
-header h1{margin:0;color:var(--accent);font-size:24px}
-header p{margin:0;color:var(--muted);font-size:14px}
+.sidebar .head { width:64px; height:64px; border-radius:50%; overflow:hidden; border:2px solid var(--accent);}
+.sidebar .head img{ width:100%; height:100%; object-fit:cover; }
+.sidebar a.icon {
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  border-radius:8px; background:#0c1217; color:var(--accent); margin:4px 0; transition:.2s; text-decoration:none;
+}
+.sidebar a.icon:hover { background:var(--accent); color:#0d1117; transform:translateY(-2px);}
+main { margin-left:120px; padding:32px; max-width:1400px; }
+header h1 { margin:0; font-size:24px; color:var(--accent);}
+header p { margin:4px 0 0 0; color:var(--muted); font-size:14px; }
+
+.section { margin-bottom:60px; }
+.section h2 { font-size:20px; margin-bottom:20px; color:var(--accent); }
 
 /* Timeline */
-.section{margin:36px 0}
-.section h2{color:var(--accent);margin:0 0 18px 0;font-size:20px}
-.timeline{position:relative;margin-left:50px;padding-left:40px}
-.timeline-line{position:absolute;left:-65px;top:45px;width:3px;height:0;background:var(--accent);transition:height .5s ease-out;}
-.timeline-card{
-  position:relative;margin-bottom:80px;opacity:0;transform:translateX(-50px);transition:all .8s ease;
-  background:var(--panel);padding:16px;border-radius:12px;border:1px solid rgba(88,166,255,0.15);
+.timeline { position:relative; margin-left:50px; padding-left:40px; }
+.timeline-line { position:absolute; left:-65px; top:0; width:3px; height:0; background:var(--accent); transition: height .5s ease-out; }
+.timeline-card {
+  position:relative; margin-bottom:100px; opacity:0; transform:translateY(50px);
+  background:var(--panel); padding:16px; border-radius:12px; border:1px solid rgba(88,166,255,0.15); overflow:hidden;
 }
-.timeline-card.visible{opacity:1;transform:translateX(0);}
-.timeline-card .banner{position:absolute;right:0;top:0;width:40%;height:100%;object-fit:cover;opacity:.18;pointer-events:none;transition:opacity .4s}
-.timeline-card:hover .banner{opacity:.36}
-.timeline-card h3{margin:0;color:var(--accent);font-size:16px}
-.timeline-card p{margin:4px 0;color:var(--muted);font-size:13px;line-height:1.3}
+.timeline-card.visible{opacity:1; transform:translateY(0);}
+.timeline-card .banner { position:absolute; top:0; right:0; width:40%; height:100%; object-fit:cover; opacity:0.12; pointer-events:none; transition:opacity .4s; }
+.timeline-card:hover .banner{opacity:0.24;}
+.timeline-card h3{margin:0; font-size:16px; color:var(--accent);}
+.timeline-card p{margin:4px 0; font-size:13px; color:var(--muted); line-height:1.3;}
 
-/* Skills web */
-#skillsWrap{margin-top:8px;margin-bottom:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#07101a,#07101a);border:1px solid rgba(255,255,255,0.03)}
-#skillsGraph{width:100%;height:520px;display:block}
-#legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
-.legend-item{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--muted)}
-.legend-color{width:14px;height:14px;border-radius:3px}
+/* Skills network */
+#skillsWrap { margin-top:16px; margin-bottom:32px; padding:16px; border-radius:12px; background:linear-gradient(180deg,#07101a,#07101a); border:1px solid rgba(255,255,255,0.03);}
+#skillsGraph { width:100%; height:500px; }
+#legend{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:10px;}
+.legend-item { display:flex; align-items:center; gap:4px; font-size:13px; color:var(--muted);}
+.legend-color { width:14px; height:14px; border-radius:3px; }
 
-/* Tooltip for skill click */
-.skill-tooltip{
-  position:fixed;pointer-events:auto;z-index:80;background:linear-gradient(180deg,#0e1720,#0b1216);border:1px solid rgba(88,166,255,0.14);padding:12px;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,0.6);min-width:220px;color:#dbeafe;
+/* Tooltip for skills */
+.skill-tooltip { position:fixed; pointer-events:auto; z-index:80;
+  background:linear-gradient(180deg,#0e1720,#0b1216); border:1px solid rgba(88,166,255,0.14);
+  padding:12px; border-radius:10px; min-width:220px; color:#dbeafe;
 }
-.skill-tooltip h4{margin:0 0 8px 0;color:var(--accent);font-size:14px}
-.skill-tooltip p{margin:0;color:var(--muted);font-size:13px}
-.skill-tooltip .close{position:absolute;top:8px;right:8px;cursor:pointer;color:var(--muted);font-weight:700}
+.skill-tooltip h4{margin:0 0 6px 0; color:var(--accent); font-size:14px;}
+.skill-tooltip p{margin:0; color:var(--muted); font-size:13px;}
+.skill-tooltip .close{position:absolute; top:8px; right:8px; cursor:pointer; color:var(--muted); font-weight:700;}
 
-/* Bubbles */
-.bubbles{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.bubble{background:#0f1720;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--accent);font-weight:600;transition:all .18s}
-.bubble:hover{transform:translateY(-3px);background:linear-gradient(90deg,rgba(88,166,255,0.06),rgba(88,166,255,0.02))}
-.expanded{margin-top:10px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;color:var(--muted)}
-.expanded img{max-width:95%;border-radius:6px;margin-top:8px}
+/* Bubbles for projects/publications/certs */
+.bubbles { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;}
+.bubble { background:#0f1720; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.03); cursor:pointer; color:var(--accent); font-weight:600; transition:all .18s;}
+.bubble:hover { transform:translateY(-3px); background:linear-gradient(90deg,rgba(88,166,255,0.06),rgba(88,166,255,0.02)); }
+.expanded { margin-top:10px; background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; color:var(--muted);}
+.expanded img{ max-width:95%; border-radius:6px; margin-top:8px; }
 
-/* responsive */
 @media (max-width:900px){
-  .timeline-card .banner{width:100%;height:140px;position:relative;opacity:.25}
-  #skillsGraph{height:420px}
-  main{padding:16px}
+  .timeline-card .banner { width:100%; height:140px; position:relative; opacity:.25;}
+  #skillsGraph{height:420px;}
 }
 </style>
 </head>
 <body>
-<aside class="sidebar" aria-label="sidebar">
-  <div class="head"><img src="assets/img/Headshot.png" alt="Cole Yorston headshot"></div>
+<aside class="sidebar">
+  <div class="head"><img src="assets/img/Headshot.png" alt="Cole Yorston"></div>
   <a class="icon" href="mailto:yorston.cole@gmail.com" title="Email"><img src="assets/img/email.png" style="width:22px;height:22px"></a>
   <a class="icon" href="https://www.linkedin.com/in/cole-yorston/" target="_blank" title="LinkedIn"><img src="assets/img/linkedin.png" style="width:22px;height:22px"></a>
   <a class="icon" href="https://github.com/cyorston" target="_blank" title="GitHub"><img src="assets/img/github.png" style="width:22px;height:22px"></a>
-  <a class="icon" href="assets/Cole_Yorston_Resume.pdf" download title="Download resume"><img src="assets/img/resume.png" style="width:22px;height:22px"></a>
+  <a class="icon" href="assets/Cole_Yorston_Resume.pdf" download title="Download Resume"><img src="assets/img/resume.png" style="width:22px;height:22px"></a>
 </aside>
 
 <main>
 <header>
-  <div style="display:flex;flex-direction:column">
+  <div>
     <h1>Cole Yorston</h1>
     <p>Lead Test Engineer • Data Scientist • Bayesian Modeling • IoT Analytics</p>
   </div>
@@ -124,47 +125,25 @@ header p{margin:0;color:var(--muted);font-size:14px}
 </section>
 
 <script>
-/* -------------------
-DATA
-------------------- */
+/* --- Data --- */
 const careerData = [
-  {title:"Lead Test Engineer — Dynamics Systems, GE Vernova (2025–Present)",
-   desc:"Lead data-driven testing and analysis efforts for dynamic gas turbine systems.",
-   banner:"assets/img/ge_banner.jpg"},
-  {title:"Data Scientist — Textron Specialized Vehicles (2024–2025)",
-   desc:"Leading analytical initiatives including time series forecasting, anomaly detection, and ML pipelines.",
-   banner:"assets/img/textron_banner.jpg"},
-  {title:"Test Engineer — Textron Specialized Vehicles (2023–2024)",
-   desc:"Implemented anomaly detection workflows and enhanced test data pipelines.",
-   banner:"assets/img/textron_banner.jpg"},
-  {title:"Graduate Research Assistant — University of Georgia (2022–2023)",
-   desc:"Developed cloud-based ML classifiers for predictive maintenance; co-authored publications.",
-   banner:"assets/img/uga_banner.jpg"}
+  {title:"Lead Test Engineer — GE Vernova (2025–Present)", desc:"Lead data-driven testing and analysis efforts for dynamic gas turbine systems.", banner:"assets/img/ge_banner.jpg"},
+  {title:"Data Scientist — Textron Specialized Vehicles (2024–2025)", desc:"Leading analytical initiatives including time series forecasting, anomaly detection, and ML pipelines.", banner:"assets/img/textron_banner.jpg"},
+  {title:"Test Engineer — Textron Specialized Vehicles (2023–2024)", desc:"Implemented anomaly detection workflows and enhanced test data pipelines.", banner:"assets/img/textron_banner.jpg"},
+  {title:"Graduate Research Assistant — University of Georgia (2022–2023)", desc:"Developed cloud-based ML classifiers for predictive maintenance; co-authored publications.", banner:"assets/img/uga_banner.jpg"}
 ];
 
 const educationData = [
-  {title:"B.S. Mechanical Engineering — University of Georgia (2018–2022)",
-   desc:"Undergraduate coursework in design, manufacturing, and analytics.",
-   banner:"assets/img/uga_banner.jpg"},
-  {title:"M.S. Engineering — University of Georgia (2022–2023)",
-   desc:"Specialization: design, optimization, IoT data pipelines.",
-   banner:"assets/img/uga_banner.jpg"},
-  {title:"M.S. Analytics — Georgia Tech (2025–Present)",
-   desc:"Specialization: Computational Data Analytics, Bayesian modeling.",
-   banner:"assets/img/gt_banner.jpg"}
+  {title:"B.S. Mechanical Engineering — UGA (2018–2022)", desc:"Undergraduate coursework in design, manufacturing, and analytics.", banner:"assets/img/uga_banner.jpg"},
+  {title:"M.S. Engineering — UGA (2022–2023)", desc:"Specialization: design, optimization, IoT data pipelines.", banner:"assets/img/uga_banner.jpg"},
+  {title:"M.S. Analytics — Georgia Tech (2025–Present)", desc:"Specialization: Computational Data Analytics, Bayesian modeling.", banner:"assets/img/gt_banner.jpg"}
 ];
 
 const skills = [
-  {name:"Python", group:"Programming"},
-  {name:"R", group:"Programming"},
-  {name:"SQL", group:"Databases"},
-  {name:"Power BI", group:"Visualization"},
-  {name:"Azure", group:"Cloud"},
-  {name:"AWS", group:"Cloud"},
-  {name:"PySpark", group:"Big Data"},
-  {name:"D3.js", group:"Visualization"},
-  {name:"Bayesian Modeling", group:"Statistics"},
-  {name:"Machine Learning", group:"Statistics"},
+  {name:"Python", group:"Programming"}, {name:"R", group:"Programming"}, {name:"SQL", group:"Databases"},
+  {name:"Power BI", group:"Visualization"}, {name:"Azure", group:"Cloud"}, {name:"AWS", group:"Cloud"},
+  {name:"PySpark", group:"Big Data"}, {name:"D3.js", group:"Visualization"},
+  {name:"Bayesian Modeling", group:"Statistics"}, {name:"Machine Learning", group:"Statistics"},
   {name:"IoT Analytics", group:"IoT"}
 ];
 
@@ -190,9 +169,7 @@ const certifications = [
   {id:"c5", title:"Engineer in Training"}
 ];
 
-/* -------------------
-FUNCTIONS
-------------------- */
+/* --- Timeline population --- */
 function populateTimeline(containerId,data,lineId){
   const container=document.getElementById(containerId);
   const line=document.getElementById(lineId);
@@ -202,7 +179,6 @@ function populateTimeline(containerId,data,lineId){
     card.innerHTML=`<img class="banner" src="${d.banner}"><h3>${d.title}</h3><p>${d.desc}</p>`;
     container.appendChild(card);
   });
-
   const entries=container.querySelectorAll(".timeline-card");
   const observer=new IntersectionObserver((entriesList)=>{
     entriesList.forEach(e=>{
@@ -211,8 +187,7 @@ function populateTimeline(containerId,data,lineId){
         const lastVisible=Array.from(entries).filter(en=>en.classList.contains("visible"));
         if(lastVisible.length>0){
           const lastEntry=lastVisible[lastVisible.length-1];
-          const offset=lastEntry.offsetTop + lastEntry.offsetHeight -10;
-          line.style.height=offset+"px";
+          line.style.height=(lastEntry.offsetTop+lastEntry.offsetHeight-10)+"px";
         }
       }
     });
@@ -220,10 +195,10 @@ function populateTimeline(containerId,data,lineId){
   entries.forEach(e=>observer.observe(e));
 }
 
-/* Skills Network */
+/* --- Skills network --- */
 function renderSkills(){
   const width=document.getElementById("skillsGraph").clientWidth;
-  const height=520;
+  const height=500;
   const svg=d3.select("#skillsGraph").append("svg").attr("width",width).attr("height",height);
   const color=d3.scaleOrdinal().domain(skillGroups).range(groupColors);
 
@@ -254,24 +229,22 @@ function renderSkills(){
     .attr("r",20)
     .attr("fill",d=>color(d.group))
     .call(d3.drag().on("start",dragstarted).on("drag",dragged).on("end",dragended));
-
   const label=svg.append("g").selectAll("text").data(nodes).join("text")
     .text(d=>d.name).attr("text-anchor","middle").attr("dy",4).attr("font-size",10).attr("fill","#dbeafe");
 
   node.on("click",(event,d)=>{showSkillTooltip(d,event.pageX,event.pageY);});
-
   simulation.on("tick",()=>{
     link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
     node.attr("cx",d=>d.x).attr("cy",d=>d.y);
     label.attr("x",d=>d.x).attr("y",d=>d.y);
   });
 
-  function dragstarted(event,d){if(!event.active) simulation.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;}
-  function dragged(event,d){d.fx=event.x;d.fy=event.y;}
-  function dragended(event,d){if(!event.active) simulation.alphaTarget(0);d.fx=null;d.fy=null;}
+  function dragstarted(event,d){if(!event.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y;}
+  function dragged(event,d){d.fx=event.x; d.fy=event.y;}
+  function dragended(event,d){if(!event.active) simulation.alphaTarget(0); d.fx=null; d.fy=null;}
 }
 
-/* Tooltip */
+/* --- Tooltip --- */
 function showSkillTooltip(d,x,y){
   d3.selectAll(".skill-tooltip").remove();
   const div=d3.select("body").append("div").attr("class","skill-tooltip").style("left",(x+15)+"px").style("top",(y+15)+"px");
@@ -279,22 +252,18 @@ function showSkillTooltip(d,x,y){
   div.select(".close").on("click",()=>div.remove());
 }
 
-/* Bubbles */
+/* --- Bubbles --- */
 function populateBubbles(containerId,data,expandedId){
   const container=document.getElementById(containerId);
   const expanded=document.getElementById(expandedId);
   data.forEach(d=>{
-    const b=document.createElement("div");
-    b.className="bubble";
-    b.innerText=d.title;
-    b.onclick=()=>{expanded.style.display="block";expanded.innerHTML=`<strong>${d.title}</strong><p>${d.summary||""}</p>`+(d.img?`<img src="${d.img}">`:"")+(d.link?`<a href="${d.link}" target="_blank">Link</a>`:"");};
+    const b=document.createElement("div"); b.className="bubble"; b.innerText=d.title;
+    b.onclick=()=>{expanded.style.display="block"; expanded.innerHTML=`<strong>${d.title}</strong><p>${d.summary||""}</p>`+(d.img?`<img src="${d.img}">`:"")+(d.link?`<a href="${d.link}" target="_blank">Link</a>`:"");};
     container.appendChild(b);
   });
 }
 
-/* -------------------
-INIT
-------------------- */
+/* --- INIT --- */
 populateTimeline("careerTimeline",careerData,"careerLine");
 populateTimeline("educationTimeline",educationData,"educationLine");
 renderSkills();
@@ -302,9 +271,5 @@ populateBubbles("projectBubbles",projects,"projectExpanded");
 populateBubbles("pubBubbles",publications,"pubExpanded");
 populateBubbles("certBubbles",certifications,"certExpanded");
 </script>
-</body>
-</html>
-
-
 </body>
 </html>

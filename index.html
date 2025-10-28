@@ -226,10 +226,12 @@ function populateBubbles(containerId,items,detailContainerId){
 
 // skill groups: color-coded
 const skillGroups={
-  "Programming":{color:"#06d6a0", skills:["Python","R","SQL","PySpark","Bash"]},
-  "Visualization":{color:"#ffd166", skills:["Power BI","D3.js","Matplotlib","Tableau"]},
-  "Cloud/BigData":{color:"#ef476f", skills:["Azure","AWS","Databricks"]},
-  "Modeling/Analytics":{color:"#118ab2", skills:["Bayesian Modeling","Machine Learning","IoT Analytics","NLP"]}
+  "Programming":{color:"#06d6a0", skills:["Python","R","SQL","PySpark","Power Query"]},
+  "Visualization":{color:"#ffd166", skills:["Power BI","D3.js","Matplotlib","Tableau","Jupyter","Salesforce","VSCode"]},
+  "Cloud/BigData":{color:"#ef476f", skills:["Azure","AWS","Databricks", "IoT", "NLP", "LLM Chains", "Sentiment Analysis"]},
+  "Model Deployment":{color:"#ffa500", skills:["ETL", "Github", "MindSphere"]}, 
+  "Engineering":{color:"#800080", skills:["Dynamics", "Vibrations", "Advanced Vibrations", "Thermodynamics"]},
+  "Modeling/Analytics":{color:"#118ab2", skills:["Anomaly Detection", "Bayesian Modeling","Regression","Classification","Clustering", "ARIMA", "CUSUM", "Holt-Winters", "GARCH", "ElasticNet"]}
 };
 
 // build nodes (skills only) and links (connect similar skills inside group)

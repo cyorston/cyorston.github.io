@@ -263,9 +263,13 @@ function maybeLink(a,b,prob=0.6){
   if(Math.random()<prob) links.push({ source:a, target:b, type:"cross" });
 }
 maybeLink("Python","Regression",0.95);
+maybeLink("Databricks","PySpark",0.90);
 maybeLink("Python","Bayesian Modeling",0.8);
 maybeLink("SQL","Databricks",0.8);
 maybeLink("D3.js","Power BI",0.35);
+maybeLink("R","Github",0.45);
+maybeLink("Python","D3.js",0.45);
+maybeLink("Dynamics","Python",0.95);
 maybeLink("Azure","Databricks",0.9);
 
 /* D3 setup */

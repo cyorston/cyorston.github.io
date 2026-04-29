@@ -11,28 +11,22 @@
 
 <style>
 
-/* =========================
-GLOBAL
-========================= */
-
+/* ===== GLOBAL ===== */
 body {
   margin:0;
-  font-family:'Inter','Segoe UI',sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a, #0b0b0b 70%);
+  font-family:'Segoe UI',sans-serif;
+  background:#0e0e0e;
   color:#f2f2f2;
 }
 
-/* =========================
-SIDEBAR
-========================= */
+main { margin-left:100px; }
 
+/* ===== SIDEBAR ===== */
 .sidebar {
   position:fixed;
-  left:0;
-  top:0;
-  height:100%;
   width:80px;
-  background:#111;
+  height:100%;
+  background:#1b1b1b;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -45,14 +39,7 @@ SIDEBAR
   font-size:1.5em;
 }
 
-main {
-  margin-left:100px;
-}
-
-/* =========================
-HERO
-========================= */
-
+/* ===== HERO ===== */
 .hero {
   text-align:center;
   padding:60px 20px;
@@ -64,23 +51,12 @@ HERO
   border:3px solid #ffd166;
 }
 
-.hero h1 {
-  color:#ffd166;
-  font-size:2.8em;
-}
+.hero h1 { color:#ffd166; }
 
-.typing {
-  color:#06d6a0;
-  height:30px;
-}
+.typing { color:#06d6a0; height:30px; }
 
-/* =========================
-SECTIONS
-========================= */
-
-section {
-  padding:60px 10%;
-}
+/* ===== SECTIONS ===== */
+section { padding:60px 10%; }
 
 h2 {
   color:#ffd166;
@@ -88,45 +64,72 @@ h2 {
   display:inline-block;
 }
 
-/* =========================
-TIMELINE
-========================= */
+/* ===== TIMELINE (RESTORED) ===== */
 
-.timeline-container {
-  margin:20px 0;
-  background:#1b1b1b;
-  padding:20px;
-  border-radius:10px;
+.timeline {
+  position:relative;
+  max-width:1000px;
+  margin:auto;
 }
 
-/* =========================
-GRID
-========================= */
+.timeline-container {
+  position:relative;
+  width:50%;
+  padding:20px;
+  opacity:0;
+  transform:translateY(50px);
+  transition:0.6s;
+}
+
+.timeline-container.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.timeline-container.left { left:0; }
+.timeline-container.right { left:50%; }
+
+.timeline-content {
+  position:relative;
+  background:#111;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.timeline-banner {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  opacity:0.3;
+}
+
+.timeline-content h3, .timeline-content p {
+  position:relative;
+  padding:10px 15px;
+}
+
+/* ===== PROJECT GRID ===== */
 
 .grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
-  margin-top:20px;
 }
 
 .card {
   background:#1b1b1b;
   padding:15px;
   border-radius:10px;
+  cursor:pointer;
 }
 
-/* =========================
-MODAL
-========================= */
+/* ===== MODAL ===== */
 
 .modal {
   display:none;
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0; left:0;
+  width:100%; height:100%;
   background:rgba(0,0,0,0.85);
   justify-content:center;
   align-items:center;
@@ -134,15 +137,14 @@ MODAL
 
 .modal-content {
   background:#111;
-  padding:25px;
+  padding:20px;
   width:80%;
-  max-width:800px;
 }
 
-.close {
-  float:right;
-  cursor:pointer;
-  color:#ffd166;
+.close { cursor:pointer; float:right; }
+
+@media(max-width:768px){
+  .timeline-container { width:100%; left:0 !important; }
 }
 
 </style>
@@ -154,8 +156,7 @@ MODAL
 <div class="sidebar">
 <a href="mailto:yorston.cole@gmail.com"><i class="fa-solid fa-envelope"></i></a>
 <a href="assets/Cole_Yorston_Resume.pdf"><i class="fa-solid fa-file-arrow-down"></i></a>
-<a href="https://github.com/cyorston" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/cole-yorston/" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://github.com/cyorston"><i class="fab fa-github"></i></a>
 </div>
 
 <main>
@@ -163,125 +164,43 @@ MODAL
 <!-- HERO -->
 
 <div class="hero">
-<img src="assets/img/Headshot.png"/>
+<img src="assets/img/Headshot.png">
 <h1>Cole Yorston</h1>
-<div class="typing" id="typing"></div>
-<p>Lead Test Engineer at GE Vernova specializing in data science, ML pipelines, and analytics for dynamic systems.</p>
+<div id="typing" class="typing"></div>
 </div>
 
 <!-- CAREER -->
 
 <section>
 <h2>Career Timeline</h2>
-
-<div class="timeline-container">
-<h3>GE Vernova — Lead Test Engineer (2025–Present)</h3>
-<p>Leading analytics and data-driven testing for gas turbine dynamic systems.</p>
-</div>
-
-<div class="timeline-container">
-<h3>Textron — Data Scientist (2024–2025)</h3>
-<p>Built anomaly detection pipelines and ETL systems.</p>
-</div>
-
-<div class="timeline-container">
-<h3>Textron — Test Engineer (2023–2024)</h3>
-<p>Developed automated validation and visualization pipelines.</p>
-</div>
-
-<div class="timeline-container">
-<h3>UGA — Research Assistant (2022–2023)</h3>
-<p>Developed near-real-time ML pipelines for IoT systems (2 publications).</p>
-</div>
-
+<div class="timeline" id="careerTimeline"></div>
 </section>
 
 <!-- EDUCATION -->
 
 <section>
 <h2>Education</h2>
-
-<div class="timeline-container">
-<h3>Georgia Tech — MS Analytics (2025–Present)</h3>
-</div>
-
-<div class="timeline-container">
-<h3>University of Georgia — MS Engineering (2022–2023)</h3>
-</div>
-
-<div class="timeline-container">
-<h3>University of Georgia — BSME (2018–2022)</h3>
-</div>
-
+<div class="timeline" id="educationTimeline"></div>
 </section>
 
 <!-- PROJECTS -->
 
 <section>
 <h2>Projects</h2>
-
-<div class="grid">
-
-<div class="card" onclick="openModal('SyllabusAI')">
-<h3>SyllabusAI</h3>
-<p>Automated MOOC generation system.</p>
-</div>
-
-<div class="card" onclick="openModal('BayesBall')">
-<h3>BayesBall Assistant</h3>
-<p>Bayesian MLB projection engine.</p>
-</div>
-
-<div class="card" onclick="openModal('Cognilingo')">
-<h3>Cognilingo</h3>
-<p>AI language learning platform.</p>
-</div>
-
-<div class="card" onclick="openModal('CareerAI')">
-<h3>DS Career Assistant</h3>
-<p>Data science pathway optimization tool.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- PUBLICATIONS -->
-
-<section>
-<h2>Publications</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>IoT Testbed Study</h3>
-<p>Continuous data collection + reduced downtime.</p>
-</div>
-
-<div class="card">
-<h3>Vibration Classification</h3>
-<p>ML classification for rotating machinery.</p>
-</div>
-
-</div>
-
+<div class="grid" id="projects"></div>
 </section>
 
 <!-- CERTIFICATIONS -->
 
 <section>
 <h2>Certifications</h2>
-
 <div class="grid">
-
 <div class="card">Databricks Generative AI Fundamentals</div>
-<div class="card">Databricks GenAI App Development</div>
-<div class="card">NVIDIA Transformer NLP</div>
+<div class="card">Databricks GenAI App Dev</div>
+<div class="card">NVIDIA NLP</div>
 <div class="card">Google Advanced Data Analytics</div>
-<div class="card">Engineer in Training (EIT)</div>
-
+<div class="card">EIT</div>
 </div>
-
 </section>
 
 </main>
@@ -297,39 +216,80 @@ MODAL
 
 <script>
 
-/* typing */
+/* ===== TIMELINE DATA ===== */
 
+const careerData = [
+{side:"left", img:"assets/img/ge_banner.jpg", title:"GE Vernova (2025–Present)", desc:"Lead Test Engineer – Dynamic Systems"},
+{side:"right", img:"assets/img/textron_banner.jpg", title:"Textron (2024–2025)", desc:"Data Scientist"},
+{side:"left", img:"assets/img/textron_banner.jpg", title:"Textron (2023–2024)", desc:"Test Engineer"},
+{side:"right", img:"assets/img/uga_banner.jpg", title:"UGA (2022–2023)", desc:"Research Assistant"}
+];
+
+const educationData = [
+{side:"left", img:"assets/img/gt_banner.jpg", title:"Georgia Tech", desc:"MS Analytics (2025–Present)"},
+{side:"right", img:"assets/img/uga_banner.jpg", title:"UGA", desc:"MS Engineering (2022–2023)"},
+{side:"left", img:"assets/img/uga_banner.jpg", title:"UGA", desc:"BSME (2018–2022)"}
+];
+
+function populateTimeline(id,data){
+  const container=document.getElementById(id);
+  data.forEach(d=>{
+    const div=document.createElement("div");
+    div.className="timeline-container "+d.side;
+    div.innerHTML=`
+      <div class="timeline-content">
+        <img src="${d.img}" class="timeline-banner">
+        <h3>${d.title}</h3>
+        <p>${d.desc}</p>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+/* ===== ANIMATION ===== */
+function animateTimeline(){
+  document.querySelectorAll(".timeline-container").forEach(el=>{
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("visible");
+      });
+    });
+    obs.observe(el);
+  });
+}
+
+/* ===== PROJECTS ===== */
+const projects = [
+{name:"SyllabusAI",desc:"MOOC generator"},
+{name:"BayesBall",desc:"Bayesian MLB projections"},
+{name:"Cognilingo",desc:"AI language learning"},
+{name:"DS Career Assistant",desc:"Career optimization tool"}
+];
+
+projects.forEach(p=>{
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerHTML=`<h3>${p.name}</h3><p>${p.desc}</p>`;
+  document.getElementById("projects").appendChild(div);
+});
+
+/* ===== TYPING ===== */
 const roles=["Data Scientist","ML Engineer","Bayesian Modeler"];
 let i=0,j=0,del=false;
 
 function type(){
-let text=roles[i];
-document.getElementById("typing").innerText=text.substring(0,j);
-
-if(!del){j++; if(j>text.length){del=true; setTimeout(type,1000); return;}}
+let t=roles[i];
+document.getElementById("typing").innerText=t.substring(0,j);
+if(!del){j++; if(j>t.length){del=true; setTimeout(type,1000); return;}}
 else{j--; if(j===0){del=false;i=(i+1)%roles.length;}}
-
 setTimeout(type,80);
 }
 type();
 
-/* modal */
-
-function openModal(name){
-const content={
-"SyllabusAI":"<h2>SyllabusAI</h2><p>LLM-based MOOC generator.</p>",
-"BayesBall":"<h2>BayesBall</h2><p>Hierarchical Bayesian modeling engine.</p>",
-"Cognilingo":"<h2>Cognilingo</h2><p>Adaptive AI language platform.</p>",
-"CareerAI":"<h2>DS Career Assistant</h2><p>Career optimization system.</p>"
-};
-
-document.getElementById("modalBody").innerHTML=content[name];
-document.getElementById("modal").style.display="flex";
-}
-
-function closeModal(){
-document.getElementById("modal").style.display="none";
-}
+/* ===== INIT ===== */
+populateTimeline("careerTimeline",careerData);
+populateTimeline("educationTimeline",educationData);
+setTimeout(animateTimeline,500);
 
 </script>
 

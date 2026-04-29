@@ -4,10 +4,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cole Yorston | Data Scientist Portfolio</title>
+<title>Cole Yorston | Portfolio</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://d3js.org/d3.v7.min.js"></script>
 
 <style>
 
@@ -34,10 +33,7 @@ main { margin-left:100px; }
   gap:25px;
 }
 
-.sidebar a {
-  color:#ffd166;
-  font-size:1.5em;
-}
+.sidebar a { color:#ffd166; font-size:1.5em; }
 
 /* ===== HERO ===== */
 .hero {
@@ -55,58 +51,93 @@ main { margin-left:100px; }
 
 .typing { color:#06d6a0; height:30px; }
 
-/* ===== SECTIONS ===== */
-section { padding:60px 10%; }
+/* ===== SECTION ===== */
+section { padding:60px 8%; }
 
 h2 {
   color:#ffd166;
   border-bottom:2px solid #ffd166;
   display:inline-block;
+  margin-bottom:20px;
 }
 
-/* ===== TIMELINE (RESTORED) ===== */
+/* ===== TIMELINE SLIDER ===== */
 
-.timeline {
+.timeline-wrapper {
   position:relative;
-  max-width:1000px;
-  margin:auto;
 }
 
-.timeline-container {
-  position:relative;
-  width:50%;
-  padding:20px;
-  opacity:0;
-  transform:translateY(50px);
-  transition:0.6s;
+.timeline-scroll {
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:20px 0;
 }
 
-.timeline-container.visible {
-  opacity:1;
-  transform:translateY(0);
-}
+.timeline-scroll::-webkit-scrollbar { display:none; }
 
-.timeline-container.left { left:0; }
-.timeline-container.right { left:50%; }
-
-.timeline-content {
-  position:relative;
-  background:#111;
-  border-radius:10px;
+.timeline-card {
+  min-width:320px;
+  max-width:320px;
+  background:rgba(255,255,255,0.05);
+  border-radius:12px;
   overflow:hidden;
+  position:relative;
+  scroll-snap-align:center;
+  transition:0.4s;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.08);
 }
 
-.timeline-banner {
+.timeline-card:hover {
+  transform:scale(1.08);
+  border-color:#ffd166;
+}
+
+/* banner */
+.timeline-card img {
   width:100%;
   height:160px;
   object-fit:cover;
-  opacity:0.3;
+  opacity:0.35;
 }
 
-.timeline-content h3, .timeline-content p {
-  position:relative;
-  padding:10px 15px;
+/* content */
+.timeline-content {
+  padding:15px;
 }
+
+.timeline-content h3 {
+  color:#ffd166;
+  margin:0;
+}
+
+.metrics {
+  margin-top:10px;
+  font-size:13px;
+  opacity:0;
+  transition:0.3s;
+}
+
+.timeline-card:hover .metrics {
+  opacity:1;
+}
+
+/* arrows */
+.arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#111;
+  border:1px solid #333;
+  padding:10px;
+  cursor:pointer;
+  z-index:10;
+}
+
+.arrow.left { left:-10px; }
+.arrow.right { right:-10px; }
 
 /* ===== PROJECT GRID ===== */
 
@@ -120,7 +151,6 @@ h2 {
   background:#1b1b1b;
   padding:15px;
   border-radius:10px;
-  cursor:pointer;
 }
 
 /* ===== MODAL ===== */
@@ -141,11 +171,7 @@ h2 {
   width:80%;
 }
 
-.close { cursor:pointer; float:right; }
-
-@media(max-width:768px){
-  .timeline-container { width:100%; left:0 !important; }
-}
+.close { float:right; cursor:pointer; }
 
 </style>
 
@@ -173,107 +199,138 @@ h2 {
 
 <section>
 <h2>Career Timeline</h2>
-<div class="timeline" id="careerTimeline"></div>
+
+<div class="timeline-wrapper">
+<div class="arrow left" onclick="scrollTimeline('career',-1)">◀</div>
+<div class="arrow right" onclick="scrollTimeline('career',1)">▶</div>
+
+<div class="timeline-scroll" id="careerTimeline"></div>
+</div>
+
 </section>
 
 <!-- EDUCATION -->
 
 <section>
 <h2>Education</h2>
-<div class="timeline" id="educationTimeline"></div>
+
+<div class="timeline-wrapper">
+<div class="arrow left" onclick="scrollTimeline('edu',-1)">◀</div>
+<div class="arrow right" onclick="scrollTimeline('edu',1)">▶</div>
+
+<div class="timeline-scroll" id="eduTimeline"></div>
+</div>
+
 </section>
 
 <!-- PROJECTS -->
 
 <section>
 <h2>Projects</h2>
-<div class="grid" id="projects"></div>
+<div class="grid">
+<div class="card"><h3>SyllabusAI</h3><p>MOOC generator</p></div>
+<div class="card"><h3>BayesBall</h3><p>Bayesian MLB model</p></div>
+<div class="card"><h3>Cognilingo</h3><p>AI language learning</p></div>
+<div class="card"><h3>Career Assistant</h3><p>DS roadmap tool</p></div>
+</div>
 </section>
 
-<!-- CERTIFICATIONS -->
+<!-- CERTS -->
 
 <section>
 <h2>Certifications</h2>
 <div class="grid">
-<div class="card">Databricks Generative AI Fundamentals</div>
-<div class="card">Databricks GenAI App Dev</div>
+<div class="card">Databricks GenAI Fundamentals</div>
+<div class="card">Databricks App Dev</div>
 <div class="card">NVIDIA NLP</div>
-<div class="card">Google Advanced Data Analytics</div>
-<div class="card">EIT</div>
+<div class="card">Google Data Analytics</div>
 </div>
 </section>
 
 </main>
 
-<!-- MODAL -->
-
-<div class="modal" id="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">✕</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
 
-/* ===== TIMELINE DATA ===== */
+/* ===== DATA ===== */
 
-const careerData = [
-{side:"left", img:"assets/img/ge_banner.jpg", title:"GE Vernova (2025–Present)", desc:"Lead Test Engineer – Dynamic Systems"},
-{side:"right", img:"assets/img/textron_banner.jpg", title:"Textron (2024–2025)", desc:"Data Scientist"},
-{side:"left", img:"assets/img/textron_banner.jpg", title:"Textron (2023–2024)", desc:"Test Engineer"},
-{side:"right", img:"assets/img/uga_banner.jpg", title:"UGA (2022–2023)", desc:"Research Assistant"}
-];
-
-const educationData = [
-{side:"left", img:"assets/img/gt_banner.jpg", title:"Georgia Tech", desc:"MS Analytics (2025–Present)"},
-{side:"right", img:"assets/img/uga_banner.jpg", title:"UGA", desc:"MS Engineering (2022–2023)"},
-{side:"left", img:"assets/img/uga_banner.jpg", title:"UGA", desc:"BSME (2018–2022)"}
-];
-
-function populateTimeline(id,data){
-  const container=document.getElementById(id);
-  data.forEach(d=>{
-    const div=document.createElement("div");
-    div.className="timeline-container "+d.side;
-    div.innerHTML=`
-      <div class="timeline-content">
-        <img src="${d.img}" class="timeline-banner">
-        <h3>${d.title}</h3>
-        <p>${d.desc}</p>
-      </div>`;
-    container.appendChild(div);
-  });
+const career = [
+{
+img:"assets/img/ge_banner.jpg",
+title:"GE Vernova",
+desc:"Lead Test Engineer",
+metrics:["Built advanced analytics pipelines","Gas turbine diagnostics","Real-time ML"]
+},
+{
+img:"assets/img/textron_banner.jpg",
+title:"Textron DS",
+desc:"Data Scientist",
+metrics:["Anomaly detection systems","ETL pipelines","Production dashboards"]
+},
+{
+img:"assets/img/textron_banner.jpg",
+title:"Textron",
+desc:"Test Engineer",
+metrics:["Automation frameworks","Data validation","Visualization tools"]
+},
+{
+img:"assets/img/uga_banner.jpg",
+title:"UGA",
+desc:"Research Assistant",
+metrics:["2 publications","IoT ML pipelines","Real-time classification"]
 }
-
-/* ===== ANIMATION ===== */
-function animateTimeline(){
-  document.querySelectorAll(".timeline-container").forEach(el=>{
-    const obs=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add("visible");
-      });
-    });
-    obs.observe(el);
-  });
-}
-
-/* ===== PROJECTS ===== */
-const projects = [
-{name:"SyllabusAI",desc:"MOOC generator"},
-{name:"BayesBall",desc:"Bayesian MLB projections"},
-{name:"Cognilingo",desc:"AI language learning"},
-{name:"DS Career Assistant",desc:"Career optimization tool"}
 ];
 
-projects.forEach(p=>{
-  const div=document.createElement("div");
-  div.className="card";
-  div.innerHTML=`<h3>${p.name}</h3><p>${p.desc}</p>`;
-  document.getElementById("projects").appendChild(div);
+const edu = [
+{
+img:"assets/img/gt_banner.jpg",
+title:"Georgia Tech",
+desc:"MS Analytics",
+metrics:["Bayesian modeling","ML systems"]
+},
+{
+img:"assets/img/uga_banner.jpg",
+title:"UGA",
+desc:"MS Engineering",
+metrics:["IoT + ML","Research"]
+},
+{
+img:"assets/img/uga_banner.jpg",
+title:"UGA",
+desc:"BSME",
+metrics:["Dynamics","Thermo","Signal processing"]
+}
+];
+
+/* ===== BUILD CARDS ===== */
+
+function buildTimeline(id,data){
+const container=document.getElementById(id);
+
+data.forEach(d=>{
+const div=document.createElement("div");
+div.className="timeline-card";
+
+div.innerHTML=`
+<img src="${d.img}">
+<div class="timeline-content">
+<h3>${d.title}</h3>
+<p>${d.desc}</p>
+<div class="metrics">${d.metrics.join("<br>")}</div>
+</div>`;
+
+container.appendChild(div);
 });
+}
+
+/* ===== SCROLL ===== */
+
+function scrollTimeline(type,dir){
+const el = document.getElementById(type==="career"?"careerTimeline":"eduTimeline");
+el.scrollBy({left:dir*340,behavior:"smooth"});
+}
 
 /* ===== TYPING ===== */
+
 const roles=["Data Scientist","ML Engineer","Bayesian Modeler"];
 let i=0,j=0,del=false;
 
@@ -286,10 +343,9 @@ setTimeout(type,80);
 }
 type();
 
-/* ===== INIT ===== */
-populateTimeline("careerTimeline",careerData);
-populateTimeline("educationTimeline",educationData);
-setTimeout(animateTimeline,500);
+/* INIT */
+buildTimeline("careerTimeline",career);
+buildTimeline("eduTimeline",edu);
 
 </script>
 
